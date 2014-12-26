@@ -1,0 +1,12 @@
+{
+  "name": "react-chartist",
+  "scripts": {
+    "browser-sync": "browser-sync start --server --files './bundle.js'",
+    "watch-js": "watchify main.js -t [ reactify --extension js --harmony ] -o bundle.js -dv",
+    "watch": "npm run browser-sync & npm run watch-js"
+  },
+  "devDependencies": {
+    "reactify": "^0.15.2",
+    "watchify": "^2.1.1"
+  }
+}

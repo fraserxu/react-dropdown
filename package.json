@@ -1,0 +1,36 @@
+{
+  "name": "react-dropdown",
+  "version": "0.2.1",
+  "description": "React component for dropdown",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/fraserxu/react-dropdown.git"
+  },
+  "keywords": [
+    "react",
+    "react-component",
+    "component",
+    "dropdown",
+    "graph"
+  ],
+  "author": {
+    "name": "Fraser Xu",
+    "email": "xvfeng123@gmail.com",
+    "url": "https://fraserxu.me"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/fraserxu/react-dropdown/issues"
+  },
+  "homepage": "https://github.com/fraserxu/react-dropdown",
+  "peerDependencies": {
+    "react": ">=0.10.0"
+  },
+  "dependencies": {
+    "react": "^0.12.1"
+  },
+  "devDependencies": {
+    "envify": "^3.2.0"
+  }
+}
