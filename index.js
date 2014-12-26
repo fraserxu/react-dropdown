@@ -80,25 +80,6 @@ var Dropdown = React.createClass({
     value = (<div className='placeholder'>{this.state.selected.label}</div>)
     var menu = this.state.isOpen ? <div className='Dropdown-menu'>{this.buildMenu()}</div> : null
 
-    var arrowStyle = {
-      borderColor: '#999 transparent transparent',
-      borderStyle: 'solid',
-      borderWidth: '5px 5px 0',
-      content: ' ',
-      display: 'block',
-      height: 0,
-      marginTop: '-ceil(2.5)',
-      position: 'absolute',
-      right: '10px',
-      top: '14px',
-      width: 0
-    }
-
-    if(this.state.isOpen) {
-      arrowStyle.borderColor = 'transparent transparent #999'
-      arrowStyle.borderWidth = '0 5px 5px'
-    }
-
     var dropdownClass = cx({
       'Dropdown': true,
       'is-open': this.state.isOpen
@@ -108,7 +89,7 @@ var Dropdown = React.createClass({
       <div className={dropdownClass}>
         <div className='Dropdown-control' onMouseDown={this.handleMouseDown} onTouchEnd={this.handleMouseDown}>
           {value}
-          <span style={arrowStyle} className='Dropdown-arrow' />
+          <span className='Dropdown-arrow' />
         </div>
         {menu}
       </div>

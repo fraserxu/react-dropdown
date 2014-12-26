@@ -1,7 +1,7 @@
 var React = require('react')
 var Dropdown = require('../index')
 
-var Pie = React.createClass({
+var App = React.createClass({
   render: function() {
 
     var options = [
@@ -31,4 +31,4 @@ var Pie = React.createClass({
 
 window['React'] = React
 
-React.render(<Pie />, document.body)
+React.render(<App />, document.body)

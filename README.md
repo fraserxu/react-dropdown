@@ -4,11 +4,11 @@ react-dropdown(WIP)
 Simple Dropdown component for React
 
 
-### Why?
+### Why
 
-Because the default HTML select element is hard to style, and if you want more advanced select, check [react-select](https://github.com/JedWatson/react-select)
-
-And sometime we also want grouped menus, this component could be help.
+* The default HTML select element is hard to style.
+* And sometime we also want grouped menus
+* if you want more advanced select, check [react-select](https://github.com/JedWatson/react-select)
 
 ### Installation
 
