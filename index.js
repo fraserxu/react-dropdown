@@ -7,21 +7,16 @@ var Dropdown = React.createClass({
 
   displayName: 'Dropdown',
 
-  propTypes: {
-  },
-
   getInitialState: function() {
     return {
       selected: {
         label: 'Select...',
         value: ''
       },
+      onChange: function() {},
       options: this.props.options,
       isOpen: false
     }
-  },
-
-  componentWillMount: function() {
   },
 
   handleMouseDown: function(event) {
@@ -36,16 +31,24 @@ var Dropdown = React.createClass({
   },
 
   setValue: function(option) {
-    this.setState({
+    var newState = {
       selected: option,
       isOpen: false
-    })
+    }
+    this.fireChangeEvent(newState)
+    this.setState(newState)
+  },
+
+  fireChangeEvent: function(newState) {
+    if (newState.selected !== this.state.selected &&this.props.onChange) {
+      this.props.onChange(newState.selected);
+    }
   },
 
   renderOption: function (option) {
     var optionClass = cx({
       'Dropdown-option': true,
-      'is-selected': false
+      'is-selected': option == this.state.selected
     })
 
     return <div key={option.value} className={optionClass} onMouseDown={this.setValue.bind(this, option)} onClick={this.setValue.bind(this, option)}>{option.label}</div>

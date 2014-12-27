@@ -1,12 +1,12 @@
-react-dropdown(WIP)
+react-dropdown
 ==============
 
-Simple Dropdown component for React
+Simple Dropdown component for React, inspired by [react-select](https://github.com/JedWatson/react-select)
 
 
 ### Why
 
-* The default HTML select element is hard to style.
+* The default HTML select element is hard to style
 * And sometime we also want grouped menus
 * if you want more advanced select, check [react-select](https://github.com/JedWatson/react-select)
 
@@ -18,7 +18,7 @@ $ npm install react-dropdown  --save
 
 ### Usage
 
-```
+```JavaScript
 var Dropdown = require('react-dropdown ')
 
 var Pie = React.createClass({
@@ -41,9 +41,13 @@ var Pie = React.createClass({
       }
     ]
 
+    function onChange(value) {
+      console.log('Selected ', value)
+    }
+
     return (
       <div>
-        <Dropdown options={options} />
+        <Dropdown options={options} onChange={onChange}/>
       </div>
     )
   }

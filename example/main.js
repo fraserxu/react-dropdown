@@ -21,9 +21,13 @@ var App = React.createClass({
       }
     ]
 
+    function onChange(value) {
+      console.log('Selected ', value)
+    }
+
     return (
       <div>
-        <Dropdown options={options} />
+        <Dropdown options={options} onChange={onChange}/>
       </div>
     )
   }

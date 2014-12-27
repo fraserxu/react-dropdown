@@ -1,7 +1,7 @@
 {
   "name": "react-dropdown",
-  "version": "0.2.1",
-  "description": "React component for dropdown",
+  "version": "0.1.0",
+  "description": "React dropdown component",
   "main": "index.js",
   "repository": {
     "type": "git",
@@ -12,7 +12,7 @@
     "react-component",
     "component",
     "dropdown",
-    "graph"
+    "select"
   ],
   "author": {
     "name": "Fraser Xu",
@@ -24,9 +24,6 @@
     "url": "https://github.com/fraserxu/react-dropdown/issues"
   },
   "homepage": "https://github.com/fraserxu/react-dropdown",
-  "peerDependencies": {
-    "react": ">=0.10.0"
-  },
   "dependencies": {
     "react": "^0.12.1"
   },
