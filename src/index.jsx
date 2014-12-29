@@ -52,22 +52,22 @@ var Dropdown = React.createClass({
       'is-selected': option == this.state.selected
     })
 
-    return React.createElement("div", {key: option.value, className: optionClass, onMouseDown: this.setValue.bind(this, option), onClick: this.setValue.bind(this, option)}, option.label)
+    return <div key={option.value} className={optionClass} onMouseDown={this.setValue.bind(this, option)} onClick={this.setValue.bind(this, option)}>{option.label}</div>
   },
 
   buildMenu: function() {
     var ops = this.props.options.map(function(option) {
 
       if (option.type == 'group') {
-        var groupTitle = (React.createElement("div", {className: "title"}, option.name))
+        var groupTitle = (<div className='title'>{option.name}</div>)
         var _options = option.items.map(function(item) {
           return this.renderOption(item)
         }.bind(this))
         return (
-          React.createElement("div", {className: "group", key: option.name}, 
-            groupTitle, 
-            _options
-          )
+          <div className='group' key={option.name}>
+            {groupTitle}
+            {_options}
+          </div>
         )
       } else {
         return this.renderOption(option)
@@ -75,14 +75,14 @@ var Dropdown = React.createClass({
 
     }.bind(this))
 
-    return ops.length ? ops : React.createElement("div", {className: "Dropdown-noresults"}, "No opitons found")
+    return ops.length ? ops : <div className='Dropdown-noresults'>No opitons found</div>
   },
 
   render: function() {
     var value = ''
 
-    value = (React.createElement("div", {className: "placeholder"}, this.state.selected.label))
-    var menu = this.state.isOpen ? React.createElement("div", {className: "Dropdown-menu"}, this.buildMenu()) : null
+    value = (<div className='placeholder'>{this.state.selected.label}</div>)
+    var menu = this.state.isOpen ? <div className='Dropdown-menu'>{this.buildMenu()}</div> : null
 
     var dropdownClass = cx({
       'Dropdown': true,
@@ -90,13 +90,13 @@ var Dropdown = React.createClass({
     })
 
     return (
-      React.createElement("div", {className: dropdownClass}, 
-        React.createElement("div", {className: "Dropdown-control", onMouseDown: this.handleMouseDown, onTouchEnd: this.handleMouseDown}, 
-          value, 
-          React.createElement("span", {className: "Dropdown-arrow"})
-        ), 
-        menu
-      )
+      <div className={dropdownClass}>
+        <div className='Dropdown-control' onMouseDown={this.handleMouseDown} onTouchEnd={this.handleMouseDown}>
+          {value}
+          <span className='Dropdown-arrow' />
+        </div>
+        {menu}
+      </div>
     )
   }
 
