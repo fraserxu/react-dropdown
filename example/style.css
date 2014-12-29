@@ -1,3 +1,19 @@
+body {
+  margin: 20px auto;
+  width: 60%;
+}
+
+pre {
+  background: #f7f7f7;
+  padding: 10px 20px;
+  border-radius: 2px;
+  border: 1px solid #ccc;
+}
+
+pre code {
+  line-height: 20px;
+}
+
 .result {
   padding: 8px 0;
 }
