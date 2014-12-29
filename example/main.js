@@ -2,6 +2,18 @@ var React = require('react')
 var Dropdown = require('../index')
 
 var App = React.createClass({
+
+  getInitialState: function() {
+    return {
+      selected: { value: 'two', label: 'Two'}
+    }
+  },
+
+  _onSelect: function(option) {
+    console.log('You selected ', option.label)
+    this.setState({selected: option})
+  },
+
   render: function() {
 
     var options = [
@@ -21,13 +33,18 @@ var App = React.createClass({
       }
     ]
 
-    function onChange(value) {
-      console.log('Selected ', value)
-    }
+    var defaultOption = this.state.selected
 
     return (
       <div>
-        <Dropdown options={options} onChange={onChange}/>
+        <Dropdown options={options} onChange={this._onSelect} value={defaultOption} />
+        <div className='result'>
+          You selected
+          <strong> {this.state.selected ?
+            this.state.selected.label
+            : ''
+          }</strong>
+        </div>
       </div>
     )
   }

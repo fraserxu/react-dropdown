@@ -9,9 +9,15 @@ var Dropdown = React.createClass({
 
   getInitialState: function() {
     return {
-      selected: { label: 'Select...', value: '' },
+      selected: undefined,
       isOpen: false
     }
+  },
+
+  componentWillMount: function() {
+    this.setState({
+      selected: this.props.value || { label: 'Select...', value: '' }
+    })
   },
 
   componentWillReceiveProps: function(newProps) {

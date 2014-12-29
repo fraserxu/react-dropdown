@@ -21,7 +21,11 @@ $ npm install react-dropdown  --save
 ```JavaScript
 var Dropdown = require('react-dropdown ')
 
-var Pie = React.createClass({
+var App = React.createClass({
+  _onSelect: function(option) {
+    console.log('You selected ', option.label)
+  },
+
   render: function() {
 
     var options = [
@@ -41,13 +45,11 @@ var Pie = React.createClass({
       }
     ]
 
-    function onChange(value) {
-      console.log('Selected ', value)
-    }
+    var defaultOption = { value: 'two', label: 'Two'}
 
     return (
       <div>
-        <Dropdown options={options} onChange={onChange}/>
+        <Dropdown options={options} onChange={this._onSelect} value={defaultOption} />
       </div>
     )
   }
@@ -57,13 +59,13 @@ var Pie = React.createClass({
 
 ### Development
 
-** Build: make sure you have `react-tools` installed golbally to use the `jsx` in your terminal.
+**Build**: make sure you have `react-tools` installed golbally to use the `jsx` in your terminal.
 
 ```
 $ npm run build
 ```
 
-** Run example
+**Run example**
 
 ```
 $ cd example && npm install && npm run watch
