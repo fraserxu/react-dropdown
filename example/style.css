@@ -3,6 +3,11 @@ body {
   width: 60%;
 }
 
+header h2 {
+  text-align: center;
+  margin: 30px auto;
+}
+
 pre {
   background: #f7f7f7;
   padding: 10px 20px;

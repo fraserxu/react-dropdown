@@ -38,7 +38,7 @@ var App = React.createClass({
     return (
       <div>
         <header>
-          <h2>react-dropdown</h2>
+          <h2><a href='https://github.com/fraserxu/react-dropdown'>react-dropdown</a></h2>
         </header>
         <section className='description'>
           <p>
