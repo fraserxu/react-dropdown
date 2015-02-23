@@ -81,7 +81,7 @@ var Dropdown = React.createClass({
 
     }.bind(this))
 
-    return ops.length ? ops : React.createElement("div", {className: "Dropdown-noresults"}, "No opitons found")
+    return ops.length ? ops : React.createElement("div", {className: "Dropdown-noresults"}, "No options found")
   },
 
   render: function() {
