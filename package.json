@@ -31,11 +31,11 @@
     "react": ">=0.13.0"
   },
   "dependencies": {
-    "react": "^0.13.1"
+    "react": "^0.13.1",
+    "classnames": "^1.2.0"
   },
   "devDependencies": {
     "babel": "^4.7.16",
-    "classnames": "^1.2.0",
     "watchify": "^2.6.0"
   }
 }
