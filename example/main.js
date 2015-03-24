@@ -1,22 +1,24 @@
-var React = require('react')
-var Dropdown = require('../index')
+'use strict';
 
-var App = React.createClass({
+import React from 'react';
+import Dropdown from '../';
 
-  getInitialState: function() {
-    return {
+class App extends React.Component {
+
+  constructor() {
+    this.state = {
       selected: { value: 'two', label: 'Two'}
     }
-  },
+  }
 
-  _onSelect: function(option) {
+  _onSelect(option) {
     console.log('You selected ', option.label)
     this.setState({selected: option})
-  },
+  }
 
-  render: function() {
+  render() {
 
-    var options = [
+    const options = [
       { value: 'one', label: 'One' },
       { value: 'two', label: 'Two' },
       {
@@ -33,7 +35,7 @@ var App = React.createClass({
       }
     ]
 
-    var defaultOption = this.state.selected
+    let defaultOption = this.state.selected
 
     return (
       <div>
@@ -53,7 +55,7 @@ var App = React.createClass({
         <section>
           <h3>Usage: </h3>
         </section>
-        <Dropdown options={options} onChange={this._onSelect} value={defaultOption} />
+        <Dropdown options={options} onChange={this._onSelect.bind(this)} value={defaultOption} />
         <div className='result'>
           You selected
           <strong> {this.state.selected ?
@@ -68,36 +70,54 @@ var App = React.createClass({
           <pre>
             <code>
               {
-                "var Dropdown = require('react-dropdown')\n" +
-                "var React = require('react')\n" +
-                "\n" +
-                "var App = React.createClass({\n" +
-                "  _onSelect: function(option) {\n" +
-                "    console.log('You selected ', option.label)\n" +
-                "  },\n" +
-                "  render: function() {\n" +
-                "    var options = [\n" +
-                "      { value: 'one', label: 'One' },\n" +
-                "      { value: 'two', label: 'Two' },\n" +
-                "      {\n" +
-                "        type: 'group', name: 'group1', items: [\n" +
-                "          { value: 'three', label: 'Three' },\n" +
-                "          { value: 'four', label: 'Four' }\n" +
-                "        ]\n" +
-                "      },\n" +
-                "      {\n" +
-                "        type: 'group', name: 'group2', items: [\n" +
-                "          { value: 'five', label: 'Five' },\n" +
-                "          { value: 'six', label: 'Six' }\n" +
-                "        ]\n" +
-                "      }\n" +
-                "    ]\n" +
-                "\n" +
-                "    var defaultOption = { value: 'two', label: 'Two' }\n" +
-                "\n" +
-                "    <Dropdown options={options} onChange={this._onSelect} value={defaultOption} />\n" +
-                "  }\n" +
-                "})\n"
+                `
+                'use strict';
+
+                import React from 'react';
+                import Dropdown from '../';
+
+                class App extends React.Component {
+
+                  constructor() {
+                    this.state = {
+                      selected: { value: 'two', label: 'Two'}
+                    }
+                  }
+
+                  _onSelect(option) {
+                    console.log('You selected ', option.label)
+                    this.setState({selected: option})
+                  }
+
+                  render() {
+
+                    const options = [
+                      { value: 'one', label: 'One' },
+                      { value: 'two', label: 'Two' },
+                      {
+                        type: 'group', name: 'group1', items: [
+                          { value: 'three', label: 'Three' },
+                          { value: 'four', label: 'Four' }
+                        ]
+                      },
+                      {
+                        type: 'group', name: 'group2', items: [
+                          { value: 'five', label: 'Five' },
+                          { value: 'six', label: 'Six' }
+                        ]
+                      }
+                    ]
+
+                    let defaultOption = this.state.selected
+
+                    return (
+                      <Dropdown options={options} onChange={this._onSelect.bind(this)} value={defaultOption} />
+                    )
+                  }
+
+                }
+                React.render(<App />, document.body)
+                `
               }
             </code>
           </pre>
@@ -112,8 +132,7 @@ var App = React.createClass({
 
     )
   }
-})
 
-window['React'] = React
+}
 
 React.render(<App />, document.body)

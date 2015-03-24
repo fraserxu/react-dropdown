@@ -8,7 +8,7 @@
     "url": "git://github.com/fraserxu/react-dropdown.git"
   },
   "scripts": {
-    "build": "jsx src/ ./ --extension jsx"
+    "build": "node_modules/.bin/babel src/index.js > index.js"
   },
   "keywords": [
     "react",
@@ -27,10 +27,15 @@
     "url": "https://github.com/fraserxu/react-dropdown/issues"
   },
   "homepage": "https://github.com/fraserxu/react-dropdown",
+  "peerDependencies": {
+    "react": ">=0.13.0"
+  },
   "dependencies": {
-    "react": "^0.12.1"
+    "react": "^0.13.1"
   },
   "devDependencies": {
-    "envify": "^3.2.0"
+    "babel": "^4.7.16",
+    "classnames": "^1.2.0",
+    "watchify": "^2.6.0"
   }
 }

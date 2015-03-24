@@ -19,16 +19,27 @@ $ npm install react-dropdown  --save
 ### Usage
 
 ```JavaScript
-var Dropdown = require('react-dropdown ')
+'use strict';
 
-var App = React.createClass({
-  _onSelect: function(option) {
+import React from 'react';
+import Dropdown from '../';
+
+class App extends React.Component {
+
+  constructor() {
+    this.state = {
+      selected: { value: 'two', label: 'Two'}
+    }
+  }
+
+  _onSelect(option) {
     console.log('You selected ', option.label)
-  },
+    this.setState({selected: option})
+  }
 
-  render: function() {
+  render() {
 
-    var options = [
+    const options = [
       { value: 'one', label: 'One' },
       { value: 'two', label: 'Two' },
       {
@@ -45,15 +56,15 @@ var App = React.createClass({
       }
     ]
 
-    var defaultOption = { value: 'two', label: 'Two'}
+    let defaultOption = this.state.selected
 
     return (
-      <div>
-        <Dropdown options={options} onChange={this._onSelect} value={defaultOption} />
-      </div>
+      <Dropdown options={options} onChange={this._onSelect.bind(this)} value={defaultOption} />
     )
   }
-})
+
+}
+React.render(<App />, document.body)
 
 ```
 
