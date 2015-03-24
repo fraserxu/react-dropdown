@@ -28,7 +28,7 @@
   },
   "homepage": "https://github.com/fraserxu/react-dropdown",
   "dependencies": {
-    "react": "^0.12.1"
+    "react": "~0.13.x"
   },
   "devDependencies": {
     "envify": "^3.2.0"
