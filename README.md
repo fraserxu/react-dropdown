@@ -68,14 +68,6 @@ React.render(<App />, document.body)
 
 ```
 
-### Development
-
-**Build**: make sure you have `react-tools` installed golbally to use the `jsx` in your terminal.
-
-```
-$ npm run build
-```
-
 **Run example**
 
 ```
