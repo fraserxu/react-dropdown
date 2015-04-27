@@ -1,8 +1,8 @@
 {
   "name": "react-dropdown",
-  "version": "0.2.1",
+  "version": "0.3.1",
   "description": "React dropdown component",
-  "main": "index.js",
+  "main": "dist/index.js",
   "repository": {
     "type": "git",
     "url": "git://github.com/fraserxu/react-dropdown.git"
@@ -37,5 +37,8 @@
   "devDependencies": {
     "babel": "^4.7.16",
     "watchify": "^2.6.0"
+  },
+  "scripts": {
+    "build": "babel index.js > dist/index.js"
   }
 }
