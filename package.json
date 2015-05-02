@@ -7,9 +7,6 @@
     "type": "git",
     "url": "git://github.com/fraserxu/react-dropdown.git"
   },
-  "scripts": {
-    "build": "node_modules/.bin/babel src/index.js > index.js"
-  },
   "keywords": [
     "react",
     "react-component",
