@@ -7,17 +7,12 @@ class Dropdown extends React.Component {
 
   displayName: 'Dropdown'
 
-  constructor() {
+  constructor(props) {
+    super(props);
     this.state = {
-      selected: undefined,
+      selected: props.value || { label: 'Select...', value: '' },
       isOpen: false
     }
-  }
-
-  componentWillMount() {
-    this.setState({
-      selected: this.props.value || { label: 'Select...', value: '' }
-    });
   }
 
   componentWillReceiveProps(newProps) {
