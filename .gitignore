@@ -17,3 +17,5 @@ build/Release
 
 # Dependency directory
 node_modules
+
+example/bundle.js
