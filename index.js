@@ -21,6 +21,14 @@ class Dropdown extends React.Component {
     }
   }
 
+  componentWillMount() {
+    document.addEventListener("click", this.handleDocumentClick.bind(this), false);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener("click", this.handleDocumentClick.bind(this), false);
+  }
+
   handleMouseDown(event) {
 
     if (event.type == 'mousedown' && event.button !== 0) return;
@@ -74,6 +82,12 @@ class Dropdown extends React.Component {
     })
 
     return ops.length ? ops : <div className='Dropdown-noresults'>No opitons found</div>;
+  }
+
+  handleDocumentClick(event) {
+    if (!React.findDOMNode(this).contains(event.target)) {
+      this.setState({isOpen:false});
+    }
   }
 
   render() {

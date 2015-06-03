@@ -35,6 +35,16 @@ var Dropdown = (function (_React$Component) {
         }
       }
     },
+    componentWillMount: {
+      value: function componentWillMount() {
+        document.addEventListener("click", this.handleDocumentClick.bind(this), false);
+      }
+    },
+    componentWillUnmount: {
+      value: function componentWillUnmount() {
+        document.removeEventListener("click", this.handleDocumentClick.bind(this), false);
+      }
+    },
     handleMouseDown: {
       value: function handleMouseDown(event) {
 
@@ -110,6 +120,13 @@ var Dropdown = (function (_React$Component) {
           { className: "Dropdown-noresults" },
           "No opitons found"
         );
+      }
+    },
+    handleDocumentClick: {
+      value: function handleDocumentClick(event) {
+        if (!React.findDOMNode(this).contains(event.target)) {
+          this.setState({ isOpen: false });
+        }
       }
     },
     render: {
