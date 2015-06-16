@@ -13,6 +13,7 @@ class Dropdown extends React.Component {
       selected: props.value || { label: 'Select...', value: '' },
       isOpen: false
     }
+    this.mounted = true;
   }
 
   componentWillReceiveProps(newProps) {
@@ -26,6 +27,7 @@ class Dropdown extends React.Component {
   }
 
   componentWillUnmount() {
+    this.mounted = false;
     document.removeEventListener("click", this.handleDocumentClick.bind(this), false);
   }
 
@@ -85,8 +87,10 @@ class Dropdown extends React.Component {
   }
 
   handleDocumentClick(event) {
-    if (!React.findDOMNode(this).contains(event.target)) {
-      this.setState({isOpen:false});
+    if(this.mounted) {
+      if (!React.findDOMNode(this).contains(event.target)) {
+        this.setState({isOpen:false});
+      }
     }
   }
 
