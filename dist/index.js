@@ -23,6 +23,7 @@ var Dropdown = (function (_React$Component) {
       selected: props.value || { label: "Select...", value: "" },
       isOpen: false
     };
+    this.mounted = true;
   }
 
   _inherits(Dropdown, _React$Component);
@@ -42,6 +43,7 @@ var Dropdown = (function (_React$Component) {
     },
     componentWillUnmount: {
       value: function componentWillUnmount() {
+        this.mounted = false;
         document.removeEventListener("click", this.handleDocumentClick.bind(this), false);
       }
     },
@@ -124,8 +126,10 @@ var Dropdown = (function (_React$Component) {
     },
     handleDocumentClick: {
       value: function handleDocumentClick(event) {
-        if (!React.findDOMNode(this).contains(event.target)) {
-          this.setState({ isOpen: false });
+        if (this.mounted) {
+          if (!React.findDOMNode(this).contains(event.target)) {
+            this.setState({ isOpen: false });
+          }
         }
       }
     },
