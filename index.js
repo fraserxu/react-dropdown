@@ -22,7 +22,7 @@ class Dropdown extends React.Component {
     }
   }
 
-  componentWillMount() {
+  componentDidMount() {
     document.addEventListener("click", this.handleDocumentClick.bind(this), false);
   }
 
