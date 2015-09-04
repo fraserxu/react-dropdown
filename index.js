@@ -83,7 +83,7 @@ class Dropdown extends React.Component {
       }
     })
 
-    return ops.length ? ops : <div className='Dropdown-noresults'>No opitons found</div>;
+    return ops.length ? ops : <div className='Dropdown-noresults'>No options found</div>;
   }
 
   handleDocumentClick(event) {
