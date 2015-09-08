@@ -120,7 +120,7 @@ var Dropdown = (function (_React$Component) {
         return ops.length ? ops : React.createElement(
           "div",
           { className: "Dropdown-noresults" },
-          "No opitons found"
+          "No options found"
         );
       }
     },
