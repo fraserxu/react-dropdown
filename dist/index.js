@@ -135,6 +135,10 @@ var Dropdown = (function (_React$Component) {
     },
     render: {
       value: function render() {
+        var _props = this.props;
+        var controlClassName = _props.controlClassName;
+        var menuClassName = _props.menuClassName;
+
         var value = React.createElement(
           "div",
           { className: "placeholder" },
@@ -142,7 +146,7 @@ var Dropdown = (function (_React$Component) {
         );
         var menu = this.state.isOpen ? React.createElement(
           "div",
-          { className: "Dropdown-menu" },
+          { className: menuClassName },
           this.buildMenu()
         ) : null;
 
@@ -156,7 +160,7 @@ var Dropdown = (function (_React$Component) {
           { className: dropdownClass },
           React.createElement(
             "div",
-            { className: "Dropdown-control", onMouseDown: this.handleMouseDown.bind(this), onTouchEnd: this.handleMouseDown.bind(this) },
+            { className: controlClassName, onMouseDown: this.handleMouseDown.bind(this), onTouchEnd: this.handleMouseDown.bind(this) },
             value,
             React.createElement("span", { className: "Dropdown-arrow" })
           ),
@@ -169,5 +173,6 @@ var Dropdown = (function (_React$Component) {
   return Dropdown;
 })(React.Component);
 
+Dropdown.defaultProps = { controlClassName: "Dropdown-control", menuClassName: "Dropdown-menu" };
 module.exports = Dropdown;
 

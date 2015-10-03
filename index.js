@@ -95,8 +95,9 @@ class Dropdown extends React.Component {
   }
 
   render() {
+    const { controlClassName, menuClassName } = this.props;
     let value = (<div className='placeholder'>{this.state.selected.label}</div>);
-    let menu = this.state.isOpen ? <div className='Dropdown-menu'>{this.buildMenu()}</div> : null;
+    let menu = this.state.isOpen ? <div className={menuClassName}>{this.buildMenu()}</div> : null;
 
     let dropdownClass = classNames({
       'Dropdown': true,
@@ -105,7 +106,7 @@ class Dropdown extends React.Component {
 
     return (
       <div className={dropdownClass}>
-        <div className='Dropdown-control' onMouseDown={this.handleMouseDown.bind(this)} onTouchEnd={this.handleMouseDown.bind(this)}>
+        <div className={controlClassName} onMouseDown={this.handleMouseDown.bind(this)} onTouchEnd={this.handleMouseDown.bind(this)}>
           {value}
           <span className='Dropdown-arrow' />
         </div>
@@ -115,5 +116,5 @@ class Dropdown extends React.Component {
   }
 
 }
-
+Dropdown.defaultProps = { controlClassName: 'Dropdown-control', menuClassName: 'Dropdown-menu'};
 export default Dropdown;
