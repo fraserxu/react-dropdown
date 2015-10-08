@@ -28,8 +28,9 @@
     "react": ">=0.13.0"
   },
   "dependencies": {
-    "react": "^0.13.1",
-    "classnames": "^1.2.0"
+    "classnames": "^1.2.0",
+    "react": "^0.14.0",
+    "react-dom": "^0.14.0"
   },
   "devDependencies": {
     "babel": "^4.7.16",
