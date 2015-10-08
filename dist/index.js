@@ -12,6 +12,8 @@ var _classCallCheck = function (instance, Constructor) { if (!(instance instance
 
 var React = _interopRequire(require("react"));
 
+var ReactDOM = _interopRequire(require("react-dom"));
+
 var classNames = _interopRequire(require("classnames"));
 
 var Dropdown = (function (_React$Component) {
@@ -127,7 +129,7 @@ var Dropdown = (function (_React$Component) {
     handleDocumentClick: {
       value: function handleDocumentClick(event) {
         if (this.mounted) {
-          if (!React.findDOMNode(this).contains(event.target)) {
+          if (!ReactDOM.findDOMNode(this).contains(event.target)) {
             this.setState({ isOpen: false });
           }
         }

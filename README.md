@@ -1,6 +1,9 @@
 react-dropdown
 ==============
 
+[![NPM version][npm-image]][npm-url]
+[![Downloads][downloads-image]][downloads-url]
+
 Simple Dropdown component for React, inspired by [react-select](https://github.com/JedWatson/react-select)
 
 
@@ -15,6 +18,10 @@ Simple Dropdown component for React, inspired by [react-select](https://github.c
 ```
 $ npm install react-dropdown  --save
 ```
+
+### Changelog
+
+If you want to support React version under v0.13, use react-dropdown@v0.6.1
 
 ### Usage
 
@@ -77,3 +84,8 @@ $ cd example && npm install && npm run watch
 ### License
 
 MIT | Build for [CSViz](https://csviz.org) project @[Wiredcraft](http://wiredcraft.com)
+
+[npm-image]: https://img.shields.io/npm/v/react-dropdown.svg?style=flat-square
+[npm-url]: https://npmjs.org/package/react-dropdown
+[downloads-image]: http://img.shields.io/npm/dm/react-dropdown.svg?style=flat-square
+[downloads-url]: https://npmjs.org/package/react-dropdown
