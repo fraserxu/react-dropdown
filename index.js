@@ -1,6 +1,7 @@
 'use strict';
 
 import React from 'react';
+import ReactDOM from 'react-dom';
 import classNames from 'classnames';
 
 class Dropdown extends React.Component {
@@ -88,7 +89,7 @@ class Dropdown extends React.Component {
 
   handleDocumentClick(event) {
     if(this.mounted) {
-      if (!React.findDOMNode(this).contains(event.target)) {
+      if (!ReactDOM.findDOMNode(this).contains(event.target)) {
         this.setState({isOpen:false});
       }
     }
