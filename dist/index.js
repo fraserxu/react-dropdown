@@ -22,7 +22,7 @@ var Dropdown = (function (_React$Component) {
 
     _get(Object.getPrototypeOf(Dropdown.prototype), "constructor", this).call(this, props);
     this.state = {
-      selected: props.value || { label: "Select...", value: "" },
+      selected: props.value || { label: props.placeholder || "Select...", value: "" },
       isOpen: false
     };
     this.mounted = true;
