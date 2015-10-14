@@ -15,6 +15,7 @@ class Dropdown extends React.Component {
       isOpen: false
     }
     this.mounted = true;
+    this.handleDocumentClick = this.handleDocumentClick.bind(this);
   }
 
   componentWillReceiveProps(newProps) {
@@ -24,12 +25,12 @@ class Dropdown extends React.Component {
   }
 
   componentDidMount() {
-    document.addEventListener("click", this.handleDocumentClick.bind(this), false);
+    document.addEventListener('click', this.handleDocumentClick, false);
   }
 
   componentWillUnmount() {
     this.mounted = false;
-    document.removeEventListener("click", this.handleDocumentClick.bind(this), false);
+    document.removeEventListener('click', this.handleDocumentClick, false);
   }
 
   handleMouseDown(event) {
