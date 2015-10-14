@@ -66,7 +66,7 @@ class App extends React.Component {
     let defaultOption = this.state.selected
 
     return (
-      <Dropdown options={options} onChange={this._onSelect.bind(this)} value={defaultOption} />
+      <Dropdown options={options} onChange={this._onSelect.bind(this)} value={defaultOption} placeholder="Select an option" />
     )
   }
 

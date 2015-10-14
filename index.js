@@ -10,8 +10,9 @@ class Dropdown extends React.Component {
 
   constructor(props) {
     super(props);
+    var placeholder = { label: props.placeholder, value: "" };
     this.state = {
-      selected: props.value || { label: 'Select...', value: '' },
+      selected: props.value || placeholder || { label: 'Select...', value: '' },
       isOpen: false
     }
     this.mounted = true;
