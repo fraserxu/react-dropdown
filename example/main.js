@@ -55,7 +55,7 @@ class App extends React.Component {
         <section>
           <h3>Usage: </h3>
         </section>
-        <Dropdown options={options} onChange={this._onSelect.bind(this)} value={defaultOption} />
+        <Dropdown options={options} onChange={this._onSelect.bind(this)} value={defaultOption} placeholder="Select an option" />
         <div className='result'>
           You selected
           <strong> {this.state.selected ?
