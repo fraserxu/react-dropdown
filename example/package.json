@@ -1,5 +1,5 @@
 {
-  "name": "react-chartist",
+  "name": "react-dropdown",
   "scripts": {
     "browser-sync": "browser-sync start --server --files './bundle.js'",
     "watch-js": "watchify main.js -t babelify -o bundle.js -dv",
@@ -8,5 +8,9 @@
   "devDependencies": {
     "babelify": "^5.0.4",
     "watchify": "^2.6.0"
+  },
+  "dependencies": {
+    "react": "^0.14.0",
+    "react-dom": "^0.14.0"
   }
 }

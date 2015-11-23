@@ -1,9 +1,10 @@
 'use strict';
 
-import React from 'react';
+import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 import Dropdown from '../';
 
-class App extends React.Component {
+class App extends Component {
 
   constructor() {
     this.state = {
@@ -71,52 +72,53 @@ class App extends React.Component {
             <code>
               {
                 `
-                'use strict';
+'use strict';
 
-                import React from 'react';
-                import Dropdown from '../';
+import React, {Component} from 'react';
+import ReactDOM from 'react-dom';
+import Dropdown from '../';
 
-                class App extends React.Component {
+class App extends Component {
 
-                  constructor() {
-                    this.state = {
-                      selected: { value: 'two', label: 'Two'}
-                    }
-                  }
+  constructor() {
+    this.state = {
+      selected: { value: 'two', label: 'Two'}
+    }
+  }
 
-                  _onSelect(option) {
-                    console.log('You selected ', option.label)
-                    this.setState({selected: option})
-                  }
+  _onSelect(option) {
+    console.log('You selected ', option.label)
+    this.setState({selected: option})
+  }
 
-                  render() {
+  render() {
 
-                    const options = [
-                      { value: 'one', label: 'One' },
-                      { value: 'two', label: 'Two' },
-                      {
-                        type: 'group', name: 'group1', items: [
-                          { value: 'three', label: 'Three' },
-                          { value: 'four', label: 'Four' }
-                        ]
-                      },
-                      {
-                        type: 'group', name: 'group2', items: [
-                          { value: 'five', label: 'Five' },
-                          { value: 'six', label: 'Six' }
-                        ]
-                      }
-                    ]
+    const options = [
+      { value: 'one', label: 'One' },
+      { value: 'two', label: 'Two' },
+      {
+        type: 'group', name: 'group1', items: [
+          { value: 'three', label: 'Three' },
+          { value: 'four', label: 'Four' }
+        ]
+      },
+      {
+        type: 'group', name: 'group2', items: [
+          { value: 'five', label: 'Five' },
+          { value: 'six', label: 'Six' }
+        ]
+      }
+    ]
 
-                    let defaultOption = this.state.selected
+    let defaultOption = this.state.selected
 
-                    return (
-                      <Dropdown options={options} onChange={this._onSelect.bind(this)} value={defaultOption} />
-                    )
-                  }
+    return (
+      <Dropdown options={options} onChange={this._onSelect.bind(this)} value={defaultOption} />
+    )
+  }
 
-                }
-                React.render(<App />, document.body)
+}
+React.render(<App />, document.querySelector('#app'))
                 `
               }
             </code>
@@ -135,4 +137,4 @@ class App extends React.Component {
 
 }
 
-React.render(<App />, document.body)
+ReactDOM.render(<App />, document.querySelector('#app'))
