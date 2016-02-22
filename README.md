@@ -4,7 +4,8 @@ react-dropdown
 [![NPM version][npm-image]][npm-url]
 [![Downloads][downloads-image]][downloads-url]
 
-Simple Dropdown component for React, inspired by [react-select](https://github.com/JedWatson/react-select)
+Simple Dropdown component for React, inspired by [react-select](https://github.com/JedWatson/react-select)  
+Demo is available [here](https://fraserxu.github.io/react-dropdown)
 
 
 ### Why
