@@ -56,7 +56,7 @@
 
 .Dropdown-menu .group > .title{
   padding: 8px 10px;
-  color: rgba(51, 51, 51, 1.2);
+  color: rgba(51, 51, 51, 1);
   font-weight: bold;
   text-transform: capitalize;
 }
