@@ -9,7 +9,7 @@
     "babelify": "^5.0.4",
     "watchify": "^2.6.0"
   },
-  "dependencies": {
+  "peerDependencies": {
     "react": "^0.14.0",
     "react-dom": "^0.14.0"
   }
