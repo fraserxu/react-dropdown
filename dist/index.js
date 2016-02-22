@@ -90,8 +90,8 @@ var Dropdown = (function (_React$Component) {
           "is-selected": option == this.state.selected
         });
 
-        var value = option.value || option;
-        var label = option.label || option;
+        var value = option.value || option.label || option;
+        var label = option.label || option.value || option;
 
         return React.createElement(
           "div",

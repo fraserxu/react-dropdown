@@ -68,8 +68,8 @@ class Dropdown extends React.Component {
       'is-selected': option == this.state.selected
     });
 
-    let value = option.value || option
-    let label = option.label || option
+    let value = option.value || option.label || option;
+    let label = option.label || option.value || option;
 
     return <div key={value} className={optionClass} onMouseDown={this.setValue.bind(this, value, label)} onClick={this.setValue.bind(this, value, label)}>{label}</div>
   }
