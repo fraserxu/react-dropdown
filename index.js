@@ -44,9 +44,12 @@ class Dropdown extends React.Component {
     });
   }
 
-  setValue(option) {
+  setValue(value, label) {
     let newState = {
-      selected: option,
+      selected: {
+        value,
+        label
+      },
       isOpen: false
     }
     this.fireChangeEvent(newState);
@@ -65,7 +68,10 @@ class Dropdown extends React.Component {
       'is-selected': option == this.state.selected
     });
 
-    return <div key={option.value} className={optionClass} onMouseDown={this.setValue.bind(this, option)} onClick={this.setValue.bind(this, option)}>{option.label}</div>
+    let value = option.value || option
+    let label = option.label || option
+
+    return <div key={value} className={optionClass} onMouseDown={this.setValue.bind(this, value, label)} onClick={this.setValue.bind(this, value, label)}>{label}</div>
   }
 
   buildMenu() {

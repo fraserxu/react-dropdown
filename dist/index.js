@@ -64,9 +64,12 @@ var Dropdown = (function (_React$Component) {
       }
     },
     setValue: {
-      value: function setValue(option) {
+      value: function setValue(value, label) {
         var newState = {
-          selected: option,
+          selected: {
+            value: value,
+            label: label
+          },
           isOpen: false
         };
         this.fireChangeEvent(newState);
@@ -87,10 +90,13 @@ var Dropdown = (function (_React$Component) {
           "is-selected": option == this.state.selected
         });
 
+        var value = option.value || option;
+        var label = option.label || option;
+
         return React.createElement(
           "div",
-          { key: option.value, className: optionClass, onMouseDown: this.setValue.bind(this, option), onClick: this.setValue.bind(this, option) },
-          option.label
+          { key: value, className: optionClass, onMouseDown: this.setValue.bind(this, value, label), onClick: this.setValue.bind(this, value, label) },
+          label
         );
       }
     },
