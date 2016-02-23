@@ -36,6 +36,8 @@ var Dropdown = (function (_React$Component) {
       value: function componentWillReceiveProps(newProps) {
         if (newProps.value && newProps.value !== this.state.selected) {
           this.setState({ selected: newProps.value });
+        } else if (newProps.placeholder) {
+          this.setState({ selected: { label: newProps.placeholder, value: "" } });
         }
       }
     },
