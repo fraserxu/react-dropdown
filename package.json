@@ -1,6 +1,6 @@
 {
   "name": "react-dropdown",
-  "version": "0.7.2",
+  "version": "0.8.0",
   "description": "React dropdown component",
   "main": "dist/index.js",
   "repository": {
@@ -33,9 +33,11 @@
     "babel-cli": "^6.5.1",
     "babel-preset-es2015": "^6.5.0",
     "babel-preset-react": "^6.5.0",
-    "babel-preset-stage-0": "^6.5.0"
+    "babel-preset-stage-0": "^6.5.0",
+    "standard": "^6.0.7"
   },
   "scripts": {
-    "build": "babel index.js > dist/index.js"
+    "build": "babel index.js > dist/index.js",
+    "test": "standard index.js"
   }
 }
