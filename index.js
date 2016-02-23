@@ -1,10 +1,8 @@
-'use strict';
-
-import React from 'react';
+import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import classNames from 'classnames';
 
-class Dropdown extends React.Component {
+class Dropdown extends Component {
 
   displayName: 'Dropdown'
 
@@ -16,6 +14,7 @@ class Dropdown extends React.Component {
     }
     this.mounted = true;
     this.handleDocumentClick = this.handleDocumentClick.bind(this);
+    this.fireChangeEvent = this.fireChangeEvent.bind(this);
   }
 
   componentWillReceiveProps(newProps) {

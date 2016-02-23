@@ -1,12 +1,11 @@
-'use strict';
-
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import Dropdown from '../';
+import Dropdown from '../index.js';
 
 class App extends Component {
 
-  constructor() {
+  constructor(props) {
+    super(props)
     this.state = {
       selected: { value: 'two', label: 'Two'}
     }
