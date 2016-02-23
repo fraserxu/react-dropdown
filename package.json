@@ -3,6 +3,7 @@
   "version": "0.7.2",
   "description": "React dropdown component",
   "main": "dist/index.js",
+  "style": "style.css",
   "repository": {
     "type": "git",
     "url": "git://github.com/fraserxu/react-dropdown.git"
