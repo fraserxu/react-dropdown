@@ -1,4 +1,4 @@
-.Dropdown {
+.Dropdown-root {
   position: relative;
 }
 
@@ -54,7 +54,7 @@
   -webkit-overflow-scrolling: touch;
 }
 
-.Dropdown-menu .group > .title{
+.Dropdown-menu .Dropdown-group > .Dropdown-title{
   padding: 8px 10px;
   color: rgba(51, 51, 51, 1);
   font-weight: bold;

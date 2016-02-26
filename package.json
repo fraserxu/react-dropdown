@@ -38,6 +38,7 @@
   },
   "scripts": {
     "build": "babel index.js > dist/index.js",
-    "test": "standard index.js"
+    "test": "standard index.js",
+    "prepublish": "npm test && npm run build"
   }
 }
