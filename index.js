@@ -6,7 +6,10 @@ class Dropdown extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      selected: props.value || { label: props.placeholder || 'Select...', value: '' },
+      selected: props.value || {
+        label: props.placeholder || 'Select...',
+        value: ''
+      },
       isOpen: false
     }
     this.mounted = true

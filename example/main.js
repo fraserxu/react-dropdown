@@ -1,9 +1,8 @@
-import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
-import Dropdown from '../index.js';
+import React, { Component } from 'react'
+import ReactDOM from 'react-dom'
+import Dropdown from '../index.js'
 
 class App extends Component {
-
   constructor(props) {
     super(props)
     this.state = {
