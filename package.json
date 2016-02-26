@@ -34,6 +34,7 @@
     "watchify": "^2.6.0"
   },
   "scripts": {
-    "build": "babel index.js > dist/index.js"
+    "build": "babel index.js > dist/index.js",
+    "prepublish": "npm run build"
   }
 }
