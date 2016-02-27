@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
-import Dropdown from '../index.js'
 
 import FlatArrayExample from './flatArrayExample'
 import ObjectArrayExample from './objectArrayExample'

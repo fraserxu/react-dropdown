@@ -47,7 +47,7 @@
     "watchify": "^3.7.0"
   },
   "scripts": {
-    "build": "babel index.js > dist/index.js",
+    "build": "babel -d dist index.js",
     "test": "standard index.js",
     "watch": "watchify example/main.js -p browserify-hmr -o example/bundle.js -dv",
     "start": "ecstatic -p 8080 example & npm run watch",
