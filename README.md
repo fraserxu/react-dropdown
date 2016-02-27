@@ -7,7 +7,6 @@ react-dropdown
 Simple Dropdown component for React, inspired by [react-select](https://github.com/JedWatson/react-select)
 Demo is available [here](https://fraserxu.github.io/react-dropdown)
 
-
 ### Why
 
 * The default HTML select element is hard to style
@@ -60,14 +59,17 @@ const options = [
 Monut
 
 ```JavaScript
+import Dropdown from 'react-dropdown'
 const defaultOption = options[0]
 <Dropdown options={options} onChange={this._onSelect} value={defaultOption} placeholder="Select an option" />
 ```
 
+Check more examples in the example folder.
+
 **Run example**
 
 ```
-$ npm run watch
+$ npm start
 ```
 
 ### License
