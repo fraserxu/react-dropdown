@@ -1,6 +1,6 @@
 {
   "name": "react-dropdown",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "React dropdown component",
   "main": "dist/index.js",
   "style": "style.css",
@@ -8,6 +8,9 @@
     "type": "git",
     "url": "git://github.com/fraserxu/react-dropdown.git"
   },
+  "files": [
+    "dist/index.js"
+  ],
   "keywords": [
     "react",
     "react-component",
