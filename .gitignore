@@ -19,5 +19,3 @@ build/Release
 node_modules
 
 example/bundle.js
-
-dist
