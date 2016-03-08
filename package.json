@@ -44,8 +44,10 @@
     "babel-preset-react": "^6.5.0",
     "babel-preset-stage-0": "^6.5.0",
     "babelify": "^7.2.0",
+    "browserify": "^13.0.0",
     "browserify-hmr": "^0.3.1",
     "ecstatic": "^1.4.0",
+    "gh-pages": "^0.11.0",
     "standard": "^6.0.7",
     "watchify": "^3.7.0"
   },
@@ -54,6 +56,8 @@
     "test": "standard index.js",
     "watch": "watchify example/main.js -p browserify-hmr -o example/bundle.js -dv",
     "start": "ecstatic -p 8080 example & npm run watch",
-    "prepublish": "npm test && npm run build"
+    "prepublish": "npm test && npm run build",
+    "predeploy": "npm test && browserify example/main.js -o example/bundle.js",
+    "deploy": "gh-pages -d example"
   }
 }
