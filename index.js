@@ -27,11 +27,13 @@ class Dropdown extends Component {
 
   componentDidMount () {
     document.addEventListener('click', this.handleDocumentClick, false)
+    document.addEventListener('touchend', this.handleDocumentClick, false)
   }
 
   componentWillUnmount () {
     this.mounted = false
     document.removeEventListener('click', this.handleDocumentClick, false)
+    document.removeEventListener('touchend', this.handleDocumentClick, false)
   }
 
   handleMouseDown (event) {

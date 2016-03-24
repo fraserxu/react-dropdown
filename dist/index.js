@@ -62,12 +62,14 @@ var Dropdown = function (_Component) {
     key: 'componentDidMount',
     value: function componentDidMount() {
       document.addEventListener('click', this.handleDocumentClick, false);
+      document.addEventListener('touchend', this.handleDocumentClick, false);
     }
   }, {
     key: 'componentWillUnmount',
     value: function componentWillUnmount() {
       this.mounted = false;
       document.removeEventListener('click', this.handleDocumentClick, false);
+      document.removeEventListener('touchend', this.handleDocumentClick, false);
     }
   }, {
     key: 'handleMouseDown',
