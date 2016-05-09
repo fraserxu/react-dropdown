@@ -46,6 +46,7 @@ var Dropdown = function (_Component) {
     _this.mounted = true;
     _this.handleDocumentClick = _this.handleDocumentClick.bind(_this);
     _this.fireChangeEvent = _this.fireChangeEvent.bind(_this);
+    _this.trimPlaceHolder = _this.trimPlaceHolder.bind(_this);
     return _this;
   }
 
@@ -107,7 +108,15 @@ var Dropdown = function (_Component) {
     value: function renderOption(option) {
       var _classNames;
 
-      var optionClass = (0, _classnames2.default)((_classNames = {}, _defineProperty(_classNames, this.props.baseClassName + '-option', true), _defineProperty(_classNames, 'is-selected', option === this.state.selected), _classNames));
+      var isSelected = false;
+
+      if (typeof option === 'string') {
+        isSelected = option === this.state.selected;
+      } else {
+        isSelected = JSON.stringify(option) === JSON.stringify(this.state.selected);
+      }
+
+      var optionClass = (0, _classnames2.default)((_classNames = {}, _defineProperty(_classNames, this.props.baseClassName + '-option', true), _defineProperty(_classNames, 'is-selected', isSelected), _classNames));
 
       var value = option.value || option.label || option;
       var label = option.label || option.value || option;
@@ -176,6 +185,7 @@ var Dropdown = function (_Component) {
       var baseClassName = this.props.baseClassName;
 
       var placeHolderValue = typeof this.state.selected === 'string' ? this.state.selected : this.state.selected.label;
+      placeHolderValue = this.trimPlaceHolder(placeHolderValue);
       var value = _react2.default.createElement(
         'div',
         { className: baseClassName + '-placeholder' },
@@ -201,10 +211,23 @@ var Dropdown = function (_Component) {
         menu
       );
     }
+  }, {
+    key: 'trimPlaceHolder',
+    value: function trimPlaceHolder(text) {
+      var maxPlaceholderLength = this.props.maxPlaceholderLength;
+      var trimText = '';
+      if (text.length > maxPlaceholderLength) {
+        trimText = text.slice(0, maxPlaceholderLength);
+        trimText += '...';
+      } else {
+        trimText = text;
+      }
+      return trimText;
+    }
   }]);
 
   return Dropdown;
 }(_react.Component);
 
-Dropdown.defaultProps = { baseClassName: 'Dropdown' };
+Dropdown.defaultProps = { baseClassName: 'Dropdown', maxPlaceholderLength: 24 };
 exports.default = Dropdown;
