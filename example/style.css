@@ -39,6 +39,8 @@ pre code {
   outline: none;
   padding: 8px 52px 8px 10px;
   transition: all 200ms ease;
+  width: 100%;
+  text-align: left;
 }
 
 .Dropdown-control:hover {

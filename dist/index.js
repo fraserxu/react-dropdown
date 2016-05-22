@@ -193,7 +193,7 @@ var Dropdown = function (_Component) {
         'div',
         { className: dropdownClass },
         _react2.default.createElement(
-          'div',
+          'button',
           { className: baseClassName + '-control', onMouseDown: this.handleMouseDown.bind(this), onTouchEnd: this.handleMouseDown.bind(this) },
           value,
           _react2.default.createElement('span', { className: baseClassName + '-arrow' })
