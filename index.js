@@ -46,6 +46,28 @@ class Dropdown extends Component {
     })
   }
 
+  handleMenuKeyDown (event) {
+    // 32 === SPC char code
+    if (event.which === 32) {
+      this.setState({
+        isOpen: !this.state.isOpen
+      })
+
+      event.preventDefault()
+      return false
+    }
+  }
+
+  handleOptionKeyDown (value, label, event) {
+    // 32 === SPC char code
+    if (event.which === 32) {
+      this.setValue(value, label)
+
+      event.preventDefault()
+      return false
+    }
+  }
+
   setValue (value, label) {
     let newState = {
       selected: {
@@ -76,7 +98,9 @@ class Dropdown extends Component {
     return (
       <div
         key={value}
+        tabIndex='0'
         className={optionClass}
+        onKeyDown={this.handleOptionKeyDown.bind(this, value, label)}
         onMouseDown={this.setValue.bind(this, value, label)}
         onClick={this.setValue.bind(this, value, label)}>
         {label}
@@ -126,7 +150,7 @@ class Dropdown extends Component {
 
     return (
       <div className={dropdownClass}>
-        <div className={`${baseClassName}-control`} onMouseDown={this.handleMouseDown.bind(this)} onTouchEnd={this.handleMouseDown.bind(this)}>
+        <div className={`${baseClassName}-control`} onMouseDown={this.handleMouseDown.bind(this)} onTouchEnd={this.handleMouseDown.bind(this)} onKeyDown={this.handleMenuKeyDown.bind(this)} tabIndex='0'>
           {value}
           <span className={`${baseClassName}-arrow`} />
         </div>
