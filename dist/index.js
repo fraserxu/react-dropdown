@@ -84,22 +84,19 @@ var Dropdown = function (_Component) {
     }
   }, {
     key: 'setValue',
-    value: function setValue(value, label) {
+    value: function setValue(option) {
       var newState = {
-        selected: {
-          value: value,
-          label: label
-        },
+        selected: option,
         isOpen: false
       };
-      this.fireChangeEvent(newState);
+      this.fireChangeEvent(option);
       this.setState(newState);
     }
   }, {
     key: 'fireChangeEvent',
-    value: function fireChangeEvent(newState) {
-      if (newState.selected !== this.state.selected && this.props.onChange) {
-        this.props.onChange(newState.selected);
+    value: function fireChangeEvent(option) {
+      if (option !== this.state.selected && this.props.onChange) {
+        this.props.onChange(option);
       }
     }
   }, {
@@ -109,16 +106,16 @@ var Dropdown = function (_Component) {
 
       var optionClass = (0, _classnames2.default)((_classNames = {}, _defineProperty(_classNames, this.props.baseClassName + '-option', true), _defineProperty(_classNames, 'is-selected', option === this.state.selected), _classNames));
 
-      var value = option.value || option.label || option;
-      var label = option.label || option.value || option;
+      var value = typeof option.value === 'undefined' ? option : option.value;
+      var label = typeof option.label === 'undefined' ? option : option.label;
 
       return _react2.default.createElement(
         'div',
         {
           key: value,
           className: optionClass,
-          onMouseDown: this.setValue.bind(this, value, label),
-          onClick: this.setValue.bind(this, value, label) },
+          onMouseDown: this.setValue.bind(this, option),
+          onClick: this.setValue.bind(this, option) },
         label
       );
     }

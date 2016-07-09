@@ -46,21 +46,18 @@ class Dropdown extends Component {
     })
   }
 
-  setValue (value, label) {
-    let newState = {
-      selected: {
-        value,
-        label
-      },
+  setValue (option) {
+    const newState = {
+      selected: option,
       isOpen: false
     }
-    this.fireChangeEvent(newState)
+    this.fireChangeEvent(option)
     this.setState(newState)
   }
 
-  fireChangeEvent (newState) {
-    if (newState.selected !== this.state.selected && this.props.onChange) {
-      this.props.onChange(newState.selected)
+  fireChangeEvent (option) {
+    if (option !== this.state.selected && this.props.onChange) {
+      this.props.onChange(option)
     }
   }
 
@@ -70,15 +67,15 @@ class Dropdown extends Component {
       'is-selected': option === this.state.selected
     })
 
-    let value = option.value || option.label || option
-    let label = option.label || option.value || option
+    const value = typeof option.value === 'undefined' ? option : option.value;
+    const label = typeof option.label === 'undefined' ? option : option.label;
 
     return (
       <div
         key={value}
         className={optionClass}
-        onMouseDown={this.setValue.bind(this, value, label)}
-        onClick={this.setValue.bind(this, value, label)}>
+        onMouseDown={this.setValue.bind(this, option)}
+        onClick={this.setValue.bind(this, option)}>
         {label}
       </div>
     )

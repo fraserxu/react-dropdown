@@ -15,7 +15,7 @@ class FlatArrayExample extends Component {
   }
 
   _onSelect (option) {
-    console.log('You selected ', option.label)
+    console.log('You selected ', option)
     this.setState({selected: option})
   }
 
