@@ -9,7 +9,8 @@
     "url": "git://github.com/fraserxu/react-dropdown.git"
   },
   "files": [
-    "dist/index.js"
+    "dist/index.js",
+    "style.css"
   ],
   "keywords": [
     "react",
