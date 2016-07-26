@@ -15,6 +15,7 @@ class Dropdown extends Component {
     this.mounted = true
     this.handleDocumentClick = this.handleDocumentClick.bind(this)
     this.fireChangeEvent = this.fireChangeEvent.bind(this)
+    this.trimPlaceHolder = this.trimPlaceHolder.bind(this)
   }
 
   componentWillReceiveProps (newProps) {
@@ -65,9 +66,17 @@ class Dropdown extends Component {
   }
 
   renderOption (option) {
+    let isSelected = false
+
+    if (typeof option === 'string') {
+      isSelected = (option === this.state.selected)
+    } else {
+      isSelected = (JSON.stringify(option) === JSON.stringify(this.state.selected))
+    }
+
     let optionClass = classNames({
       [`${this.props.baseClassName}-option`]: true,
-      'is-selected': option === this.state.selected
+      'is-selected': isSelected
     })
 
     let value = option.value || option.label || option
@@ -115,7 +124,8 @@ class Dropdown extends Component {
 
   render () {
     const { baseClassName } = this.props
-    const placeHolderValue = typeof this.state.selected === 'string' ? this.state.selected : this.state.selected.label
+    let placeHolderValue = typeof this.state.selected === 'string' ? this.state.selected : this.state.selected.label
+    placeHolderValue = this.trimPlaceHolder(placeHolderValue)
     let value = (<div className={`${baseClassName}-placeholder`}>{placeHolderValue}</div>)
     let menu = this.state.isOpen ? <div className={`${baseClassName}-menu`}>{this.buildMenu()}</div> : null
 
@@ -135,7 +145,19 @@ class Dropdown extends Component {
     )
   }
 
+  trimPlaceHolder (text) {
+    const maxPlaceholderLength = this.props.maxPlaceholderLength
+    let trimText = ''
+    if (text.length > maxPlaceholderLength) {
+      trimText = text.slice(0, maxPlaceholderLength)
+      trimText += '...'
+    } else {
+      trimText = text
+    }
+    return trimText
+  }
+
 }
 
-Dropdown.defaultProps = { baseClassName: 'Dropdown' }
+Dropdown.defaultProps = { baseClassName: 'Dropdown', maxPlaceholderLength: 24 }
 export default Dropdown
