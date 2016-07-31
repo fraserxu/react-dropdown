@@ -83,6 +83,30 @@ var Dropdown = function (_Component) {
       });
     }
   }, {
+    key: 'handleMenuKeyDown',
+    value: function handleMenuKeyDown(event) {
+      // 32 === SPC char code
+      if (event.which === 32) {
+        this.setState({
+          isOpen: !this.state.isOpen
+        });
+
+        event.preventDefault();
+        return false;
+      }
+    }
+  }, {
+    key: 'handleOptionKeyDown',
+    value: function handleOptionKeyDown(value, label, event) {
+      // 32 === SPC char code
+      if (event.which === 32) {
+        this.setValue(value, label);
+
+        event.preventDefault();
+        return false;
+      }
+    }
+  }, {
     key: 'setValue',
     value: function setValue(value, label) {
       var newState = {
@@ -116,7 +140,9 @@ var Dropdown = function (_Component) {
         'div',
         {
           key: value,
+          tabIndex: '0',
           className: optionClass,
+          onKeyDown: this.handleOptionKeyDown.bind(this, value, label),
           onMouseDown: this.setValue.bind(this, value, label),
           onClick: this.setValue.bind(this, value, label) },
         label
@@ -194,7 +220,7 @@ var Dropdown = function (_Component) {
         { className: dropdownClass },
         _react2.default.createElement(
           'div',
-          { className: baseClassName + '-control', onMouseDown: this.handleMouseDown.bind(this), onTouchEnd: this.handleMouseDown.bind(this) },
+          { className: baseClassName + '-control', onMouseDown: this.handleMouseDown.bind(this), onTouchEnd: this.handleMouseDown.bind(this), onKeyDown: this.handleMenuKeyDown.bind(this), tabIndex: '0' },
           value,
           _react2.default.createElement('span', { className: baseClassName + '-arrow' })
         ),
