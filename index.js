@@ -126,10 +126,10 @@ class Dropdown extends Component {
 
     return (
       <div className={dropdownClass}>
-        <div className={`${baseClassName}-control`} onMouseDown={this.handleMouseDown.bind(this)} onTouchEnd={this.handleMouseDown.bind(this)}>
+        <button className={`${baseClassName}-control`} onMouseDown={this.handleMouseDown.bind(this)} onTouchEnd={this.handleMouseDown.bind(this)}>
           {value}
           <span className={`${baseClassName}-arrow`} />
-        </div>
+        </button>
         {menu}
       </div>
     )
