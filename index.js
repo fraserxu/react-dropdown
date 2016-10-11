@@ -2,6 +2,21 @@ import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import classNames from 'classnames'
 
+let isObjectEqual = function(obj1, obj2){
+    var a = Object.getOwnPropertyNames(obj1);
+    var b = Object.getOwnPropertyNames(obj2);
+    if(a.length !== b.length){
+        return false;
+    }
+    for(let i = 0, len = a.length; i < len; i++){
+        var prop = a[i];
+        if(obj1[prop] !== obj2[prop]){
+            return false;
+        }
+    }
+    return true;
+};
+
 class Dropdown extends Component {
   constructor (props) {
     super(props)
@@ -67,7 +82,7 @@ class Dropdown extends Component {
   renderOption (option) {
     let optionClass = classNames({
       [`${this.props.baseClassName}-option`]: true,
-      'is-selected': option === this.state.selected
+      'is-selected': isObjectEqual(option, this.state.selected)
     })
 
     let value = option.value || option.label || option
