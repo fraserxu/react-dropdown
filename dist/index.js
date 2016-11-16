@@ -78,9 +78,12 @@ var Dropdown = function (_Component) {
       event.stopPropagation();
       event.preventDefault();
 
-      this.setState({
-        isOpen: !this.state.isOpen
-      });
+      if(!this.props.disabled) {
+        this.setState({
+          isOpen: !this.state.isOpen
+        });
+      }
+
     }
   }, {
     key: 'setValue',
