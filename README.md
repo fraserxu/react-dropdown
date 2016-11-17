@@ -65,6 +65,7 @@ const defaultOption = options[0]
 ```
 
 Disabling the Dropdown:
+
 Just pass a disabled boolean value to the Dropdown to disable it. This will also give you a `.Dropdown-disabled` class on the element, so you can style it yourself.
 
 ```JavaScript
