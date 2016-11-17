@@ -64,6 +64,14 @@ const defaultOption = options[0]
 <Dropdown options={options} onChange={this._onSelect} value={defaultOption} placeholder="Select an option" />
 ```
 
+Disabling the Dropdown:
+
+Just pass a disabled boolean value to the Dropdown to disable it. This will also give you a `.Dropdown-disabled` class on the element, so you can style it yourself.
+
+```JavaScript
+<Dropdown disabled onChange={this._onSelect} value={defaultOption} placeholder="Select an option" />
+```
+
 Check more examples in the example folder.
 
 **Run example**
