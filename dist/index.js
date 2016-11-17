@@ -34,7 +34,7 @@ var Dropdown = function (_Component) {
   function Dropdown(props) {
     _classCallCheck(this, Dropdown);
 
-    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Dropdown).call(this, props));
+    var _this = _possibleConstructorReturn(this, (Dropdown.__proto__ || Object.getPrototypeOf(Dropdown)).call(this, props));
 
     _this.state = {
       selected: props.value || {
@@ -78,9 +78,11 @@ var Dropdown = function (_Component) {
       event.stopPropagation();
       event.preventDefault();
 
-      this.setState({
-        isOpen: !this.state.isOpen
-      });
+      if (!this.props.disabled) {
+        this.setState({
+          isOpen: !this.state.isOpen
+        });
+      }
     }
   }, {
     key: 'setValue',
@@ -127,9 +129,9 @@ var Dropdown = function (_Component) {
     value: function buildMenu() {
       var _this2 = this;
 
-      var _props = this.props;
-      var options = _props.options;
-      var baseClassName = _props.baseClassName;
+      var _props = this.props,
+          options = _props.options,
+          baseClassName = _props.baseClassName;
 
       var ops = options.map(function (option) {
         if (option.type === 'group') {
@@ -175,6 +177,7 @@ var Dropdown = function (_Component) {
 
       var baseClassName = this.props.baseClassName;
 
+      var disabledClass = this.props.disabled ? 'Dropdown-disabled' : '';
       var placeHolderValue = typeof this.state.selected === 'string' ? this.state.selected : this.state.selected.label;
       var value = _react2.default.createElement(
         'div',
@@ -194,7 +197,7 @@ var Dropdown = function (_Component) {
         { className: dropdownClass },
         _react2.default.createElement(
           'div',
-          { className: baseClassName + '-control', onMouseDown: this.handleMouseDown.bind(this), onTouchEnd: this.handleMouseDown.bind(this) },
+          { className: baseClassName + '-control ' + disabledClass, onMouseDown: this.handleMouseDown.bind(this), onTouchEnd: this.handleMouseDown.bind(this) },
           value,
           _react2.default.createElement('span', { className: baseClassName + '-arrow' })
         ),
