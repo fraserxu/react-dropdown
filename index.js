@@ -54,7 +54,7 @@ class Dropdown extends Component {
         value,
         label
       },
-      isOpen: false
+      isOpen: this.props.keepOpen
     }
     this.fireChangeEvent(newState)
     this.setState(newState)
@@ -120,11 +120,11 @@ class Dropdown extends Component {
     const disabledClass = this.props.disabled ? 'Dropdown-disabled' : ''
     const placeHolderValue = typeof this.state.selected === 'string' ? this.state.selected : this.state.selected.label
     let value = (<div className={`${baseClassName}-placeholder`}>{placeHolderValue}</div>)
-    let menu = this.state.isOpen ? <div className={`${baseClassName}-menu`}>{this.buildMenu()}</div> : null
+    let menu = this.state.isOpen || this.props.keepOpen ? <div className={`${baseClassName}-menu`}>{this.buildMenu()}</div> : null
 
     let dropdownClass = classNames({
       [`${baseClassName}-root`]: true,
-      'is-open': this.state.isOpen,
+      'is-open': this.state.isOpen || this.props.keepOpen,
       [disabledClass]: true
     })
 
