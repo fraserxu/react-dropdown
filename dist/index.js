@@ -92,7 +92,7 @@ var Dropdown = function (_Component) {
           value: value,
           label: label
         },
-        isOpen: false
+        isOpen: this.props.keepOpen
       };
       this.fireChangeEvent(newState);
       this.setState(newState);
@@ -184,13 +184,13 @@ var Dropdown = function (_Component) {
         { className: baseClassName + '-placeholder' },
         placeHolderValue
       );
-      var menu = this.state.isOpen ? _react2.default.createElement(
+      var menu = this.state.isOpen || this.props.keepOpen ? _react2.default.createElement(
         'div',
         { className: baseClassName + '-menu' },
         this.buildMenu()
       ) : null;
 
-      var dropdownClass = (0, _classnames2.default)((_classNames2 = {}, _defineProperty(_classNames2, baseClassName + '-root', true), _defineProperty(_classNames2, 'is-open', this.state.isOpen), _classNames2));
+      var dropdownClass = (0, _classnames2.default)((_classNames2 = {}, _defineProperty(_classNames2, baseClassName + '-root', true), _defineProperty(_classNames2, 'is-open', this.state.isOpen || this.props.keepOpen), _defineProperty(_classNames2, disabledClass, true), _classNames2));
 
       return _react2.default.createElement(
         'div',
