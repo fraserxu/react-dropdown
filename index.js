@@ -56,8 +56,8 @@ class Dropdown extends Component {
       },
       isOpen: this.props.keepOpen
     }
-    this.fireChangeEvent(newState)
     this.setState(newState)
+    this.fireChangeEvent(newState)
   }
 
   fireChangeEvent (newState) {
@@ -67,21 +67,26 @@ class Dropdown extends Component {
   }
 
   renderOption (option) {
+    const isSelected = option === this.state.selected && this.props.keepOpen
     let optionClass = classNames({
       [`${this.props.baseClassName}-option`]: true,
-      'is-selected': option === this.state.selected
+      'is-selected': isSelected
     })
 
     let value = option.value || option.label || option
     let label = option.label || option.value || option
-
+    const Icon = this.props.icon;
     return (
       <div
         key={value}
         className={optionClass}
-        onMouseDown={this.setValue.bind(this, value, label)}
         onClick={this.setValue.bind(this, value, label)}>
-        {label}
+        {
+          isSelected && <span><Icon /></span>
+        }
+        {
+          !isSelected && <span>{label}</span>
+        }
       </div>
     )
   }
