@@ -109,19 +109,28 @@ var Dropdown = function (_Component) {
     value: function renderOption(option) {
       var _classNames;
 
-      var optionClass = (0, _classnames2.default)((_classNames = {}, _defineProperty(_classNames, this.props.baseClassName + '-option', true), _defineProperty(_classNames, 'is-selected', option === this.state.selected), _classNames));
+      var isSelected = option.value === this.state.selected.value && this.props.keepOpen;
+      var optionClass = (0, _classnames2.default)((_classNames = {}, _defineProperty(_classNames, this.props.baseClassName + '-option', true), _defineProperty(_classNames, 'is-selected', isSelected), _classNames));
 
       var value = option.value || option.label || option;
       var label = option.label || option.value || option;
-
+      var Icon = this.props.icon;
       return _react2.default.createElement(
         'div',
         {
           key: value,
           className: optionClass,
-          onMouseDown: this.setValue.bind(this, value, label),
           onClick: this.setValue.bind(this, value, label) },
-        label
+        isSelected && _react2.default.createElement(
+          'span',
+          null,
+          _react2.default.createElement(Icon, null)
+        ),
+        !isSelected && _react2.default.createElement(
+          'span',
+          null,
+          label
+        )
       );
     }
   }, {
