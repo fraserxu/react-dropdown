@@ -49,6 +49,10 @@ class Dropdown extends Component {
   }
 
   setValue (value, label) {
+    if (this.props.disabled) {
+      return
+    }
+
     let newState = {
       selected: {
         value,

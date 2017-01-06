@@ -87,6 +87,10 @@ var Dropdown = function (_Component) {
   }, {
     key: 'setValue',
     value: function setValue(value, label) {
+      if (this.props.disabled) {
+        return;
+      }
+
       var newState = {
         selected: {
           value: value,
