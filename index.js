@@ -2,12 +2,14 @@ import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import classNames from 'classnames'
 
+const DEFAULT_PLACEHOLDER_STRING = 'Select...';
+
 class Dropdown extends Component {
   constructor (props) {
     super(props)
     this.state = {
       selected: props.value || {
-        label: props.placeholder || 'Select...',
+        label: props.placeholder || DEFAULT_PLACEHOLDER_STRING,
         value: ''
       },
       isOpen: false
@@ -22,6 +24,8 @@ class Dropdown extends Component {
       this.setState({selected: newProps.value})
     } else if (!newProps.value && newProps.placeholder) {
       this.setState({selected: { label: newProps.placeholder, value: '' }})
+    } else {
+      this.setState({selected: { label: DEFAULT_PLACEHOLDER_STRING, value: '' }})
     }
   }
 
