@@ -41,7 +41,7 @@ class App extends Component {
           <h3>License: </h3>
         </section>
         <footer>
-          <p>MIT | Build for <a href='https://csviz.org'>CSViz</a> project @<a href='http://wiredcraft.com'>Wiredcraft</a></p>
+          <p>MIT</p>
         </footer>
       </div>
 

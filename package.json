@@ -1,12 +1,12 @@
 {
-  "name": "react-dropdown",
-  "version": "1.2.0",
-  "description": "React dropdown component",
+  "name": "react-accessible-dropdown",
+  "version": "1.0.0",
+  "description": "An accessible React dropdown component",
   "main": "dist/index.js",
   "style": "style.css",
   "repository": {
     "type": "git",
-    "url": "git://github.com/fraserxu/react-dropdown.git"
+    "url": "git://github.com/dittonjs/react-accessible-dropdown.git"
   },
   "files": [
     "dist/index.js",
@@ -20,15 +20,15 @@
     "select"
   ],
   "author": {
-    "name": "Fraser Xu",
-    "email": "xvfeng123@gmail.com",
-    "url": "https://fraserxu.me"
+    "name": "Joseph Ditton",
+    "email": "dittonjs@gmail.com",
+    "url": "atomicjolt.com"
   },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/fraserxu/react-dropdown/issues"
+    "url": "https://github.com/dittonjs/react-accessible-dropdown/issues"
   },
-  "homepage": "https://github.com/fraserxu/react-dropdown",
+  "homepage": "https://github.com/dittonjs/react-accessible-dropdown",
   "dependencies": {
     "classnames": "^2.2.3"
   },
@@ -65,7 +65,6 @@
   },
   "scripts": {
     "build": "babel index.js -o dist/index.js",
-    "test": "standard index.js",
     "watch": "watchify example/main.js -p browserify-hmr -o example/bundle.js -dv",
     "start": "ecstatic -p 8080 example & npm run watch",
     "prepublish": "npm test && npm run build",
