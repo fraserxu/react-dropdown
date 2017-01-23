@@ -33,8 +33,8 @@
     "classnames": "^2.2.3"
   },
   "peerDependencies": {
-    "react": "^0.14.7 || ^15.0.0-0",
-    "react-dom": "^0.14.7 || ^15.0.0-0"
+    "react": "^0.14.7 || >15.0.0",
+    "react-dom": "^0.14.7 || >15.0.0"
   },
   "browserify": {
     "transform": [
@@ -67,8 +67,8 @@
     "build": "babel index.js -o dist/index.js",
     "watch": "watchify example/main.js -p browserify-hmr -o example/bundle.js -dv",
     "start": "ecstatic -p 8080 example & npm run watch",
-    "prepublish": "npm test && npm run build",
-    "predeploy": "npm test && browserify example/main.js -o example/bundle.js",
+    "prepublish": "npm run build",
+    "predeploy": "browserify example/main.js -o example/bundle.js",
     "deploy": "gh-pages -d example"
   }
 }
