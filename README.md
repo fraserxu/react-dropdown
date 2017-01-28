@@ -1,27 +1,24 @@
-react-dropdown
+react-accessible-dropdown
 ==============
 
 [![NPM version][npm-image]][npm-url]
 [![Downloads][downloads-image]][downloads-url]
 
-Simple Dropdown component for React, inspired by [react-select](https://github.com/JedWatson/react-select)
-Demo is available [here](http://fraserxu.me/react-dropdown/)
+This is an extension of [react-dropdown](https://github.com/fraserxu/react-dropdown) and should be a drop-in replacement for it.
 
-### Why
+### Changes
+* Added keyboard controls
+* An additional prop called `tabIndex`, which sets the tabIndex of the dropdown menu. Defaults to 0.
 
-* The default HTML select element is hard to style
-* And sometime we also want grouped menus
-* if you want more advanced select, check [react-select](https://github.com/JedWatson/react-select)
+### Important Notes
+* I needed this immediately so thats why I am publishing this as a separate package as opposed to submitting a pull request to the original repo.
+* Feel free to submit bug reports and pull requests, but don't be offended if I don't get right on it because I am a full time student and work full time :)
 
 ### Installation
 
 ```
-$ npm install react-dropdown  --save
+$ npm install react-accessible-dropdown  --save
 ```
-
-### Changelog
-
-If you want to support React version under v0.13, use react-dropdown@v0.6.1
 
 ### Usage
 
@@ -59,8 +56,8 @@ const options = [
 Monut
 
 ```JavaScript
-import Dropdown from 'react-dropdown'
-const defaultOption = options[0]
+import Dropdown from 'react-dropdown';
+const defaultOption = options[0];
 <Dropdown options={options} onChange={this._onSelect} value={defaultOption} placeholder="Select an option" />
 ```
 
@@ -82,9 +79,9 @@ $ npm start
 
 ### License
 
-MIT | Build for [CSViz](https://csviz.org) project @[Wiredcraft](http://wiredcraft.com)
+MIT
 
 [npm-image]: https://img.shields.io/npm/v/react-dropdown.svg?style=flat-square
-[npm-url]: https://npmjs.org/package/react-dropdown
-[downloads-image]: http://img.shields.io/npm/dm/react-dropdown.svg?style=flat-square
-[downloads-url]: https://npmjs.org/package/react-dropdown
+[npm-url]: https://npmjs.org/package/react-accessible-dropdown
+[downloads-image]: http://img.shields.io/npm/dm/react-accessible-dropdown.svg?style=flat-square
+[downloads-url]: https://npmjs.org/package/react-accessible-dropdown

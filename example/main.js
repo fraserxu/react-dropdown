@@ -8,9 +8,6 @@ class App extends Component {
   render () {
     return (
       <div>
-        <header>
-          <h2><a href='https://github.com/fraserxu/react-dropdown'>React Dropdown</a></h2>
-        </header>
         <section className='description'>
           <p>
             Simple Dropdown component for React, inspired by <a href='https://github.com/JedWatson/react-select'>react-select</a>
@@ -41,7 +38,7 @@ class App extends Component {
           <h3>License: </h3>
         </section>
         <footer>
-          <p>MIT | Build for <a href='https://csviz.org'>CSViz</a> project @<a href='http://wiredcraft.com'>Wiredcraft</a></p>
+          <p>MIT</p>
         </footer>
       </div>
 

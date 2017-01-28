@@ -104,6 +104,12 @@ pre code {
   color: #333;
 }
 
+.Dropdown-option:focus {
+  background-color: #f2f9fc;
+  color: #333;
+  outline: none;
+}
+
 .Dropdown-option.is-selected {
   background-color: #f2f9fc;
   color: #333;
