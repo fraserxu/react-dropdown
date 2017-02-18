@@ -28,6 +28,8 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+var DEFAULT_PLACEHOLDER_STRING = 'Select...';
+
 var Dropdown = function (_Component) {
   _inherits(Dropdown, _Component);
 
@@ -38,7 +40,7 @@ var Dropdown = function (_Component) {
 
     _this.state = {
       selected: props.value || {
-        label: props.placeholder || 'Select...',
+        label: props.placeholder || DEFAULT_PLACEHOLDER_STRING,
         value: ''
       },
       isOpen: false
@@ -56,6 +58,8 @@ var Dropdown = function (_Component) {
         this.setState({ selected: newProps.value });
       } else if (!newProps.value && newProps.placeholder) {
         this.setState({ selected: { label: newProps.placeholder, value: '' } });
+      } else {
+        this.setState({ selected: { label: DEFAULT_PLACEHOLDER_STRING, value: '' } });
       }
     }
   }, {

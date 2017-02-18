@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import classNames from 'classnames'
 
-const DEFAULT_PLACEHOLDER_STRING = 'Select...';
+const DEFAULT_PLACEHOLDER_STRING = 'Select...'
 
 class Dropdown extends Component {
   constructor (props) {
