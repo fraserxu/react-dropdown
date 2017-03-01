@@ -56,7 +56,7 @@ const options = [
 ]
 ```
 
-Monut
+Mount
 
 ```JavaScript
 import Dropdown from 'react-dropdown'
