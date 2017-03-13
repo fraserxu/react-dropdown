@@ -145,15 +145,16 @@ class Dropdown extends Component {
 
 Dropdown.propTypes = {
   baseClassName: React.PropTypes.string,
+  placeholder: React.PropTypes.string,
   options: React.PropTypes.oneOfType([
     React.PropTypes.arrayOf(React.PropTypes.string),
     React.PropTypes.arrayOf(React.PropTypes.object),
   ]),
-  disabled: React.PropTypes.bool,
   value: React.PropTypes.oneOfType([
     React.PropTypes.string,
     React.PropTypes.object,
   ]),
+  disabled: React.PropTypes.bool,
   onChange: React.PropTypes.func,
 };
 
