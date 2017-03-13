@@ -151,8 +151,8 @@ Dropdown.propTypes = {
   ]),
   disabled: React.PropTypes.bool,
   value: React.PropTypes.oneOfType([
-    React.PropTypes.arrayOf(React.PropTypes.string),
-    React.PropTypes.arrayOf(React.PropTypes.object),
+    React.PropTypes.string,
+    React.PropTypes.object,
   ]),
   onChange: React.PropTypes.func,
 };
