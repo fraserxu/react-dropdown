@@ -141,8 +141,21 @@ class Dropdown extends Component {
       </div>
     )
   }
-
 }
+
+Dropdown.propTypes = {
+  baseClassName: React.PropTypes.string,
+  options: React.PropTypes.oneOfType([
+    React.PropTypes.arrayOf(React.PropTypes.string),
+    React.PropTypes.arrayOf(React.PropTypes.object),
+  ]),
+  disabled: React.PropTypes.bool,
+  value: React.PropTypes.oneOfType([
+    React.PropTypes.arrayOf(React.PropTypes.string),
+    React.PropTypes.arrayOf(React.PropTypes.object),
+  ]),
+  onChange: React.PropTypes.func,
+};
 
 Dropdown.defaultProps = { baseClassName: 'Dropdown' }
 export default Dropdown
