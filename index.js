@@ -71,10 +71,20 @@ class Dropdown extends Component {
   }
 
   renderOption (option) {
-    let optionClass = classNames({
-      [`${this.props.baseClassName}-option`]: true,
-      'is-selected': option === this.state.selected
-    })
+    const { customStylingClassNames } = this.props
+    const { optionClass, selectedOptionClass } = customStylingClassNames
+    let optionClassName
+    if(optionClass) {
+      optionClassName = classNames({
+        [optionClass]: true,
+        [selectedOptionClass]: option === this.state.selected
+      })
+    } else {
+      optionClassName = classNames({
+        [`${this.props.baseClassName}-option`]: true,
+        'is-selected': option === this.state.selected
+      })
+    }
 
     let value = option.value || option.label || option
     let label = option.label || option.value || option
@@ -82,7 +92,7 @@ class Dropdown extends Component {
     return (
       <div
         key={value}
-        className={optionClass}
+        className={optionClassName}
         onMouseDown={this.setValue.bind(this, value, label)}
         onClick={this.setValue.bind(this, value, label)}>
         {label}
@@ -91,14 +101,15 @@ class Dropdown extends Component {
   }
 
   buildMenu () {
-    let { options, baseClassName } = this.props
+    let { options, baseClassName, customStylingClassNames } = this.props
+    const { groupClass, groupTitleClass, noResultsClass } = customStylingClassNames
     let ops = options.map((option) => {
       if (option.type === 'group') {
-        let groupTitle = (<div className={`${baseClassName}-title`}>{option.name}</div>)
+        let groupTitle = (<div className={groupTitleClass || `${baseClassName}-title`}>{option.name}</div>)
         let _options = option.items.map((item) => this.renderOption(item))
 
         return (
-          <div className={`${baseClassName}-group`} key={option.name}>
+          <div className={groupClass || `${baseClassName}-group`} key={option.name}>
             {groupTitle}
             {_options}
           </div>
@@ -108,7 +119,7 @@ class Dropdown extends Component {
       }
     })
 
-    return ops.length ? ops : <div className={`${baseClassName}-noresults`}>No options found</div>
+    return ops.length ? ops : <div className={noResultsClass || `${baseClassName}-noresults`}>No options found</div>
   }
 
   handleDocumentClick (event) {
@@ -121,21 +132,31 @@ class Dropdown extends Component {
 
   render () {
     const { baseClassName, customStylingClassNames } = this.props
-    const disabledClass = this.props.disabled ? 'Dropdown-disabled' : ''
+    const { disabledClass, rootClass, isOpenClass, placeholderClass, menuClass, controlClass, arrowClass } = customStylingClassNames
+    const disabledClassName = this.props.disabled ? disabledClass || 'Dropdown-disabled' : ''
+    const controlClassName = controlClass || `${baseClassName}-control`
     const placeHolderValue = typeof this.state.selected === 'string' ? this.state.selected : this.state.selected.label
-    let value = (<div className={`${baseClassName}-placeholder`}>{placeHolderValue}</div>)
-    let menu = this.state.isOpen ? <div className={`${baseClassName}-menu`}>{this.buildMenu()}</div> : null
+    let value = (<div className={placeholderClass || `${baseClassName}-placeholder`}>{placeHolderValue}</div>)
+    let menu = this.state.isOpen ? <div className={menuClass || `${baseClassName}-menu`}>{this.buildMenu()}</div> : null
 
-    let dropdownClass = classNames({
-      [`${baseClassName}-root`]: true,
-      'is-open': this.state.isOpen
-    })
+    let dropdownClass
+    if(rootClass) {
+      dropdownClass = classNames({
+        [rootClass]: true,
+        [isOpenClass]: this.state.isOpen
+      })
+    } else {
+      dropdownClass = classNames({
+        [`${baseClassName}-root`]: true,
+        'is-open': this.state.isOpen
+      })
+    }
 
     return (
       <div className={dropdownClass}>
-        <div className={`${baseClassName}-control ${disabledClass}`} onMouseDown={this.handleMouseDown.bind(this)} onTouchEnd={this.handleMouseDown.bind(this)}>
+        <div className={`${controlClassName} ${disabledClassName}`} onMouseDown={this.handleMouseDown.bind(this)} onTouchEnd={this.handleMouseDown.bind(this)}>
           {value}
-          <span className={`${baseClassName}-arrow`} />
+          <span className={arrowClass || `${baseClassName}-arrow`} />
         </div>
         {menu}
       </div>
@@ -147,17 +168,18 @@ class Dropdown extends Component {
 Dropdown.defaultProps = {
   baseClassName: 'Dropdown',
   customStylingClassNames: {
-    root: '',
-    disabled: '',
-    control: '',
-    isOpen: '',
-    option: '',
-    menu: '',
-    placeholder: '',
-    groupTitle: '',
-    group: '',
-    noResults: '',
-    arrow: ''
+    rootClass: '',
+    disabledClass: '',
+    controlClass: '',
+    isOpenClass: '',
+    optionClass: '',
+    selectedOptionClass: '',
+    menuClass: '',
+    placeholderClass: '',
+    groupTitleClass: '',
+    groupClass: '',
+    noResultsClass: '',
+    arrowClass: ''
   }
 }
 export default Dropdown
