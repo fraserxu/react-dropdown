@@ -120,7 +120,7 @@ class Dropdown extends Component {
   }
 
   render () {
-    const { baseClassName } = this.props
+    const { baseClassName, customStylingClassNames } = this.props
     const disabledClass = this.props.disabled ? 'Dropdown-disabled' : ''
     const placeHolderValue = typeof this.state.selected === 'string' ? this.state.selected : this.state.selected.label
     let value = (<div className={`${baseClassName}-placeholder`}>{placeHolderValue}</div>)
@@ -144,5 +144,20 @@ class Dropdown extends Component {
 
 }
 
-Dropdown.defaultProps = { baseClassName: 'Dropdown' }
+Dropdown.defaultProps = {
+  baseClassName: 'Dropdown',
+  customStylingClassNames: {
+    root: '',
+    disabled: '',
+    control: '',
+    isOpen: '',
+    option: '',
+    menu: '',
+    placeholder: '',
+    groupTitle: '',
+    group: '',
+    noResults: '',
+    arrow: ''
+  }
+}
 export default Dropdown
