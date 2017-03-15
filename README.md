@@ -72,6 +72,26 @@ Just pass a disabled boolean value to the Dropdown to disable it. This will also
 <Dropdown disabled onChange={this._onSelect} value={defaultOption} placeholder="Select an option" />
 ```
 
+Passing custom classNames:
+Note: fill only those classNames you want to override
+```JavaScript
+const customClasses = {
+    rootClass: 'yourAwesomeRootClass',
+    disabledClass: 'yourAwesomeDisabledClass',
+    controlClass: 'yourAwesomeControlClass',
+    isOpenClass: 'yourAwesomeIsOpenClass',
+    optionClass: 'yourAwesomeOptionClass',
+    selectedOptionClass: 'yourAwesomeSelectedOptionClass',
+    menuClass: 'yourAwesomeMenuClass',
+    placeholderClass: 'yourAwesomePlaceholderClass',
+    groupTitleClass: 'yourAwesomeGroupTitleClass',
+    groupClass: 'yourAwesomeGroupClass',
+    noResultsClass: 'yourAwesomeNoResultsClass',
+    arrowClass: 'yourAwesomeArrowClass'
+  }
+<Dropdown disabled onChange={this._onSelect} value={defaultOption} placeholder="Select an option" customStylingClassNames={customClasses}/>
+```
+
 Check more examples in the example folder.
 
 **Run example**
