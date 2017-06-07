@@ -42,6 +42,7 @@ class Dropdown extends Component {
   }
 
   handleMouseDown (event) {
+    this.props.onFocus(this.state.isOpen)
     if (event.type === 'mousedown' && event.button !== 0) return
     event.stopPropagation()
     event.preventDefault()
