@@ -190,7 +190,7 @@ var Dropdown = function (_Component) {
         { className: baseClassName + '-placeholder' },
         placeHolderValue
       );
-      var menu = this.state.isOpen ? _react2.default.createElement(
+      var menu = this.state.isOpen || this.props.isOpen ? _react2.default.createElement(
         'div',
         { className: baseClassName + '-menu' },
         this.buildMenu()

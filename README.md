@@ -72,6 +72,14 @@ Just pass a disabled boolean value to the Dropdown to disable it. This will also
 <Dropdown disabled onChange={this._onSelect} value={defaultOption} placeholder="Select an option" />
 ```
 
+Default open Dropdown:
+
+Just pass a isOpen boolean value for open Dropdown after mount
+
+```JavaScript
+<Dropdown isOpen onChange={this._onSelect} value={defaultOption} placeholder="Select an option" />
+```
+
 Check more examples in the example folder.
 
 **Run example**
