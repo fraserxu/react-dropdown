@@ -79,7 +79,9 @@ var Dropdown = function (_Component) {
   }, {
     key: 'handleMouseDown',
     value: function handleMouseDown(event) {
-      this.props.onFocus(this.state.isOpen);
+      if (this.props.onFocus && typeof this.props.onFocus === 'function') {
+        this.props.onFocus(this.state.isOpen);
+      }
       if (event.type === 'mousedown' && event.button !== 0) return;
       event.stopPropagation();
       event.preventDefault();
