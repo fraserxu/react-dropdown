@@ -55,12 +55,16 @@ class Dropdown extends Component {
   }
 
   setValue (value, label) {
+    if (this.props.disabled) {
+      return
+    }
+
     let newState = {
       selected: {
         value,
         label
       },
-      isOpen: false
+      isOpen: this.props.keepOpen
     }
     this.fireChangeEvent(newState)
     this.setState(newState)
@@ -73,21 +77,26 @@ class Dropdown extends Component {
   }
 
   renderOption (option) {
+    const isSelected = option.value === this.state.selected.value && this.props.keepOpen
     let optionClass = classNames({
       [`${this.props.baseClassName}-option`]: true,
-      'is-selected': option === this.state.selected
+      'is-selected': isSelected
     })
 
     let value = option.value || option.label || option
     let label = option.label || option.value || option
-
+    const Icon = this.props.icon;
     return (
       <div
         key={value}
         className={optionClass}
-        onMouseDown={this.setValue.bind(this, value, label)}
         onClick={this.setValue.bind(this, value, label)}>
-        {label}
+        {
+          isSelected && <span><Icon /></span>
+        }
+        {
+          !isSelected && <span>{label}</span>
+        }
       </div>
     )
   }
@@ -126,11 +135,12 @@ class Dropdown extends Component {
     const disabledClass = this.props.disabled ? 'Dropdown-disabled' : ''
     const placeHolderValue = typeof this.state.selected === 'string' ? this.state.selected : this.state.selected.label
     let value = (<div className={`${baseClassName}-placeholder`}>{placeHolderValue}</div>)
-    let menu = this.state.isOpen ? <div className={`${baseClassName}-menu`}>{this.buildMenu()}</div> : null
+    let menu = this.state.isOpen || this.props.keepOpen ? <div className={`${baseClassName}-menu`}>{this.buildMenu()}</div> : null
 
     let dropdownClass = classNames({
       [`${baseClassName}-root`]: true,
-      'is-open': this.state.isOpen
+      'is-open': this.state.isOpen || this.props.keepOpen,
+      [disabledClass]: true
     })
 
     return (

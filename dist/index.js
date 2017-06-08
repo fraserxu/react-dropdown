@@ -93,12 +93,16 @@ var Dropdown = function (_Component) {
   }, {
     key: 'setValue',
     value: function setValue(value, label) {
+      if (this.props.disabled) {
+        return;
+      }
+
       var newState = {
         selected: {
           value: value,
           label: label
         },
-        isOpen: false
+        isOpen: this.props.keepOpen
       };
       this.fireChangeEvent(newState);
       this.setState(newState);
@@ -115,19 +119,28 @@ var Dropdown = function (_Component) {
     value: function renderOption(option) {
       var _classNames;
 
-      var optionClass = (0, _classnames2.default)((_classNames = {}, _defineProperty(_classNames, this.props.baseClassName + '-option', true), _defineProperty(_classNames, 'is-selected', option === this.state.selected), _classNames));
+      var isSelected = option.value === this.state.selected.value && this.props.keepOpen;
+      var optionClass = (0, _classnames2.default)((_classNames = {}, _defineProperty(_classNames, this.props.baseClassName + '-option', true), _defineProperty(_classNames, 'is-selected', isSelected), _classNames));
 
       var value = option.value || option.label || option;
       var label = option.label || option.value || option;
-
+      var Icon = this.props.icon;
       return _react2.default.createElement(
         'div',
         {
           key: value,
           className: optionClass,
-          onMouseDown: this.setValue.bind(this, value, label),
           onClick: this.setValue.bind(this, value, label) },
-        label
+        isSelected && _react2.default.createElement(
+          'span',
+          null,
+          _react2.default.createElement(Icon, null)
+        ),
+        !isSelected && _react2.default.createElement(
+          'span',
+          null,
+          label
+        )
       );
     }
   }, {
@@ -190,13 +203,13 @@ var Dropdown = function (_Component) {
         { className: baseClassName + '-placeholder' },
         placeHolderValue
       );
-      var menu = this.state.isOpen ? _react2.default.createElement(
+      var menu = this.state.isOpen || this.props.keepOpen ? _react2.default.createElement(
         'div',
         { className: baseClassName + '-menu' },
         this.buildMenu()
       ) : null;
 
-      var dropdownClass = (0, _classnames2.default)((_classNames2 = {}, _defineProperty(_classNames2, baseClassName + '-root', true), _defineProperty(_classNames2, 'is-open', this.state.isOpen), _classNames2));
+      var dropdownClass = (0, _classnames2.default)((_classNames2 = {}, _defineProperty(_classNames2, baseClassName + '-root', true), _defineProperty(_classNames2, 'is-open', this.state.isOpen || this.props.keepOpen), _defineProperty(_classNames2, disabledClass, true), _classNames2));
 
       return _react2.default.createElement(
         'div',
