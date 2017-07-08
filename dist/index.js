@@ -183,10 +183,13 @@ var Dropdown = function (_Component) {
     value: function render() {
       var _classNames2;
 
-      var baseClassName = this.props.baseClassName;
+      var _props2 = this.props,
+          baseClassName = _props2.baseClassName,
+          placeholder = _props2.placeholder;
 
       var disabledClass = this.props.disabled ? 'Dropdown-disabled' : '';
       var placeHolderValue = typeof this.state.selected === 'string' ? this.state.selected : this.state.selected.label;
+      var isOptionSelected = placeholder ? placeHolderValue === placeholder : placeHolderValue === DEFAULT_PLACEHOLDER_STRING;
       var value = _react2.default.createElement(
         'div',
         { className: baseClassName + '-placeholder' },
@@ -198,14 +201,14 @@ var Dropdown = function (_Component) {
         this.buildMenu()
       ) : null;
 
-      var dropdownClass = (0, _classnames2.default)((_classNames2 = {}, _defineProperty(_classNames2, baseClassName + '-root', true), _defineProperty(_classNames2, 'is-open', this.state.isOpen), _defineProperty(_classNames2, 'is-option-selected', this.state.selected), _classNames2));
+      var dropdownClass = (0, _classnames2.default)((_classNames2 = {}, _defineProperty(_classNames2, baseClassName + '-root', true), _defineProperty(_classNames2, 'is-open', this.state.isOpen), _defineProperty(_classNames2, 'is-option-selected', isOptionSelected), _classNames2));
 
       return _react2.default.createElement(
         'div',
         { className: dropdownClass },
         _react2.default.createElement(
           'div',
-          { className: baseClassName + '-control ' + disabledClass, onMouseDown: this.handleMouseDown.bind(this), onTouchEnd: this.handleMouseDown.bind(this) },
+          { className: baseClassName + '-control ' + disabledClass, 'data-label': this.state.selected.label, onMouseDown: this.handleMouseDown.bind(this), onTouchEnd: this.handleMouseDown.bind(this) },
           value,
           _react2.default.createElement('span', { className: baseClassName + '-arrow' })
         ),
