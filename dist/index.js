@@ -190,6 +190,7 @@ var Dropdown = function (_Component) {
       var disabledClass = this.props.disabled ? 'Dropdown-disabled' : '';
       var placeHolderValue = typeof this.state.selected === 'string' ? this.state.selected : this.state.selected.label;
       var isOptionSelected = placeholder ? placeHolderValue !== placeholder : placeHolderValue !== DEFAULT_PLACEHOLDER_STRING;
+      var label = placeholder || DEFAULT_PLACEHOLDER_STRING;
       var value = _react2.default.createElement(
         'div',
         { className: baseClassName + '-placeholder' },
@@ -208,7 +209,7 @@ var Dropdown = function (_Component) {
         { className: dropdownClass },
         _react2.default.createElement(
           'div',
-          { className: baseClassName + '-control ' + disabledClass, 'data-label': this.state.selected.label, onMouseDown: this.handleMouseDown.bind(this), onTouchEnd: this.handleMouseDown.bind(this) },
+          { className: baseClassName + '-control ' + disabledClass, 'data-label': label, onMouseDown: this.handleMouseDown.bind(this), onTouchEnd: this.handleMouseDown.bind(this) },
           value,
           _react2.default.createElement('span', { className: baseClassName + '-arrow' })
         ),
