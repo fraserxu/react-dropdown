@@ -198,7 +198,7 @@ var Dropdown = function (_Component) {
         this.buildMenu()
       ) : null;
 
-      var dropdownClass = (0, _classnames2.default)((_classNames2 = {}, _defineProperty(_classNames2, baseClassName + '-root', true), _defineProperty(_classNames2, 'is-open', this.state.isOpen), _classNames2));
+      var dropdownClass = (0, _classnames2.default)((_classNames2 = {}, _defineProperty(_classNames2, baseClassName + '-root', true), _defineProperty(_classNames2, 'is-open', this.state.isOpen), _defineProperty(_classNames2, 'is-option-selected', this.state.selected), _classNames2));
 
       return _react2.default.createElement(
         'div',

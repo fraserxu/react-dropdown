@@ -132,7 +132,8 @@ class Dropdown extends Component {
 
     let dropdownClass = classNames({
       [`${baseClassName}-root`]: true,
-      'is-open': this.state.isOpen
+      'is-open': this.state.isOpen,
+      'is-option-selected': this.state.selected
     })
 
     return (
