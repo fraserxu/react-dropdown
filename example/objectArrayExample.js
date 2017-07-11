@@ -5,7 +5,7 @@ class ObjectArrayExample extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      selected: { value: 'two', label: 'Two'}
+      selected: 'two',
     }
     this._onSelect = this._onSelect.bind(this)
   }

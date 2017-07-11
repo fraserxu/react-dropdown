@@ -4,11 +4,13 @@ import classNames from 'classnames'
 
 const DEFAULT_PLACEHOLDER_STRING = 'Select...'
 
+const isOptionObject = obj => obj && obj.value !== undefined && obj.label !== undefined
+
 class Dropdown extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      selected: props.value || {
+      selected: this.getOptionObjectFromValue(props.value) || {
         label: props.placeholder || DEFAULT_PLACEHOLDER_STRING,
         value: ''
       },
@@ -19,9 +21,19 @@ class Dropdown extends Component {
     this.fireChangeEvent = this.fireChangeEvent.bind(this)
   }
 
+  getOptionObjectFromValue (optionOrValue) {
+    const optionsAreObjects = this.props.options.length && isOptionObject(this.props.options[0])
+    if (!optionOrValue || isOptionObject(optionOrValue) || !optionsAreObjects) {
+      return optionOrValue
+    } else {
+      const matches = this.props.options.filter(({ value }) => value === optionOrValue)
+      return matches.length ? matches[0] : null
+    }
+  }
+
   componentWillReceiveProps (newProps) {
     if (newProps.value && newProps.value !== this.state.selected) {
-      this.setState({selected: newProps.value})
+      this.setState({selected: this.getOptionObjectFromValue(newProps.value)})
     } else if (!newProps.value) {
       this.setState({selected: {
         label: newProps.placeholder || DEFAULT_PLACEHOLDER_STRING,
