@@ -56,6 +56,10 @@ class Dropdown extends Component {
     }
   }
 
+  getSelectedValue () {
+    return typeof this.state.selected === 'object' ? this.state.selected.value : this.state.selected;
+  }
+
   setValue (option) {
     const newState = {
       selected: option,
@@ -66,19 +70,21 @@ class Dropdown extends Component {
   }
 
   fireChangeEvent (option) {
-    if (option !== this.state.selected && this.props.onChange) {
+    const optionValue = typeof option === 'object' ? option.value : option;
+    const selectedValue = this.getSelectedValue();
+    if (optionValue !== selectedValue && this.props.onChange) {
       this.props.onChange(option)
     }
   }
 
   renderOption (option) {
-    let optionClass = classNames({
-      [`${this.props.baseClassName}-option`]: true,
-      'is-selected': option === this.state.selected
-    })
-
     const value = typeof option.value === 'undefined' ? option : option.value;
     const label = typeof option.label === 'undefined' ? option : option.label;
+
+    let optionClass = classNames({
+      [`${this.props.baseClassName}-option`]: true,
+      'is-selected': value === this.getSelectedValue()
+    })
 
     return (
       <div

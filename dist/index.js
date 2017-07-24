@@ -4,6 +4,8 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = require('react');
@@ -93,6 +95,11 @@ var Dropdown = function (_Component) {
       }
     }
   }, {
+    key: 'getSelectedValue',
+    value: function getSelectedValue() {
+      return _typeof(this.state.selected) === 'object' ? this.state.selected.value : this.state.selected;
+    }
+  }, {
     key: 'setValue',
     value: function setValue(option) {
       var newState = {
@@ -105,7 +112,9 @@ var Dropdown = function (_Component) {
   }, {
     key: 'fireChangeEvent',
     value: function fireChangeEvent(option) {
-      if (option !== this.state.selected && this.props.onChange) {
+      var optionValue = (typeof option === 'undefined' ? 'undefined' : _typeof(option)) === 'object' ? option.value : option;
+      var selectedValue = this.getSelectedValue();
+      if (optionValue !== selectedValue && this.props.onChange) {
         this.props.onChange(option);
       }
     }
@@ -114,10 +123,10 @@ var Dropdown = function (_Component) {
     value: function renderOption(option) {
       var _classNames;
 
-      var optionClass = (0, _classnames2.default)((_classNames = {}, _defineProperty(_classNames, this.props.baseClassName + '-option', true), _defineProperty(_classNames, 'is-selected', option === this.state.selected), _classNames));
-
       var value = typeof option.value === 'undefined' ? option : option.value;
       var label = typeof option.label === 'undefined' ? option : option.label;
+
+      var optionClass = (0, _classnames2.default)((_classNames = {}, _defineProperty(_classNames, this.props.baseClassName + '-option', true), _defineProperty(_classNames, 'is-selected', value === this.getSelectedValue()), _classNames));
 
       return _react2.default.createElement(
         'div',
