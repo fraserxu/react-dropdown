@@ -4,6 +4,8 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = require('react');
@@ -93,23 +95,27 @@ var Dropdown = function (_Component) {
       }
     }
   }, {
+    key: 'getSelectedValue',
+    value: function getSelectedValue() {
+      return _typeof(this.state.selected) === 'object' ? this.state.selected.value : this.state.selected;
+    }
+  }, {
     key: 'setValue',
-    value: function setValue(value, label) {
+    value: function setValue(option) {
       var newState = {
-        selected: {
-          value: value,
-          label: label
-        },
+        selected: option,
         isOpen: false
       };
-      this.fireChangeEvent(newState);
+      this.fireChangeEvent(option);
       this.setState(newState);
     }
   }, {
     key: 'fireChangeEvent',
-    value: function fireChangeEvent(newState) {
-      if (newState.selected !== this.state.selected && this.props.onChange) {
-        this.props.onChange(newState.selected);
+    value: function fireChangeEvent(option) {
+      var optionValue = (typeof option === 'undefined' ? 'undefined' : _typeof(option)) === 'object' ? option.value : option;
+      var selectedValue = this.getSelectedValue();
+      if (optionValue !== selectedValue && this.props.onChange) {
+        this.props.onChange(option);
       }
     }
   }, {
@@ -117,18 +123,18 @@ var Dropdown = function (_Component) {
     value: function renderOption(option) {
       var _classNames;
 
-      var optionClass = (0, _classnames2.default)((_classNames = {}, _defineProperty(_classNames, this.props.baseClassName + '-option', true), _defineProperty(_classNames, 'is-selected', option === this.state.selected), _classNames));
+      var value = typeof option.value === 'undefined' ? option : option.value;
+      var label = typeof option.label === 'undefined' ? option : option.label;
 
-      var value = option.value || option.label || option;
-      var label = option.label || option.value || option;
+      var optionClass = (0, _classnames2.default)((_classNames = {}, _defineProperty(_classNames, this.props.baseClassName + '-option', true), _defineProperty(_classNames, 'is-selected', value === this.getSelectedValue()), _classNames));
 
       return _react2.default.createElement(
         'div',
         {
           key: value,
           className: optionClass,
-          onMouseDown: this.setValue.bind(this, value, label),
-          onClick: this.setValue.bind(this, value, label) },
+          onMouseDown: this.setValue.bind(this, option),
+          onClick: this.setValue.bind(this, option) },
         label
       );
     }
@@ -183,10 +189,14 @@ var Dropdown = function (_Component) {
     value: function render() {
       var _classNames2;
 
-      var baseClassName = this.props.baseClassName;
+      var _props2 = this.props,
+          baseClassName = _props2.baseClassName,
+          placeholder = _props2.placeholder;
 
       var disabledClass = this.props.disabled ? 'Dropdown-disabled' : '';
       var placeHolderValue = typeof this.state.selected === 'string' ? this.state.selected : this.state.selected.label;
+      var isOptionSelected = placeholder ? placeHolderValue !== placeholder : placeHolderValue !== DEFAULT_PLACEHOLDER_STRING;
+      var label = placeholder || DEFAULT_PLACEHOLDER_STRING;
       var value = _react2.default.createElement(
         'div',
         { className: baseClassName + '-placeholder' },
@@ -198,14 +208,14 @@ var Dropdown = function (_Component) {
         this.buildMenu()
       ) : null;
 
-      var dropdownClass = (0, _classnames2.default)((_classNames2 = {}, _defineProperty(_classNames2, baseClassName + '-root', true), _defineProperty(_classNames2, 'is-open', this.state.isOpen), _classNames2));
+      var dropdownClass = (0, _classnames2.default)((_classNames2 = {}, _defineProperty(_classNames2, baseClassName + '-root', true), _defineProperty(_classNames2, 'is-open', this.state.isOpen), _defineProperty(_classNames2, 'is-option-selected', isOptionSelected), _classNames2));
 
       return _react2.default.createElement(
         'div',
         { className: dropdownClass },
         _react2.default.createElement(
           'div',
-          { className: baseClassName + '-control ' + disabledClass, onMouseDown: this.handleMouseDown.bind(this), onTouchEnd: this.handleMouseDown.bind(this) },
+          { className: baseClassName + '-control ' + disabledClass, 'data-label': label, onMouseDown: this.handleMouseDown.bind(this), onTouchEnd: this.handleMouseDown.bind(this) },
           value,
           _react2.default.createElement('span', { className: baseClassName + '-arrow' })
         ),

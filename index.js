@@ -56,39 +56,42 @@ class Dropdown extends Component {
     }
   }
 
-  setValue (value, label) {
-    let newState = {
-      selected: {
-        value,
-        label
-      },
+  getSelectedValue () {
+    return typeof this.state.selected === 'object' ? this.state.selected.value : this.state.selected;
+  }
+
+  setValue (option) {
+    const newState = {
+      selected: option,
       isOpen: false
     }
-    this.fireChangeEvent(newState)
+    this.fireChangeEvent(option)
     this.setState(newState)
   }
 
-  fireChangeEvent (newState) {
-    if (newState.selected !== this.state.selected && this.props.onChange) {
-      this.props.onChange(newState.selected)
+  fireChangeEvent (option) {
+    const optionValue = typeof option === 'object' ? option.value : option;
+    const selectedValue = this.getSelectedValue();
+    if (optionValue !== selectedValue && this.props.onChange) {
+      this.props.onChange(option)
     }
   }
 
   renderOption (option) {
+    const value = typeof option.value === 'undefined' ? option : option.value;
+    const label = typeof option.label === 'undefined' ? option : option.label;
+
     let optionClass = classNames({
       [`${this.props.baseClassName}-option`]: true,
-      'is-selected': option === this.state.selected
+      'is-selected': value === this.getSelectedValue()
     })
-
-    let value = option.value || option.label || option
-    let label = option.label || option.value || option
 
     return (
       <div
         key={value}
         className={optionClass}
-        onMouseDown={this.setValue.bind(this, value, label)}
-        onClick={this.setValue.bind(this, value, label)}>
+        onMouseDown={this.setValue.bind(this, option)}
+        onClick={this.setValue.bind(this, option)}>
         {label}
       </div>
     )
@@ -124,20 +127,23 @@ class Dropdown extends Component {
   }
 
   render () {
-    const { baseClassName } = this.props
+    const { baseClassName, placeholder } = this.props
     const disabledClass = this.props.disabled ? 'Dropdown-disabled' : ''
     const placeHolderValue = typeof this.state.selected === 'string' ? this.state.selected : this.state.selected.label
+    const isOptionSelected = placeholder ? placeHolderValue !== placeholder : placeHolderValue !== DEFAULT_PLACEHOLDER_STRING;
+    const label = placeholder || DEFAULT_PLACEHOLDER_STRING;
     let value = (<div className={`${baseClassName}-placeholder`}>{placeHolderValue}</div>)
     let menu = this.state.isOpen ? <div className={`${baseClassName}-menu`}>{this.buildMenu()}</div> : null
 
     let dropdownClass = classNames({
       [`${baseClassName}-root`]: true,
-      'is-open': this.state.isOpen
+      'is-open': this.state.isOpen,
+      'is-option-selected': isOptionSelected
     })
 
     return (
       <div className={dropdownClass}>
-        <div className={`${baseClassName}-control ${disabledClass}`} onMouseDown={this.handleMouseDown.bind(this)} onTouchEnd={this.handleMouseDown.bind(this)}>
+        <div className={`${baseClassName}-control ${disabledClass}`} data-label={label} onMouseDown={this.handleMouseDown.bind(this)} onTouchEnd={this.handleMouseDown.bind(this)}>
           {value}
           <span className={`${baseClassName}-arrow`} />
         </div>
