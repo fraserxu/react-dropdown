@@ -80,7 +80,10 @@ class Dropdown extends Component {
       'is-selected': option === this.state.selected
     })
 
-    let value = option.value || option.label || option
+    let value = option.value
+    if (typeof value === 'undefined') {
+      value = option.label || option
+    }
     let label = option.label || option.value || option
 
     return (
