@@ -117,7 +117,7 @@ var Dropdown = function (_Component) {
     value: function renderOption(option) {
       var _classNames;
 
-      var optionClass = (0, _classnames2.default)((_classNames = {}, _defineProperty(_classNames, this.props.baseClassName + '-option', true), _defineProperty(_classNames, 'is-selected', option === this.state.selected), _classNames));
+      var optionClass = (0, _classnames2.default)((_classNames = {}, _defineProperty(_classNames, this.props.baseClassName + '-option', true), _defineProperty(_classNames, 'is-selected', option === this.state.selected), _classNames), option.className);
 
       var value = option.value || option.label || option;
       var label = option.label || option.value || option;
