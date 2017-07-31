@@ -78,10 +78,10 @@ class Dropdown extends Component {
     let optionClass = classNames({
       [`${this.props.baseClassName}-option`]: true,
       'is-selected': option === this.state.selected
-    })
+    }, option.className);
 
-    let value = option.value || option.label || option
-    let label = option.label || option.value || option
+    let value = option.value || option.label || option;
+    let label = option.label || option.value || option;
 
     return (
       <div
