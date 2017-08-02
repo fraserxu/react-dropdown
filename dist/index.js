@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
@@ -6,15 +6,15 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _react = require('react');
+var _react = require("react");
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDom = require('react-dom');
+var _reactDom = require("react-dom");
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _classnames = require('classnames');
+var _classnames = require("classnames");
 
 var _classnames2 = _interopRequireDefault(_classnames);
 
@@ -52,32 +52,34 @@ var Dropdown = function (_Component) {
   }
 
   _createClass(Dropdown, [{
-    key: 'componentWillReceiveProps',
+    key: "componentWillReceiveProps",
     value: function componentWillReceiveProps(newProps) {
       if (newProps.value && newProps.value !== this.state.selected) {
         this.setState({ selected: newProps.value });
       } else if (!newProps.value) {
-        this.setState({ selected: {
+        this.setState({
+          selected: {
             label: newProps.placeholder || DEFAULT_PLACEHOLDER_STRING,
             value: ''
-          } });
+          }
+        });
       }
     }
   }, {
-    key: 'componentDidMount',
+    key: "componentDidMount",
     value: function componentDidMount() {
       document.addEventListener('click', this.handleDocumentClick, false);
       document.addEventListener('touchend', this.handleDocumentClick, false);
     }
   }, {
-    key: 'componentWillUnmount',
+    key: "componentWillUnmount",
     value: function componentWillUnmount() {
       this.mounted = false;
       document.removeEventListener('click', this.handleDocumentClick, false);
       document.removeEventListener('touchend', this.handleDocumentClick, false);
     }
   }, {
-    key: 'handleMouseDown',
+    key: "handleMouseDown",
     value: function handleMouseDown(event) {
       if (this.props.onFocus && typeof this.props.onFocus === 'function') {
         this.props.onFocus(this.state.isOpen);
@@ -93,47 +95,44 @@ var Dropdown = function (_Component) {
       }
     }
   }, {
-    key: 'setValue',
-    value: function setValue(value, label) {
+    key: "setValue",
+    value: function setValue(option) {
       var newState = {
-        selected: {
-          value: value,
-          label: label
-        },
+        selected: option,
         isOpen: false
       };
       this.fireChangeEvent(newState);
       this.setState(newState);
     }
   }, {
-    key: 'fireChangeEvent',
+    key: "fireChangeEvent",
     value: function fireChangeEvent(newState) {
       if (newState.selected !== this.state.selected && this.props.onChange) {
         this.props.onChange(newState.selected);
       }
     }
   }, {
-    key: 'renderOption',
+    key: "renderOption",
     value: function renderOption(option) {
       var _classNames;
 
-      var optionClass = (0, _classnames2.default)((_classNames = {}, _defineProperty(_classNames, this.props.baseClassName + '-option', true), _defineProperty(_classNames, 'is-selected', option === this.state.selected), _classNames), option.className);
+      var optionClass = (0, _classnames2.default)((_classNames = {}, _defineProperty(_classNames, this.props.baseClassName + "-option", true), _defineProperty(_classNames, 'is-selected', option === this.state.selected), _classNames), option.className);
 
       var value = option.value || option.label || option;
       var label = option.label || option.value || option;
 
       return _react2.default.createElement(
-        'div',
+        "div",
         {
           key: value,
           className: optionClass,
-          onMouseDown: this.setValue.bind(this, value, label),
-          onClick: this.setValue.bind(this, value, label) },
+          onMouseDown: this.setValue.bind(this, option),
+          onClick: this.setValue.bind(this, option) },
         label
       );
     }
   }, {
-    key: 'buildMenu',
+    key: "buildMenu",
     value: function buildMenu() {
       var _this2 = this;
 
@@ -144,8 +143,8 @@ var Dropdown = function (_Component) {
       var ops = options.map(function (option) {
         if (option.type === 'group') {
           var groupTitle = _react2.default.createElement(
-            'div',
-            { className: baseClassName + '-title' },
+            "div",
+            { className: baseClassName + "-title" },
             option.name
           );
           var _options = option.items.map(function (item) {
@@ -153,8 +152,8 @@ var Dropdown = function (_Component) {
           });
 
           return _react2.default.createElement(
-            'div',
-            { className: baseClassName + '-group', key: option.name },
+            "div",
+            { className: baseClassName + "-group", key: option.name },
             groupTitle,
             _options
           );
@@ -164,13 +163,13 @@ var Dropdown = function (_Component) {
       });
 
       return ops.length ? ops : _react2.default.createElement(
-        'div',
-        { className: baseClassName + '-noresults' },
-        'No options found'
+        "div",
+        { className: baseClassName + "-noresults" },
+        "No options found"
       );
     }
   }, {
-    key: 'handleDocumentClick',
+    key: "handleDocumentClick",
     value: function handleDocumentClick(event) {
       if (this.mounted) {
         if (!_reactDom2.default.findDOMNode(this).contains(event.target)) {
@@ -179,7 +178,7 @@ var Dropdown = function (_Component) {
       }
     }
   }, {
-    key: 'render',
+    key: "render",
     value: function render() {
       var _classNames2;
 
@@ -188,26 +187,27 @@ var Dropdown = function (_Component) {
       var disabledClass = this.props.disabled ? 'Dropdown-disabled' : '';
       var placeHolderValue = typeof this.state.selected === 'string' ? this.state.selected : this.state.selected.label;
       var value = _react2.default.createElement(
-        'div',
-        { className: baseClassName + '-placeholder' },
+        "div",
+        { className: baseClassName + "-placeholder" },
         placeHolderValue
       );
       var menu = this.state.isOpen ? _react2.default.createElement(
-        'div',
-        { className: baseClassName + '-menu' },
+        "div",
+        { className: baseClassName + "-menu" },
         this.buildMenu()
       ) : null;
 
-      var dropdownClass = (0, _classnames2.default)((_classNames2 = {}, _defineProperty(_classNames2, baseClassName + '-root', true), _defineProperty(_classNames2, 'is-open', this.state.isOpen), _classNames2));
+      var dropdownClass = (0, _classnames2.default)((_classNames2 = {}, _defineProperty(_classNames2, baseClassName + "-root", true), _defineProperty(_classNames2, 'is-open', this.state.isOpen), _classNames2));
 
       return _react2.default.createElement(
-        'div',
+        "div",
         { className: dropdownClass },
         _react2.default.createElement(
-          'div',
-          { className: baseClassName + '-control ' + disabledClass, onMouseDown: this.handleMouseDown.bind(this), onTouchEnd: this.handleMouseDown.bind(this) },
+          "div",
+          { className: baseClassName + "-control " + disabledClass, onMouseDown: this.handleMouseDown.bind(this),
+            onTouchEnd: this.handleMouseDown.bind(this) },
           value,
-          _react2.default.createElement('span', { className: baseClassName + '-arrow' })
+          _react2.default.createElement("span", { className: baseClassName + "-arrow" })
         ),
         menu
       );
