@@ -185,7 +185,7 @@ var Dropdown = function (_Component) {
 
       var baseClassName = this.props.baseClassName;
 
-      var disabledClass = this.props.disabled ? 'Dropdown-disabled' : '';
+      var disabledClass = this.props.disabled ? baseClassName + '-disabled' : '';
       var placeHolderValue = typeof this.state.selected === 'string' ? this.state.selected : this.state.selected.label;
       var value = _react2.default.createElement(
         'div',
