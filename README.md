@@ -56,7 +56,7 @@ const options = [
 ]
 ```
 
-Mount
+**Mount**
 
 ```JavaScript
 import Dropdown from 'react-dropdown'
@@ -64,12 +64,20 @@ const defaultOption = options[0]
 <Dropdown options={options} onChange={this._onSelect} value={defaultOption} placeholder="Select an option" />
 ```
 
-Disabling the Dropdown:
+**Disabling the Dropdown**
 
 Just pass a disabled boolean value to the Dropdown to disable it. This will also give you a `.Dropdown-disabled` class on the element, so you can style it yourself.
 
 ```JavaScript
 <Dropdown disabled onChange={this._onSelect} value={defaultOption} placeholder="Select an option" />
+```
+
+**Custom className**
+
+The `className` prop is passed down to the wrapper `div`, which also has the `Dropdown-root` class.
+
+```JavaScript
+<Dropdown className='myClassName' />
 ```
 
 Check more examples in the example folder.
