@@ -19,3 +19,6 @@ build/Release
 node_modules
 
 example/bundle.js
+
+# This project doesn't use Yarn
+yarn.lock
