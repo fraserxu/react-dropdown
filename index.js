@@ -118,7 +118,9 @@ class Dropdown extends Component {
   handleDocumentClick (event) {
     if (this.mounted) {
       if (!ReactDOM.findDOMNode(this).contains(event.target)) {
-        this.setState({ isOpen: false })
+        if (this.state.isOpen) {
+          this.setState({ isOpen: false })
+        }
       }
     }
   }
