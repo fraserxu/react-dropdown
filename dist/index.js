@@ -174,7 +174,9 @@ var Dropdown = function (_Component) {
     value: function handleDocumentClick(event) {
       if (this.mounted) {
         if (!_reactDom2.default.findDOMNode(this).contains(event.target)) {
-          this.setState({ isOpen: false });
+          if (this.state.isOpen) {
+            this.setState({ isOpen: false });
+          }
         }
       }
     }
@@ -189,10 +191,11 @@ var Dropdown = function (_Component) {
 
 
       var disabledClass = this.props.disabled ? 'Dropdown-disabled' : '';
+      var valueClass = baseClassName + '-' + (typeof this.state.selected.value !== 'undefined' && !this.state.selected.value.length ? 'placeholder' : 'selected');
       var placeHolderValue = typeof this.state.selected === 'string' ? this.state.selected : this.state.selected.label;
       var value = _react2.default.createElement(
         'div',
-        { className: baseClassName + '-placeholder' },
+        { className: valueClass },
         placeHolderValue
       );
       var menu = this.state.isOpen ? _react2.default.createElement(

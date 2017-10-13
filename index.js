@@ -129,8 +129,9 @@ class Dropdown extends Component {
     const { baseClassName, className } = this.props
 
     const disabledClass = this.props.disabled ? 'Dropdown-disabled' : ''
+    const valueClass = `${baseClassName}-${typeof this.state.selected.value !== 'undefined' && !this.state.selected.value.length ? 'placeholder' : 'selected'}`;
     const placeHolderValue = typeof this.state.selected === 'string' ? this.state.selected : this.state.selected.label
-    let value = (<div className={`${baseClassName}-placeholder`}>{placeHolderValue}</div>)
+    let value = (<div className={valueClass}>{placeHolderValue}</div>)
     let menu = this.state.isOpen ? <div className={`${baseClassName}-menu`}>{this.buildMenu()}</div> : null
 
     let dropdownClass = classNames({
