@@ -174,7 +174,9 @@ var Dropdown = function (_Component) {
     value: function handleDocumentClick(event) {
       if (this.mounted) {
         if (!_reactDom2.default.findDOMNode(this).contains(event.target)) {
-          this.setState({ isOpen: false });
+          if (this.state.isOpen) {
+            this.setState({ isOpen: false });
+          }
         }
       }
     }

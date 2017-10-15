@@ -5,7 +5,7 @@ import classNames from 'classnames'
 const DEFAULT_PLACEHOLDER_STRING = 'Select...'
 
 class Dropdown extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
     this.state = {
       selected: props.value || {
@@ -19,29 +19,31 @@ class Dropdown extends Component {
     this.fireChangeEvent = this.fireChangeEvent.bind(this)
   }
 
-  componentWillReceiveProps (newProps) {
+  componentWillReceiveProps(newProps) {
     if (newProps.value && newProps.value !== this.state.selected) {
-      this.setState({selected: newProps.value})
+      this.setState({ selected: newProps.value })
     } else if (!newProps.value) {
-      this.setState({selected: {
-        label: newProps.placeholder || DEFAULT_PLACEHOLDER_STRING,
-        value: ''
-      }})
+      this.setState({
+        selected: {
+          label: newProps.placeholder || DEFAULT_PLACEHOLDER_STRING,
+          value: ''
+        }
+      })
     }
   }
 
-  componentDidMount () {
+  componentDidMount() {
     document.addEventListener('click', this.handleDocumentClick, false)
     document.addEventListener('touchend', this.handleDocumentClick, false)
   }
 
-  componentWillUnmount () {
+  componentWillUnmount() {
     this.mounted = false
     document.removeEventListener('click', this.handleDocumentClick, false)
     document.removeEventListener('touchend', this.handleDocumentClick, false)
   }
 
-  handleMouseDown (event) {
+  handleMouseDown(event) {
     if (this.props.onFocus && typeof this.props.onFocus === 'function') {
       this.props.onFocus(this.state.isOpen)
     }
@@ -56,7 +58,7 @@ class Dropdown extends Component {
     }
   }
 
-  setValue (value, label) {
+  setValue(value, label) {
     let newState = {
       selected: {
         value,
@@ -68,13 +70,13 @@ class Dropdown extends Component {
     this.setState(newState)
   }
 
-  fireChangeEvent (newState) {
+  fireChangeEvent(newState) {
     if (newState.selected !== this.state.selected && this.props.onChange) {
       this.props.onChange(newState.selected)
     }
   }
 
-  renderOption (option) {
+  renderOption(option) {
     let optionClass = classNames({
       [`${this.props.baseClassName}-option`]: true,
       'is-selected': option === this.state.selected
@@ -88,18 +90,21 @@ class Dropdown extends Component {
         key={value}
         className={optionClass}
         onMouseDown={this.setValue.bind(this, value, label)}
-        onClick={this.setValue.bind(this, value, label)}>
+        onClick={this.setValue.bind(this, value, label)}
+      >
         {label}
       </div>
     )
   }
 
-  buildMenu () {
+  buildMenu() {
     let { options, baseClassName } = this.props
-    let ops = options.map((option) => {
+    let ops = options.map(option => {
       if (option.type === 'group') {
-        let groupTitle = (<div className={`${baseClassName}-title`}>{option.name}</div>)
-        let _options = option.items.map((item) => this.renderOption(item))
+        let groupTitle = (
+          <div className={`${baseClassName}-title`}>{option.name}</div>
+        )
+        let _options = option.items.map(item => this.renderOption(item))
 
         return (
           <div className={`${baseClassName}-group`} key={option.name}>
@@ -112,10 +117,14 @@ class Dropdown extends Component {
       }
     })
 
-    return ops.length ? ops : <div className={`${baseClassName}-noresults`}>No options found</div>
+    return ops.length ? (
+      ops
+    ) : (
+      <div className={`${baseClassName}-noresults`}>No options found</div>
+    )
   }
 
-  handleDocumentClick (event) {
+  handleDocumentClick(event) {
     if (this.mounted) {
       if (!ReactDOM.findDOMNode(this).contains(event.target)) {
         if (this.state.isOpen) {
@@ -125,13 +134,20 @@ class Dropdown extends Component {
     }
   }
 
-  render () {
+  render() {
     const { baseClassName, className } = this.props
 
     const disabledClass = this.props.disabled ? 'Dropdown-disabled' : ''
-    const placeHolderValue = typeof this.state.selected === 'string' ? this.state.selected : this.state.selected.label
-    let value = (<div className={`${baseClassName}-placeholder`}>{placeHolderValue}</div>)
-    let menu = this.state.isOpen ? <div className={`${baseClassName}-menu`}>{this.buildMenu()}</div> : null
+    const placeHolderValue =
+      typeof this.state.selected === 'string'
+        ? this.state.selected
+        : this.state.selected.label
+    let value = (
+      <div className={`${baseClassName}-placeholder`}>{placeHolderValue}</div>
+    )
+    let menu = this.state.isOpen ? (
+      <div className={`${baseClassName}-menu`}>{this.buildMenu()}</div>
+    ) : null
 
     let dropdownClass = classNames({
       [className]: true,
@@ -141,7 +157,11 @@ class Dropdown extends Component {
 
     return (
       <div className={dropdownClass}>
-        <div className={`${baseClassName}-control ${disabledClass}`} onMouseDown={this.handleMouseDown.bind(this)} onTouchEnd={this.handleMouseDown.bind(this)}>
+        <div
+          className={`${baseClassName}-control ${disabledClass}`}
+          onMouseDown={this.handleMouseDown.bind(this)}
+          onTouchEnd={this.handleMouseDown.bind(this)}
+        >
           {value}
           <span className={`${baseClassName}-arrow`} />
         </div>

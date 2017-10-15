@@ -30,7 +30,9 @@
   },
   "homepage": "https://github.com/fraserxu/react-dropdown",
   "dependencies": {
-    "classnames": "^2.2.3"
+    "@types/react": "^16.0.10",
+    "classnames": "^2.2.3",
+    "typescript": "^2.5.3"
   },
   "peerDependencies": {
     "react": "^0.14.7 || ^15.0.0-0 || ^16.0.0",
@@ -56,10 +58,12 @@
     "babelify": "^7.2.0",
     "browserify": "^13.0.0",
     "browserify-hmr": "^0.3.1",
+    "concurrently": "^3.5.0",
     "ecstatic": "^1.4.0",
     "gh-pages": "^0.11.0",
-    "react": "^0.14.7 || ^15.0.0-0",
-    "react-dom": "^0.14.7 || ^15.0.0-0",
+    "next": "^4.0.4",
+    "react": "16",
+    "react-dom": "16",
     "standard": "^6.0.7",
     "watchify": "^3.7.0"
   },
@@ -70,6 +74,7 @@
     "start": "ecstatic -p 8080 example & npm run watch",
     "prepublish": "npm test && npm run build",
     "predeploy": "npm test && browserify example/main.js -o example/bundle.js",
-    "deploy": "gh-pages -d example"
+    "deploy": "gh-pages -d example",
+    "dev": "concurrently \"tsc --watch\" next"
   }
 }
