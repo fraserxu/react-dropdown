@@ -63,6 +63,7 @@
     "standard": "^6.0.7",
     "watchify": "^3.7.0"
   },
+  "typings": "./index.d.ts",
   "scripts": {
     "build": "babel index.js -o dist/index.js",
     "test": "standard index.js",
