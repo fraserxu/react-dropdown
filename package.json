@@ -10,6 +10,7 @@
   },
   "files": [
     "dist/index.js",
+    "index.d.ts",
     "style.css"
   ],
   "keywords": [
