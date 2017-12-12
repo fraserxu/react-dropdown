@@ -11,8 +11,8 @@ declare module "react-dropdown" {
   }
   interface ReactDropdownProps {
     options: (Group | Option)[];
-    baseClassName: string;
-    className: string;
+    baseClassName?: string;
+    className?: string;
     disabled?: boolean;
     onChange?: (arg: Option) => void;
     onFocus?: (arg: boolean) => void;
