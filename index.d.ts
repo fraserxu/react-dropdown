@@ -1,10 +1,10 @@
 declare module "react-dropdown" {
   import * as React from "react";
-  interface Option {
+  export interface Option {
     label: string;
     value: string;
   }
-  interface Group {
+  export interface Group {
     type: "group";
     name: string;
     items: Option[];
