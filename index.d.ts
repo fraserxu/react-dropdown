@@ -10,7 +10,7 @@ declare module "react-dropdown" {
     items: Option[];
   }
   interface ReactDropdownProps {
-    options: (Group | Option)[];
+    options: (Group | Option | string)[];
     baseClassName?: string;
     className?: string;
     disabled?: boolean;
