@@ -8,17 +8,8 @@
     "type": "git",
     "url": "git://github.com/fraserxu/react-dropdown.git"
   },
-  "files": [
-    "dist/index.js",
-    "style.css"
-  ],
-  "keywords": [
-    "react",
-    "react-component",
-    "component",
-    "dropdown",
-    "select"
-  ],
+  "files": ["dist", "style.css"],
+  "keywords": ["react", "react-component", "component", "dropdown", "select"],
   "author": {
     "name": "Fraser Xu",
     "email": "xvfeng123@gmail.com",
@@ -51,6 +42,7 @@
     "start": "tsc --watch & next",
     "prebuild": "rimraf dist",
     "build": "tsc",
-    "format": "prettier es5 --single-quote --no-semi --write 'src/**/*' 'test/**/*'"
+    "format":
+      "prettier es5 --single-quote --no-semi --write 'src/**/*' 'test/**/*'"
   }
 }
