@@ -34,44 +34,25 @@
     "classnames": "^2.2.3"
   },
   "peerDependencies": {
-    "react": "^0.14.7 || ^15.0.0-0 || ^16.0.0",
-    "react-dom": "^0.14.7 || ^15.0.0-0 || ^16.0.0"
-  },
-  "browserify": {
-    "transform": [
-      "babelify"
-    ]
-  },
-  "babel": {
-    "presets": [
-      "react",
-      "es2015",
-      "stage-0"
-    ]
+    "react": ">=0.14",
+    "react-dom": ">=0.14"
   },
   "devDependencies": {
-    "babel-cli": "^6.18.0",
-    "babel-preset-es2015": "^6.18.0",
-    "babel-preset-react": "^6.16.0",
-    "babel-preset-stage-0": "^6.16.0",
-    "babelify": "^7.2.0",
-    "browserify": "^13.0.0",
-    "browserify-hmr": "^0.3.1",
-    "ecstatic": "^1.4.0",
+    "@types/classnames": "^2.2.3",
+    "@types/react": "^16.0.29",
+    "@types/react-dom": "^16.0.3",
     "gh-pages": "^0.11.0",
-    "react": "^0.14.7 || ^15.0.0-0",
-    "react-dom": "^0.14.7 || ^15.0.0-0",
-    "standard": "^6.0.7",
-    "watchify": "^3.7.0"
+    "next": "^4.2.1",
+    "react": "16",
+    "react-dom": "16",
+    "rimraf": "^2.6.2",
+    "typescript": "^2.6.2"
   },
   "typings": "./index.d.ts",
   "scripts": {
-    "build": "babel index.js -o dist/index.js",
-    "test": "standard index.js",
-    "watch": "watchify example/main.js -p browserify-hmr -o example/bundle.js -dv",
-    "start": "ecstatic -p 8080 example & npm run watch",
-    "prepublish": "npm test && npm run build",
-    "predeploy": "npm test && browserify example/main.js -o example/bundle.js",
-    "deploy": "gh-pages -d example"
+    "start": "tsc --watch & next",
+    "prebuild": "rimraf dist",
+    "build": "tsc",
+    "format": "prettier es5 --single-quote --no-semi --write 'src/**/*' 'test/**/*'"
   }
 }
