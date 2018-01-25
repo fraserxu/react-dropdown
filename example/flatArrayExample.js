@@ -9,7 +9,7 @@ class FlatArrayExample extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      selected: options[0]
+      selected: ''
     }
     this._onSelect = this._onSelect.bind(this)
   }
