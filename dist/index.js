@@ -115,9 +115,17 @@ var Dropdown = function (_Component) {
   }, {
     key: 'renderOption',
     value: function renderOption(option) {
-      var _classNames;
+      var _classes;
 
-      var optionClass = (0, _classnames2.default)((_classNames = {}, _defineProperty(_classNames, this.props.baseClassName + '-option', true), _defineProperty(_classNames, 'is-selected', option === this.state.selected), _classNames));
+      var classes = (_classes = {}, _defineProperty(_classes, this.props.baseClassName + '-option', true), _defineProperty(_classes, 'is-selected', option === this.state.selected), _classes);
+
+      if (option.classNames) {
+        option.classNames.forEach(function (c) {
+          classes[c] = true;
+        });
+      }
+
+      var optionClass = (0, _classnames2.default)(classes);
 
       var value = option.value || option.label || option;
       var label = option.label || option.value || option;
@@ -174,14 +182,16 @@ var Dropdown = function (_Component) {
     value: function handleDocumentClick(event) {
       if (this.mounted) {
         if (!_reactDom2.default.findDOMNode(this).contains(event.target)) {
-          this.setState({ isOpen: false });
+          if (this.state.isOpen) {
+            this.setState({ isOpen: false });
+          }
         }
       }
     }
   }, {
     key: 'render',
     value: function render() {
-      var _classNames2;
+      var _classNames;
 
       var _props2 = this.props,
           baseClassName = _props2.baseClassName,
@@ -201,7 +211,7 @@ var Dropdown = function (_Component) {
         this.buildMenu()
       ) : null;
 
-      var dropdownClass = (0, _classnames2.default)((_classNames2 = {}, _defineProperty(_classNames2, className, true), _defineProperty(_classNames2, baseClassName + '-root', true), _defineProperty(_classNames2, 'is-open', this.state.isOpen), _classNames2));
+      var dropdownClass = (0, _classnames2.default)((_classNames = {}, _defineProperty(_classNames, className, true), _defineProperty(_classNames, baseClassName + '-root', true), _defineProperty(_classNames, 'is-open', this.state.isOpen), _classNames));
 
       return _react2.default.createElement(
         'div',

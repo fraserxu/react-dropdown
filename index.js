@@ -75,10 +75,16 @@ class Dropdown extends Component {
   }
 
   renderOption (option) {
-    let optionClass = classNames({
+    const classes = {
       [`${this.props.baseClassName}-option`]: true,
       'is-selected': option === this.state.selected
-    })
+    }
+
+    if (option.classNames) {
+      option.classNames.forEach((c) => { classes[c] = true })
+    }
+
+    const optionClass = classNames(classes)
 
     let value = option.value || option.label || option
     let label = option.label || option.value || option
