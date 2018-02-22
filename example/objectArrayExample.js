@@ -22,15 +22,15 @@ class ObjectArrayExample extends Component {
       { value: 'one', label: 'One' },
       { value: 'two', label: 'Two', className: toggleOptionsClassName && 'my-custom-class' },
       {
-       type: 'group', name: 'Prenotazione immediata', items: [
-         { value: 'three', label: '11:00', className: toggleOptionsClassName && 'my-custom-class' },
-         { value: 'four', label: '15:00' }
+       type: 'group', name: 'group1', items: [
+         { value: 'three', label: 'Three', className: toggleOptionsClassName && 'my-custom-class' },
+         { value: 'four', label: 'Four' }
        ]
       },
       {
-       type: 'group', name: 'Prenotazione su conferma', items: [
-         { value: 'five', label: '10:00' },
-         { value: 'six', label: '16:00' }
+       type: 'group', name: 'group2', items: [
+         { value: 'five', label: 'Five' },
+         { value: 'six', label: 'Six' }
        ]
       }
     ]
