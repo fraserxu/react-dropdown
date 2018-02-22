@@ -191,27 +191,32 @@ var Dropdown = function (_Component) {
   }, {
     key: 'render',
     value: function render() {
-      var _classNames;
+      var _classNames, _classNames2, _classNames3;
 
       var _props2 = this.props,
           baseClassName = _props2.baseClassName,
+          placeholderClassName = _props2.placeholderClassName,
+          menuClassName = _props2.menuClassName,
           className = _props2.className;
 
 
       var disabledClass = this.props.disabled ? 'Dropdown-disabled' : '';
       var placeHolderValue = typeof this.state.selected === 'string' ? this.state.selected : this.state.selected.label;
+
+      var dropdownClass = (0, _classnames2.default)((_classNames = {}, _defineProperty(_classNames, className, true), _defineProperty(_classNames, baseClassName + '-root', true), _defineProperty(_classNames, 'is-open', this.state.isOpen), _classNames));
+      var placeholderClass = (0, _classnames2.default)((_classNames2 = {}, _defineProperty(_classNames2, baseClassName + '-placeholder', true), _defineProperty(_classNames2, '' + placeholderClassName, !!placeholderClassName), _classNames2));
+      var menuClass = (0, _classnames2.default)((_classNames3 = {}, _defineProperty(_classNames3, baseClassName + '-menu', true), _defineProperty(_classNames3, '' + menuClassName, !!menuClassName), _classNames3));
+
       var value = _react2.default.createElement(
         'div',
-        { className: baseClassName + '-placeholder' },
+        { className: placeholderClass },
         placeHolderValue
       );
       var menu = this.state.isOpen ? _react2.default.createElement(
         'div',
-        { className: baseClassName + '-menu' },
+        { className: menuClass },
         this.buildMenu()
       ) : null;
-
-      var dropdownClass = (0, _classnames2.default)((_classNames = {}, _defineProperty(_classNames, className, true), _defineProperty(_classNames, baseClassName + '-root', true), _defineProperty(_classNames, 'is-open', this.state.isOpen), _classNames));
 
       return _react2.default.createElement(
         'div',
