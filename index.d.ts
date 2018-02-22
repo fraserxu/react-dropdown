@@ -13,6 +13,8 @@ declare module "react-dropdown" {
     options: (Group | Option | string)[];
     baseClassName?: string;
     className?: string;
+    placeholderClassName?: string;
+    menuClassName?: string;
     disabled?: boolean;
     onChange?: (arg: Option) => void;
     onFocus?: (arg: boolean) => void;
