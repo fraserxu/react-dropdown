@@ -141,11 +141,11 @@ class Dropdown extends Component {
     })
     const placeholderClass = classNames({
       [`${baseClassName}-placeholder`]: true,
-      [`${placeholderClassName}`]: !!placeholderClassName
+      [placeholderClassName]: !!placeholderClassName
     })
     const menuClass = classNames({
       [`${baseClassName}-menu`]: true,
-      [`${menuClassName}`]: !!menuClassName
+      [menuClassName]: !!menuClassName
     })
 
     const value = (<div className={placeholderClass}>{placeHolderValue}</div>)
