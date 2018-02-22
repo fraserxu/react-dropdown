@@ -76,11 +76,11 @@ class ObjectArrayExample extends Component {
               {`
 const options = [
 { value: 'one', label: 'One' },
-{ value: 'two', label: 'Two'${toggleOptionsClassName ? ", classNames: ['my-custom-class']" : ""} },
+{ value: 'two', label: 'Two'${toggleOptionsClassName ? ', classNames: \'my-custom-class\'' : ''} },
 {
  type: 'group', name: 'group1', items: [
    { value: 'three', label: 'Three' },
-   { value: 'four', label: 'Four'${toggleOptionsClassName ? ", classNames: ['my-custom-class']" : ""} }
+   { value: 'four', label: 'Four'${toggleOptionsClassName ? ', classNames: \'my-custom-class\'' : ''} }
  ]
 },
 {
