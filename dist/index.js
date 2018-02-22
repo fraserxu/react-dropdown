@@ -117,13 +117,7 @@ var Dropdown = function (_Component) {
     value: function renderOption(option) {
       var _classes;
 
-      var classes = (_classes = {}, _defineProperty(_classes, this.props.baseClassName + '-option', true), _defineProperty(_classes, 'is-selected', option === this.state.selected), _classes);
-
-      if (option.classNames) {
-        option.classNames.forEach(function (c) {
-          classes[c] = true;
-        });
-      }
+      var classes = (_classes = {}, _defineProperty(_classes, this.props.baseClassName + '-option', true), _defineProperty(_classes, option.className, !!option.className), _defineProperty(_classes, 'is-selected', option === this.state.selected), _classes);
 
       var optionClass = (0, _classnames2.default)(classes);
 
@@ -203,7 +197,7 @@ var Dropdown = function (_Component) {
       var disabledClass = this.props.disabled ? 'Dropdown-disabled' : '';
       var placeHolderValue = typeof this.state.selected === 'string' ? this.state.selected : this.state.selected.label;
 
-      var dropdownClass = (0, _classnames2.default)((_classNames = {}, _defineProperty(_classNames, className, true), _defineProperty(_classNames, baseClassName + '-root', true), _defineProperty(_classNames, 'is-open', this.state.isOpen), _classNames));
+      var dropdownClass = (0, _classnames2.default)((_classNames = {}, _defineProperty(_classNames, baseClassName + '-root', true), _defineProperty(_classNames, className, !!className), _defineProperty(_classNames, 'is-open', this.state.isOpen), _classNames));
       var placeholderClass = (0, _classnames2.default)((_classNames2 = {}, _defineProperty(_classNames2, baseClassName + '-placeholder', true), _defineProperty(_classNames2, '' + placeholderClassName, !!placeholderClassName), _classNames2));
       var menuClass = (0, _classnames2.default)((_classNames3 = {}, _defineProperty(_classNames3, baseClassName + '-menu', true), _defineProperty(_classNames3, '' + menuClassName, !!menuClassName), _classNames3));
 
