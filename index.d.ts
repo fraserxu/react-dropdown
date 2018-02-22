@@ -3,6 +3,7 @@ declare module "react-dropdown" {
   export interface Option {
     label: string;
     value: string;
+    className?: string;
   }
   export interface Group {
     type: "group";

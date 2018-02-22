@@ -77,11 +77,8 @@ class Dropdown extends Component {
   renderOption (option) {
     const classes = {
       [`${this.props.baseClassName}-option`]: true,
+      [option.className]: !!option.className,
       'is-selected': option === this.state.selected
-    }
-
-    if (option.classNames) {
-      option.classNames.forEach((c) => { classes[c] = true })
     }
 
     const optionClass = classNames(classes)
@@ -138,8 +135,8 @@ class Dropdown extends Component {
     const placeHolderValue = typeof this.state.selected === 'string' ? this.state.selected : this.state.selected.label
 
     const dropdownClass = classNames({
-      [className]: true,
       [`${baseClassName}-root`]: true,
+      [className]: !!className,
       'is-open': this.state.isOpen
     })
     const placeholderClass = classNames({
