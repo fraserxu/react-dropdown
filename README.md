@@ -40,10 +40,10 @@ Object Array options
 
 const options = [
   { value: 'one', label: 'One' },
-  { value: 'two', label: 'Two' },
+  { value: 'two', label: 'Two', className: 'myOptionClassName' },
   {
    type: 'group', name: 'group1', items: [
-     { value: 'three', label: 'Three' },
+     { value: 'three', label: 'Three', className: 'myOptionClassName' },
      { value: 'four', label: 'Four' }
    ]
   },
@@ -55,6 +55,8 @@ const options = [
   }
 ]
 ```
+
+When using Object options you can add to each option a className string to further customize the dropdown, e.g. adding icons to options
 
 **Mount**
 
@@ -79,6 +81,18 @@ The `className` prop is passed down to the wrapper `div`, which also has the `Dr
 
 ```JavaScript
 <Dropdown className='myClassName' />
+```
+
+The `placeholderClassName` prop is passed down to the placeholder `div`, which also has the `Dropdown-placeholder` class.
+
+```JavaScript
+<Dropdown placeholderClassName='myPlaceholderClassName' />
+```
+
+The `menuClassName` prop is passed down to the menu `div` (the one that opens and closes and holds the options), which also has the `Dropdown-menu` class.
+
+```JavaScript
+<Dropdown menuClassName='myMenuClassName' />
 ```
 
 Check more examples in the example folder.
