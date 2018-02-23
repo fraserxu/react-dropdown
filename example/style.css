@@ -116,3 +116,10 @@ pre code {
   display: block;
   padding: 8px 10px;
 }
+
+.my-custom-class {
+  border: 2px solid red;
+  font-weight: bold;
+  color: purple;
+}
+
