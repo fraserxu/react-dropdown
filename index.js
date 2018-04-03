@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
+import PropTypes from 'prop-types'
 import classNames from 'classnames'
 
 const DEFAULT_PLACEHOLDER_STRING = 'Select...'
@@ -33,6 +34,20 @@ class Dropdown extends Component {
   componentDidMount () {
     document.addEventListener('click', this.handleDocumentClick, false)
     document.addEventListener('touchend', this.handleDocumentClick, false)
+  }
+
+  componentDidUpdate () {
+    const menu = ReactDOM.findDOMNode(this).children[1]
+
+    if (menu) {
+      const { clientHeight, scrollHeight } = menu
+
+      if (this.props.startingPosition === 'middle') {
+        menu.scrollTo(0, (scrollHeight - clientHeight) / 2)
+      } else if (this.props.startingPosition === 'bottom') {
+        menu.scrollTo(0, scrollHeight - clientHeight)
+      }
+    }
   }
 
   componentWillUnmount () {
@@ -167,5 +182,6 @@ class Dropdown extends Component {
   }
 }
 
+Dropdown.propTypes = { startingPosition: PropTypes.oneOf(['top', 'middle', 'bottom']) }
 Dropdown.defaultProps = { baseClassName: 'Dropdown' }
 export default Dropdown

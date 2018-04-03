@@ -64,6 +64,7 @@ class ObjectArrayExample extends Component {
           className={ toggleClassName ? 'my-custom-class' : '' }
           placeholderClassName={ togglePlaholderClassName ? 'my-custom-class' : '' }
           menuClassName={ toggleMenuClassName ? 'my-custom-class' : '' }
+          startingPosition="middle"
         />
         <div className='result'>
           You selected

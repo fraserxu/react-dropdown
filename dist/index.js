@@ -14,6 +14,10 @@ var _reactDom = require('react-dom');
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
 var _classnames = require('classnames');
 
 var _classnames2 = _interopRequireDefault(_classnames);
@@ -68,6 +72,23 @@ var Dropdown = function (_Component) {
     value: function componentDidMount() {
       document.addEventListener('click', this.handleDocumentClick, false);
       document.addEventListener('touchend', this.handleDocumentClick, false);
+    }
+  }, {
+    key: 'componentDidUpdate',
+    value: function componentDidUpdate() {
+      var menu = _reactDom2.default.findDOMNode(this).children[1];
+
+      if (menu) {
+        var clientHeight = menu.clientHeight,
+            scrollHeight = menu.scrollHeight;
+
+
+        if (this.props.startingPosition === 'middle') {
+          menu.scrollTo(0, (scrollHeight - clientHeight) / 2);
+        } else if (this.props.startingPosition === 'bottom') {
+          menu.scrollTo(0, scrollHeight - clientHeight);
+        }
+      }
     }
   }, {
     key: 'componentWillUnmount',
@@ -185,12 +206,13 @@ var Dropdown = function (_Component) {
   }, {
     key: 'render',
     value: function render() {
-      var _classNames, _classNames2, _classNames3;
+      var _classNames, _classNames2, _classNames3, _classNames4;
 
       var _props2 = this.props,
           baseClassName = _props2.baseClassName,
           placeholderClassName = _props2.placeholderClassName,
           menuClassName = _props2.menuClassName,
+          arrowClassName = _props2.arrowClassName,
           className = _props2.className;
 
 
@@ -198,8 +220,9 @@ var Dropdown = function (_Component) {
       var placeHolderValue = typeof this.state.selected === 'string' ? this.state.selected : this.state.selected.label;
 
       var dropdownClass = (0, _classnames2.default)((_classNames = {}, _defineProperty(_classNames, baseClassName + '-root', true), _defineProperty(_classNames, className, !!className), _defineProperty(_classNames, 'is-open', this.state.isOpen), _classNames));
-      var placeholderClass = (0, _classnames2.default)((_classNames2 = {}, _defineProperty(_classNames2, baseClassName + '-placeholder', true), _defineProperty(_classNames2, '' + placeholderClassName, !!placeholderClassName), _classNames2));
-      var menuClass = (0, _classnames2.default)((_classNames3 = {}, _defineProperty(_classNames3, baseClassName + '-menu', true), _defineProperty(_classNames3, '' + menuClassName, !!menuClassName), _classNames3));
+      var placeholderClass = (0, _classnames2.default)((_classNames2 = {}, _defineProperty(_classNames2, baseClassName + '-placeholder', true), _defineProperty(_classNames2, placeholderClassName, !!placeholderClassName), _classNames2));
+      var menuClass = (0, _classnames2.default)((_classNames3 = {}, _defineProperty(_classNames3, baseClassName + '-menu', true), _defineProperty(_classNames3, menuClassName, !!menuClassName), _classNames3));
+      var arrowClass = (0, _classnames2.default)((_classNames4 = {}, _defineProperty(_classNames4, baseClassName + '-arrow', true), _defineProperty(_classNames4, arrowClassName, !!arrowClassName), _classNames4));
 
       var value = _react2.default.createElement(
         'div',
@@ -219,7 +242,7 @@ var Dropdown = function (_Component) {
           'div',
           { className: baseClassName + '-control ' + disabledClass, onMouseDown: this.handleMouseDown.bind(this), onTouchEnd: this.handleMouseDown.bind(this) },
           value,
-          _react2.default.createElement('span', { className: baseClassName + '-arrow' })
+          _react2.default.createElement('span', { className: arrowClass })
         ),
         menu
       );
@@ -229,5 +252,6 @@ var Dropdown = function (_Component) {
   return Dropdown;
 }(_react.Component);
 
+Dropdown.propTypes = { startingPosition: _propTypes2.default.oneOf(['top', 'middle', 'bottom']) };
 Dropdown.defaultProps = { baseClassName: 'Dropdown' };
 exports.default = Dropdown;
