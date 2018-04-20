@@ -121,7 +121,10 @@ var Dropdown = function (_Component) {
 
       var optionClass = (0, _classnames2.default)(classes);
 
-      var value = option.value || option.label || option;
+      var value = option.value;
+      if (typeof value === 'undefined') {
+        value = option.label || option;
+      }
       var label = option.label || option.value || option;
 
       return _react2.default.createElement(
