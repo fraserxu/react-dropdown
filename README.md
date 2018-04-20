@@ -95,6 +95,12 @@ The `menuClassName` prop is passed down to the menu `div` (the one that opens an
 <Dropdown menuClassName='myMenuClassName' />
 ```
 
+The `arrowClassName` prop is passed down to the arrow `span` , which also has the `Dropdown-arrow` class.
+
+```JavaScript
+<Dropdown arrowClassName='myArrowClassName' />
+```
+
 Check more examples in the example folder.
 
 **Run example**
