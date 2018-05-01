@@ -30,6 +30,10 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 var DEFAULT_PLACEHOLDER_STRING = 'Select...';
 
+var isOptionObject = function isOptionObject(obj) {
+  return obj && obj.value !== undefined && obj.label !== undefined;
+};
+
 var Dropdown = function (_Component) {
   _inherits(Dropdown, _Component);
 
@@ -39,7 +43,7 @@ var Dropdown = function (_Component) {
     var _this = _possibleConstructorReturn(this, (Dropdown.__proto__ || Object.getPrototypeOf(Dropdown)).call(this, props));
 
     _this.state = {
-      selected: props.value || {
+      selected: _this.getOptionObjectFromValue(props.value) || {
         label: props.placeholder || DEFAULT_PLACEHOLDER_STRING,
         value: ''
       },
@@ -52,10 +56,24 @@ var Dropdown = function (_Component) {
   }
 
   _createClass(Dropdown, [{
+    key: 'getOptionObjectFromValue',
+    value: function getOptionObjectFromValue(optionOrValue) {
+      var optionsAreObjects = this.props.options.length && isOptionObject(this.props.options[0]);
+      if (!optionOrValue || isOptionObject(optionOrValue) || !optionsAreObjects) {
+        return optionOrValue;
+      } else {
+        var matches = this.props.options.filter(function (_ref) {
+          var value = _ref.value;
+          return value === optionOrValue;
+        });
+        return matches.length ? matches[0] : null;
+      }
+    }
+  }, {
     key: 'componentWillReceiveProps',
     value: function componentWillReceiveProps(newProps) {
       if (newProps.value && newProps.value !== this.state.selected) {
-        this.setState({ selected: newProps.value });
+        this.setState({ selected: this.getOptionObjectFromValue(newProps.value) });
       } else if (!newProps.value) {
         this.setState({ selected: {
             label: newProps.placeholder || DEFAULT_PLACEHOLDER_STRING,
