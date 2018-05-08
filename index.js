@@ -9,7 +9,7 @@ class Dropdown extends Component {
     super(props)
     this.state = {
       selected: props.value || {
-        label: props.placeholder || DEFAULT_PLACEHOLDER_STRING,
+        label: typeof props.placeholder === 'undefined' ? DEFAULT_PLACEHOLDER_STRING : props.placeholder,
         value: ''
       },
       isOpen: false
