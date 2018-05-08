@@ -16,7 +16,10 @@ Demo is available [here](http://fraserxu.me/react-dropdown/)
 ### Installation
 
 ```
+//with npm
 $ npm install react-dropdown  --save
+//with yarn
+$ yarn add react-dropdown
 ```
 
 ### Changelog
