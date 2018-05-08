@@ -14,6 +14,7 @@ declare module "react-dropdown" {
     options: (Group | Option | string)[];
     baseClassName?: string;
     className?: string;
+    controlClassName?: string;
     placeholderClassName?: string;
     menuClassName?: string;
     arrowClassName?: string;
