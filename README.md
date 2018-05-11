@@ -16,7 +16,10 @@ Demo is available [here](http://fraserxu.me/react-dropdown/)
 ### Installation
 
 ```
+//with npm
 $ npm install react-dropdown  --save
+//with yarn
+$ yarn add react-dropdown
 ```
 
 ### Changelog
@@ -81,6 +84,12 @@ The `className` prop is passed down to the wrapper `div`, which also has the `Dr
 
 ```JavaScript
 <Dropdown className='myClassName' />
+```
+
+The `controlClassName` prop is passed down to the control `div`, which also has the `Dropdown-control` class.
+
+```JavaScript
+<Dropdown controlClassName='myControlClassName' />
 ```
 
 The `placeholderClassName` prop is passed down to the placeholder `div`, which also has the `Dropdown-placeholder` class.
