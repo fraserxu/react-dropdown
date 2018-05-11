@@ -58,7 +58,7 @@ var Dropdown = function (_Component) {
         this.setState({ selected: newProps.value });
       } else if (!newProps.value) {
         this.setState({ selected: {
-            label: newProps.placeholder || DEFAULT_PLACEHOLDER_STRING,
+            label: typeof newProps.placeholder === 'undefined' ? DEFAULT_PLACEHOLDER_STRING : newProps.placeholder,
             value: ''
           } });
       }
