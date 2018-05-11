@@ -24,7 +24,7 @@ class Dropdown extends Component {
       this.setState({selected: newProps.value})
     } else if (!newProps.value) {
       this.setState({selected: {
-        label: typeof props.placeholder === 'undefined' ? DEFAULT_PLACEHOLDER_STRING : props.placeholder,
+        label: typeof newProps.placeholder === 'undefined' ? DEFAULT_PLACEHOLDER_STRING : newProps.placeholder,
         value: ''
       }})
     }
