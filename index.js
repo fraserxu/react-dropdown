@@ -131,6 +131,10 @@ class Dropdown extends Component {
     }
   }
 
+  isValueSelected () {
+    return typeof this.state.selected === 'string' || this.state.selected.value !== '';
+  }
+
   render () {
     const { baseClassName, controlClassName, placeholderClassName, menuClassName, arrowClassName, className } = this.props
 
@@ -149,7 +153,8 @@ class Dropdown extends Component {
     })
     const placeholderClass = classNames({
       [`${baseClassName}-placeholder`]: true,
-      [placeholderClassName]: !!placeholderClassName
+      [placeholderClassName]: !!placeholderClassName,
+      'is-selected': this.isValueSelected()
     })
     const menuClass = classNames({
       [`${baseClassName}-menu`]: true,
