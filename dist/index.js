@@ -201,6 +201,8 @@ var Dropdown = function (_Component) {
           placeholderClassName = _props2.placeholderClassName,
           menuClassName = _props2.menuClassName,
           arrowClassName = _props2.arrowClassName,
+          arrowClosed = _props2.arrowClosed,
+          arrowOpen = _props2.arrowOpen,
           className = _props2.className;
 
 
@@ -231,7 +233,11 @@ var Dropdown = function (_Component) {
           'div',
           { className: controlClass, onMouseDown: this.handleMouseDown.bind(this), onTouchEnd: this.handleMouseDown.bind(this) },
           value,
-          _react2.default.createElement('span', { className: arrowClass })
+          _react2.default.createElement(
+            'div',
+            { className: baseClassName + '-arrow-wrapper' },
+            arrowOpen && arrowClosed ? this.state.isOpen ? arrowOpen : arrowClosed : _react2.default.createElement('span', { className: arrowClass })
+          )
         ),
         menu
       );
