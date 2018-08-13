@@ -117,15 +117,15 @@ var Dropdown = function (_Component) {
     value: function renderOption(option) {
       var _classes;
 
-      var classes = (_classes = {}, _defineProperty(_classes, this.props.baseClassName + '-option', true), _defineProperty(_classes, option.className, !!option.className), _defineProperty(_classes, 'is-selected', option === this.state.selected), _classes);
-
-      var optionClass = (0, _classnames2.default)(classes);
-
       var value = option.value;
       if (typeof value === 'undefined') {
         value = option.label || option;
       }
       var label = option.label || option.value || option;
+
+      var classes = (_classes = {}, _defineProperty(_classes, this.props.baseClassName + '-option', true), _defineProperty(_classes, option.className, !!option.className), _defineProperty(_classes, 'is-selected', value === this.state.selected.value || value === this.state.selected), _classes);
+
+      var optionClass = (0, _classnames2.default)(classes);
 
       return _react2.default.createElement(
         'div',
