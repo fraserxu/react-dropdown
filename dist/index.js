@@ -39,7 +39,7 @@ var Dropdown = function (_Component) {
     var _this = _possibleConstructorReturn(this, (Dropdown.__proto__ || Object.getPrototypeOf(Dropdown)).call(this, props));
 
     _this.state = {
-      selected: props.value || {
+      selected: _this.parseValue(props.value, props.options) || {
         label: typeof props.placeholder === 'undefined' ? DEFAULT_PLACEHOLDER_STRING : props.placeholder,
         value: ''
       },
@@ -91,6 +91,28 @@ var Dropdown = function (_Component) {
           isOpen: !this.state.isOpen
         });
       }
+    }
+  }, {
+    key: 'parseValue',
+    value: function parseValue(value, options) {
+      var option = undefined;
+
+      if (typeof value === 'string') {
+        for (var i = 0, num = options.length; i < num; i++) {
+          if (options[i].type === 'group') {
+            var match = options[i].items.filter(function (item) {
+              return item.value === value;
+            });
+            if (match.length) {
+              option = match[0];
+            }
+          } else if (typeof options[i].value !== 'undefined' && options[i].value === value) {
+            option = options[i];
+          }
+        }
+      }
+
+      return option || value;
     }
   }, {
     key: 'setValue',

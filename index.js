@@ -8,7 +8,7 @@ class Dropdown extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      selected: props.value || {
+      selected: this.parseValue(props.value, props.options) || {
         label: typeof props.placeholder === 'undefined' ? DEFAULT_PLACEHOLDER_STRING : props.placeholder,
         value: ''
       },
@@ -54,6 +54,25 @@ class Dropdown extends Component {
         isOpen: !this.state.isOpen
       })
     }
+  }
+
+  parseValue (value, options) {
+    let option = undefined;
+
+    if (typeof value === 'string') {
+      for (var i = 0, num = options.length; i < num; i++) {
+        if (options[i].type === 'group') {
+          const match = options[i].items.filter(item => item.value === value)
+          if (match.length) {
+            option = match[0];
+          }
+        } else if (typeof options[i].value !== 'undefined' && options[i].value === value) {
+          option = options[i];
+        }
+      }
+    }
+
+    return option || value;
   }
 
   setValue (value, label) {
