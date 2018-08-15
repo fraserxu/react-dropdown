@@ -57,22 +57,22 @@ class Dropdown extends Component {
   }
 
   parseValue (value, options) {
-    let option = undefined;
+    let option = undefined
 
     if (typeof value === 'string') {
       for (var i = 0, num = options.length; i < num; i++) {
         if (options[i].type === 'group') {
           const match = options[i].items.filter(item => item.value === value)
           if (match.length) {
-            option = match[0];
+            option = match[0]
           }
         } else if (typeof options[i].value !== 'undefined' && options[i].value === value) {
-          option = options[i];
+          option = options[i]
         }
       }
     }
 
-    return option || value;
+    return option || value
   }
 
   setValue (value, label) {
@@ -151,7 +151,7 @@ class Dropdown extends Component {
   }
 
   isValueSelected () {
-    return typeof this.state.selected === 'string' || this.state.selected.value !== '';
+    return typeof this.state.selected === 'string' || this.state.selected.value !== ''
   }
 
   render () {
