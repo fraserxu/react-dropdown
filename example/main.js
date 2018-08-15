@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom'
 import FlatArrayExample from './flatArrayExample'
 import ObjectArrayExample from './objectArrayExample'
 import ZeroValObjectArrayExample from './zeroValObjectArrayExample'
+import CustomArrowExample from './CustomArrowExample'
 
 class App extends Component {
   render () {
@@ -38,6 +39,7 @@ class App extends Component {
         <FlatArrayExample />
         <ObjectArrayExample />
         <ZeroValObjectArrayExample />
+        <CustomArrowExample />
 
         <section>
           <h3>License: </h3>
