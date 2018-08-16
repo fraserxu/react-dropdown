@@ -110,6 +110,15 @@ The `arrowClassName` prop is passed down to the arrow `span` , which also has th
 <Dropdown arrowClassName='myArrowClassName' />
 ```
 
+The `arrowClosed` & `arrowOpen` props enable passing in custom elements for the open/closed state arrows.
+
+```JavaScript
+<Dropdown
+  arrowClosed={<span className="arrow-closed" />}
+  arrowOpen={<span className="arrow-open" />}
+/>
+```
+
 Check more examples in the example folder.
 
 **Run example**

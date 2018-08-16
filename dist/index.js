@@ -39,7 +39,7 @@ var Dropdown = function (_Component) {
     var _this = _possibleConstructorReturn(this, (Dropdown.__proto__ || Object.getPrototypeOf(Dropdown)).call(this, props));
 
     _this.state = {
-      selected: props.value || {
+      selected: _this.parseValue(props.value, props.options) || {
         label: typeof props.placeholder === 'undefined' ? DEFAULT_PLACEHOLDER_STRING : props.placeholder,
         value: ''
       },
@@ -93,6 +93,28 @@ var Dropdown = function (_Component) {
       }
     }
   }, {
+    key: 'parseValue',
+    value: function parseValue(value, options) {
+      var option = undefined;
+
+      if (typeof value === 'string') {
+        for (var i = 0, num = options.length; i < num; i++) {
+          if (options[i].type === 'group') {
+            var match = options[i].items.filter(function (item) {
+              return item.value === value;
+            });
+            if (match.length) {
+              option = match[0];
+            }
+          } else if (typeof options[i].value !== 'undefined' && options[i].value === value) {
+            option = options[i];
+          }
+        }
+      }
+
+      return option || value;
+    }
+  }, {
     key: 'setValue',
     value: function setValue(value, label) {
       var newState = {
@@ -117,15 +139,15 @@ var Dropdown = function (_Component) {
     value: function renderOption(option) {
       var _classes;
 
-      var classes = (_classes = {}, _defineProperty(_classes, this.props.baseClassName + '-option', true), _defineProperty(_classes, option.className, !!option.className), _defineProperty(_classes, 'is-selected', option === this.state.selected), _classes);
-
-      var optionClass = (0, _classnames2.default)(classes);
-
       var value = option.value;
       if (typeof value === 'undefined') {
         value = option.label || option;
       }
       var label = option.label || option.value || option;
+
+      var classes = (_classes = {}, _defineProperty(_classes, this.props.baseClassName + '-option', true), _defineProperty(_classes, option.className, !!option.className), _defineProperty(_classes, 'is-selected', value === this.state.selected.value || value === this.state.selected), _classes);
+
+      var optionClass = (0, _classnames2.default)(classes);
 
       return _react2.default.createElement(
         'div',
@@ -186,6 +208,11 @@ var Dropdown = function (_Component) {
       }
     }
   }, {
+    key: 'isValueSelected',
+    value: function isValueSelected() {
+      return typeof this.state.selected === 'string' || this.state.selected.value !== '';
+    }
+  }, {
     key: 'render',
     value: function render() {
       var _classNames, _classNames2, _classNames3, _classNames4, _classNames5;
@@ -196,6 +223,8 @@ var Dropdown = function (_Component) {
           placeholderClassName = _props2.placeholderClassName,
           menuClassName = _props2.menuClassName,
           arrowClassName = _props2.arrowClassName,
+          arrowClosed = _props2.arrowClosed,
+          arrowOpen = _props2.arrowOpen,
           className = _props2.className;
 
 
@@ -204,7 +233,7 @@ var Dropdown = function (_Component) {
 
       var dropdownClass = (0, _classnames2.default)((_classNames = {}, _defineProperty(_classNames, baseClassName + '-root', true), _defineProperty(_classNames, className, !!className), _defineProperty(_classNames, 'is-open', this.state.isOpen), _classNames));
       var controlClass = (0, _classnames2.default)((_classNames2 = {}, _defineProperty(_classNames2, baseClassName + '-control', true), _defineProperty(_classNames2, controlClassName, !!controlClassName), _defineProperty(_classNames2, disabledClass, !!disabledClass), _classNames2));
-      var placeholderClass = (0, _classnames2.default)((_classNames3 = {}, _defineProperty(_classNames3, baseClassName + '-placeholder', true), _defineProperty(_classNames3, placeholderClassName, !!placeholderClassName), _classNames3));
+      var placeholderClass = (0, _classnames2.default)((_classNames3 = {}, _defineProperty(_classNames3, baseClassName + '-placeholder', true), _defineProperty(_classNames3, placeholderClassName, !!placeholderClassName), _defineProperty(_classNames3, 'is-selected', this.isValueSelected()), _classNames3));
       var menuClass = (0, _classnames2.default)((_classNames4 = {}, _defineProperty(_classNames4, baseClassName + '-menu', true), _defineProperty(_classNames4, menuClassName, !!menuClassName), _classNames4));
       var arrowClass = (0, _classnames2.default)((_classNames5 = {}, _defineProperty(_classNames5, baseClassName + '-arrow', true), _defineProperty(_classNames5, arrowClassName, !!arrowClassName), _classNames5));
 
@@ -226,7 +255,11 @@ var Dropdown = function (_Component) {
           'div',
           { className: controlClass, onMouseDown: this.handleMouseDown.bind(this), onTouchEnd: this.handleMouseDown.bind(this) },
           value,
-          _react2.default.createElement('span', { className: arrowClass })
+          _react2.default.createElement(
+            'div',
+            { className: baseClassName + '-arrow-wrapper' },
+            arrowOpen && arrowClosed ? this.state.isOpen ? arrowOpen : arrowClosed : _react2.default.createElement('span', { className: arrowClass })
+          )
         ),
         menu
       );

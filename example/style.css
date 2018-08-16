@@ -23,6 +23,27 @@ pre code {
   padding: 8px 0;
 }
 
+.arrow-closed, .arrow-open {
+  border: solid #999;
+  border-width: 0 2px 2px 0;
+  display: inline-block;
+  padding: 4px;
+  position: absolute;
+  right: 10px;
+}
+
+.arrow-closed {
+  top: 10px;
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+}
+
+.arrow-open {
+  top: 14px;
+  transform: rotate(-135deg);
+  -webkit-transform: rotate(-135deg);
+}
+
 .Dropdown-root {
   position: relative;
 }

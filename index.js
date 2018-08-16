@@ -8,7 +8,7 @@ class Dropdown extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      selected: props.value || {
+      selected: this.parseValue(props.value, props.options) || {
         label: typeof props.placeholder === 'undefined' ? DEFAULT_PLACEHOLDER_STRING : props.placeholder,
         value: ''
       },
@@ -56,6 +56,25 @@ class Dropdown extends Component {
     }
   }
 
+  parseValue (value, options) {
+    let option = undefined
+
+    if (typeof value === 'string') {
+      for (var i = 0, num = options.length; i < num; i++) {
+        if (options[i].type === 'group') {
+          const match = options[i].items.filter(item => item.value === value)
+          if (match.length) {
+            option = match[0]
+          }
+        } else if (typeof options[i].value !== 'undefined' && options[i].value === value) {
+          option = options[i]
+        }
+      }
+    }
+
+    return option || value
+  }
+
   setValue (value, label) {
     let newState = {
       selected: {
@@ -75,19 +94,19 @@ class Dropdown extends Component {
   }
 
   renderOption (option) {
-    const classes = {
-      [`${this.props.baseClassName}-option`]: true,
-      [option.className]: !!option.className,
-      'is-selected': option === this.state.selected
-    }
-
-    const optionClass = classNames(classes)
-
     let value = option.value
     if (typeof value === 'undefined') {
       value = option.label || option
     }
     let label = option.label || option.value || option
+
+    const classes = {
+      [`${this.props.baseClassName}-option`]: true,
+      [option.className]: !!option.className,
+      'is-selected': value === this.state.selected.value || value === this.state.selected
+    }
+
+    const optionClass = classNames(classes)
 
     return (
       <div
@@ -131,8 +150,12 @@ class Dropdown extends Component {
     }
   }
 
+  isValueSelected () {
+    return typeof this.state.selected === 'string' || this.state.selected.value !== ''
+  }
+
   render () {
-    const { baseClassName, controlClassName, placeholderClassName, menuClassName, arrowClassName, className } = this.props
+    const { baseClassName, controlClassName, placeholderClassName, menuClassName, arrowClassName, arrowClosed, arrowOpen, className } = this.props
 
     const disabledClass = this.props.disabled ? 'Dropdown-disabled' : ''
     const placeHolderValue = typeof this.state.selected === 'string' ? this.state.selected : this.state.selected.label
@@ -149,7 +172,8 @@ class Dropdown extends Component {
     })
     const placeholderClass = classNames({
       [`${baseClassName}-placeholder`]: true,
-      [placeholderClassName]: !!placeholderClassName
+      [placeholderClassName]: !!placeholderClassName,
+      'is-selected': this.isValueSelected()
     })
     const menuClass = classNames({
       [`${baseClassName}-menu`]: true,
@@ -167,7 +191,13 @@ class Dropdown extends Component {
       <div className={dropdownClass}>
         <div className={controlClass} onMouseDown={this.handleMouseDown.bind(this)} onTouchEnd={this.handleMouseDown.bind(this)}>
           {value}
-          <span className={arrowClass} />
+          <div className={`${baseClassName}-arrow-wrapper`}>
+            { arrowOpen && arrowClosed ?
+              this.state.isOpen ? arrowOpen : arrowClosed
+              :
+              <span className={arrowClass} />
+            }
+          </div>
         </div>
         {menu}
       </div>
