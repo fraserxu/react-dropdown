@@ -70,7 +70,7 @@
     "test": "standard index.js",
     "watch": "watchify example/main.js -p browserify-hmr -o example/bundle.js -dv",
     "start": "ecstatic -p 8080 example & npm run watch",
-    "prepare": "npm test && npm run build",
+    "prepublishOnly": "npm test && npm run build",
     "predeploy": "npm test && browserify example/main.js -o example/bundle.js",
     "deploy": "gh-pages -d example",
     "lint-fix": "standard --fix index.js"
