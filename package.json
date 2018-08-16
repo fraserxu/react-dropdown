@@ -61,7 +61,7 @@
     "gh-pages": "^0.11.0",
     "react": "^0.14.7 || ^15.0.0-0",
     "react-dom": "^0.14.7 || ^15.0.0-0",
-    "standard": "^6.0.7",
+    "standard": "^11.0.1",
     "watchify": "^3.7.0"
   },
   "typings": "./index.d.ts",
@@ -70,8 +70,9 @@
     "test": "standard index.js",
     "watch": "watchify example/main.js -p browserify-hmr -o example/bundle.js -dv",
     "start": "ecstatic -p 8080 example & npm run watch",
-    "prepublish": "npm test && npm run build",
+    "prepare": "npm test && npm run build",
     "predeploy": "npm test && browserify example/main.js -o example/bundle.js",
-    "deploy": "gh-pages -d example"
+    "deploy": "gh-pages -d example",
+    "lint-fix": "standard --fix index.js"
   }
 }
