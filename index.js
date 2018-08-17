@@ -57,7 +57,7 @@ class Dropdown extends Component {
   }
 
   parseValue (value, options) {
-    let option = undefined
+    let option
 
     if (typeof value === 'string') {
       for (var i = 0, num = options.length; i < num; i++) {
@@ -79,8 +79,7 @@ class Dropdown extends Component {
     let newState = {
       selected: {
         value,
-        label
-      },
+        label},
       isOpen: false
     }
     this.fireChangeEvent(newState)
@@ -123,7 +122,9 @@ class Dropdown extends Component {
     let { options, baseClassName } = this.props
     let ops = options.map((option) => {
       if (option.type === 'group') {
-        let groupTitle = (<div className={`${baseClassName}-title`}>{option.name}</div>)
+        let groupTitle = (<div className={`${baseClassName}-title`}>
+          {option.name}
+        </div>)
         let _options = option.items.map((item) => this.renderOption(item))
 
         return (
@@ -137,7 +138,9 @@ class Dropdown extends Component {
       }
     })
 
-    return ops.length ? ops : <div className={`${baseClassName}-noresults`}>No options found</div>
+    return ops.length ? ops : <div className={`${baseClassName}-noresults`}>
+                                No options found
+    </div>
   }
 
   handleDocumentClick (event) {
@@ -184,19 +187,21 @@ class Dropdown extends Component {
       [arrowClassName]: !!arrowClassName
     })
 
-    const value = (<div className={placeholderClass}>{placeHolderValue}</div>)
-    const menu = this.state.isOpen ? <div className={menuClass}>{this.buildMenu()}</div> : null
+    const value = (<div className={placeholderClass}>
+      {placeHolderValue}
+    </div>)
+    const menu = this.state.isOpen ? <div className={menuClass}>
+      {this.buildMenu()}
+    </div> : null
 
     return (
       <div className={dropdownClass}>
         <div className={controlClass} onMouseDown={this.handleMouseDown.bind(this)} onTouchEnd={this.handleMouseDown.bind(this)}>
           {value}
           <div className={`${baseClassName}-arrow-wrapper`}>
-            { arrowOpen && arrowClosed ?
-              this.state.isOpen ? arrowOpen : arrowClosed
-              :
-              <span className={arrowClass} />
-            }
+            {arrowOpen && arrowClosed
+              ? this.state.isOpen ? arrowOpen : arrowClosed
+              : <span className={arrowClass} />}
           </div>
         </div>
         {menu}
