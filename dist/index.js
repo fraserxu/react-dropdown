@@ -45,6 +45,8 @@ var Dropdown = function (_Component) {
       },
       isOpen: false
     };
+    _this.labelId = props.labelId;
+    _this.rootId = props.rootId;
     _this.mounted = true;
     _this.handleDocumentClick = _this.handleDocumentClick.bind(_this);
     _this.fireChangeEvent = _this.fireChangeEvent.bind(_this);
@@ -98,7 +100,7 @@ var Dropdown = function (_Component) {
   }, {
     key: 'parseValue',
     value: function parseValue(value, options) {
-      var option = undefined;
+      var option = void 0;
 
       if (typeof value === 'string') {
         for (var i = 0, num = options.length; i < num; i++) {
@@ -123,8 +125,7 @@ var Dropdown = function (_Component) {
       var newState = {
         selected: {
           value: value,
-          label: label
-        },
+          label: label },
         isOpen: false
       };
       this.fireChangeEvent(newState);
@@ -147,8 +148,8 @@ var Dropdown = function (_Component) {
         value = option.label || option;
       }
       var label = option.label || option.value || option;
-
-      var classes = (_classes = {}, _defineProperty(_classes, this.props.baseClassName + '-option', true), _defineProperty(_classes, option.className, !!option.className), _defineProperty(_classes, 'is-selected', value === this.state.selected.value || value === this.state.selected), _classes);
+      var isSelected = value === this.state.selected.value || value === this.state.selected;
+      var classes = (_classes = {}, _defineProperty(_classes, this.props.baseClassName + '-option', true), _defineProperty(_classes, option.className, !!option.className), _defineProperty(_classes, 'is-selected', isSelected), _classes);
 
       var optionClass = (0, _classnames2.default)(classes);
 
@@ -158,7 +159,9 @@ var Dropdown = function (_Component) {
           key: value,
           className: optionClass,
           onMouseDown: this.setValue.bind(this, value, label),
-          onClick: this.setValue.bind(this, value, label) },
+          onClick: this.setValue.bind(this, value, label),
+          role: 'option',
+          'aria-selected': isSelected },
         label
       );
     }
@@ -240,14 +243,36 @@ var Dropdown = function (_Component) {
       var menuClass = (0, _classnames2.default)((_classNames4 = {}, _defineProperty(_classNames4, baseClassName + '-menu', true), _defineProperty(_classNames4, menuClassName, !!menuClassName), _classNames4));
       var arrowClass = (0, _classnames2.default)((_classNames5 = {}, _defineProperty(_classNames5, baseClassName + '-arrow', true), _defineProperty(_classNames5, arrowClassName, !!arrowClassName), _classNames5));
 
+      var valueOpts = {
+        className: placeholderClass,
+        role: 'button',
+        'aria-haspopup': 'listbox'
+      };
+      if (this.rootId) {
+        valueOpts.id = this.rootId;
+
+        if (this.labelId) {
+          valueOpts['aria-labelledby'] = this.labelId + ' ' + this.rootId;
+        }
+      }
       var value = _react2.default.createElement(
         'div',
-        { className: placeholderClass },
+        valueOpts,
         placeHolderValue
       );
+
+      var menuOpts = {
+        className: menuClass,
+        role: 'listbox',
+        'aria-expanded': 'true',
+        tabIndex: '-1'
+      };
+      if (this.labelId) {
+        menuOpts['aria-labelledby'] = this.labelId;
+      }
       var menu = this.state.isOpen ? _react2.default.createElement(
         'div',
-        { className: menuClass },
+        menuOpts,
         this.buildMenu()
       ) : null;
 

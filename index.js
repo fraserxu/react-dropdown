@@ -14,6 +14,8 @@ class Dropdown extends Component {
       },
       isOpen: false
     }
+    this.labelId = props.labelId
+    this.rootId = props.rootId
     this.mounted = true
     this.handleDocumentClick = this.handleDocumentClick.bind(this)
     this.fireChangeEvent = this.fireChangeEvent.bind(this)
@@ -101,11 +103,11 @@ class Dropdown extends Component {
       value = option.label || option
     }
     let label = option.label || option.value || option
-
+    const isSelected = (value === this.state.selected.value || value === this.state.selected)
     const classes = {
       [`${this.props.baseClassName}-option`]: true,
       [option.className]: !!option.className,
-      'is-selected': value === this.state.selected.value || value === this.state.selected
+      'is-selected': isSelected
     }
 
     const optionClass = classNames(classes)
@@ -115,7 +117,9 @@ class Dropdown extends Component {
         key={value}
         className={optionClass}
         onMouseDown={this.setValue.bind(this, value, label)}
-        onClick={this.setValue.bind(this, value, label)}>
+        onClick={this.setValue.bind(this, value, label)}
+        role='option'
+        aria-selected={isSelected}>
         {label}
       </div>
     )
@@ -190,10 +194,32 @@ class Dropdown extends Component {
       [arrowClassName]: !!arrowClassName
     })
 
-    const value = (<div className={placeholderClass}>
+    let valueOpts = {
+      className: placeholderClass,
+      role: 'button',
+      'aria-haspopup': 'listbox'
+    }
+    if (this.rootId) {
+      valueOpts.id = this.rootId
+
+      if (this.labelId) {
+        valueOpts['aria-labelledby'] = `${this.labelId} ${this.rootId}`
+      }
+    }
+    const value = (<div {...valueOpts}>
       {placeHolderValue}
     </div>)
-    const menu = this.state.isOpen ? <div className={menuClass}>
+
+    let menuOpts = {
+      className: menuClass,
+      role: 'listbox',
+      'aria-expanded': 'true',
+      tabIndex: '-1'
+    }
+    if (this.labelId) {
+      menuOpts['aria-labelledby'] = this.labelId
+    }
+    const menu = this.state.isOpen ? <div {...menuOpts}>
       {this.buildMenu()}
     </div> : null
 

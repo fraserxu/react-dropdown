@@ -25,8 +25,8 @@ class FlatArrayExample extends Component {
 
     return (
       <section>
-        <h3>Flat Array Example </h3>
-        <Dropdown options={options} onChange={this._onSelect} value={defaultOption} placeholder="Select an option" />
+        <h3 id="flatArrayLabel">Flat Array Example </h3>
+        <Dropdown options={options} onChange={this._onSelect} value={defaultOption} placeholder="Select an option" labelId="flatArrayLabel" rootId="flatArrayExample"/>
         <div className='result'>
           You selected
           <strong> {placeHolderValue} </strong>

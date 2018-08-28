@@ -119,6 +119,10 @@ The `arrowClosed` & `arrowOpen` props enable passing in custom elements for the 
 />
 ```
 
+**Aria IDs (optional)**
+The label for the dropdown should be outside of our dropdown, but it will be relevant to the dropdown for screen readers. The `labelId` will specify the id of the label of the dropdown. 
+Also, `rootId` is the id of the clickable item.
+
 Check more examples in the example folder.
 
 **Run example**
