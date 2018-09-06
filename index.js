@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import ReactDOM from 'react-dom'
 import classNames from 'classnames'
 
 const DEFAULT_PLACEHOLDER_STRING = 'Select...'
@@ -15,7 +14,9 @@ class Dropdown extends Component {
       isOpen: false
     }
     this.labelId = props.labelId
-    this.rootId = props.rootId
+	this.rootId = props.rootId
+	this.isRequired = props.isRequired
+	this.forwardRef = props.forwardRef
     this.mounted = true
     this.handleDocumentClick = this.handleDocumentClick.bind(this)
     this.fireChangeEvent = this.fireChangeEvent.bind(this)
@@ -36,14 +37,14 @@ class Dropdown extends Component {
   }
 
   componentDidMount () {
-    document.addEventListener('click', this.handleDocumentClick, false)
-    document.addEventListener('touchend', this.handleDocumentClick, false)
+    document.addEventListener('click', this.handleDocumentClick, true)
+    document.addEventListener('touchend', this.handleDocumentClick, true)
   }
 
   componentWillUnmount () {
     this.mounted = false
-    document.removeEventListener('click', this.handleDocumentClick, false)
-    document.removeEventListener('touchend', this.handleDocumentClick, false)
+    document.removeEventListener('click', this.handleDocumentClick, true)
+    document.removeEventListener('touchend', this.handleDocumentClick, true)
   }
 
   handleMouseDown (event) {
@@ -151,12 +152,14 @@ class Dropdown extends Component {
   }
 
   handleDocumentClick (event) {
-    if (this.mounted) {
-      if (!ReactDOM.findDOMNode(this).contains(event.target)) {
-        if (this.state.isOpen) {
-          this.setState({ isOpen: false })
-        }
-      }
+	const isTarget = this.forwardRef.current.contains(event.target);
+
+	if (isTarget || this.state.isOpen) {
+		event.stopPropagation();
+	}
+	
+	if (this.mounted && !isTarget && (this.state.isOpen && (!this.isRequired || this.value !== undefined))) {
+		this.setState({ isOpen: false });
     }
   }
 
@@ -165,7 +168,7 @@ class Dropdown extends Component {
   }
 
   render () {
-    const { baseClassName, controlClassName, placeholderClassName, menuClassName, arrowClassName, arrowClosed, arrowOpen, className } = this.props
+	const { baseClassName, controlClassName, placeholderClassName, menuClassName, arrowClassName, arrowClosed, arrowOpen, className } = this.props
 
     const disabledClass = this.props.disabled ? 'Dropdown-disabled' : ''
     const placeHolderValue = typeof this.state.selected === 'string' ? this.state.selected : this.state.selected.label

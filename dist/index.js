@@ -10,10 +10,6 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDom = require('react-dom');
-
-var _reactDom2 = _interopRequireDefault(_reactDom);
-
 var _classnames = require('classnames');
 
 var _classnames2 = _interopRequireDefault(_classnames);
@@ -47,6 +43,8 @@ var Dropdown = function (_Component) {
     };
     _this.labelId = props.labelId;
     _this.rootId = props.rootId;
+    _this.isRequired = props.isRequired;
+    _this.forwardRef = props.forwardRef;
     _this.mounted = true;
     _this.handleDocumentClick = _this.handleDocumentClick.bind(_this);
     _this.fireChangeEvent = _this.fireChangeEvent.bind(_this);
@@ -71,15 +69,15 @@ var Dropdown = function (_Component) {
   }, {
     key: 'componentDidMount',
     value: function componentDidMount() {
-      document.addEventListener('click', this.handleDocumentClick, false);
-      document.addEventListener('touchend', this.handleDocumentClick, false);
+      document.addEventListener('click', this.handleDocumentClick, true);
+      document.addEventListener('touchend', this.handleDocumentClick, true);
     }
   }, {
     key: 'componentWillUnmount',
     value: function componentWillUnmount() {
       this.mounted = false;
-      document.removeEventListener('click', this.handleDocumentClick, false);
-      document.removeEventListener('touchend', this.handleDocumentClick, false);
+      document.removeEventListener('click', this.handleDocumentClick, true);
+      document.removeEventListener('touchend', this.handleDocumentClick, true);
     }
   }, {
     key: 'handleMouseDown',
@@ -205,12 +203,14 @@ var Dropdown = function (_Component) {
   }, {
     key: 'handleDocumentClick',
     value: function handleDocumentClick(event) {
-      if (this.mounted) {
-        if (!_reactDom2.default.findDOMNode(this).contains(event.target)) {
-          if (this.state.isOpen) {
-            this.setState({ isOpen: false });
-          }
-        }
+      var isTarget = this.forwardRef.current.contains(event.target);
+
+      if (isTarget || this.state.isOpen) {
+        event.stopPropagation();
+      }
+
+      if (this.mounted && !isTarget && this.state.isOpen && (!this.isRequired || this.value !== undefined)) {
+        this.setState({ isOpen: false });
       }
     }
   }, {
