@@ -82,10 +82,12 @@ var Dropdown = function (_Component) {
   }, {
     key: 'handleMouseDown',
     value: function handleMouseDown(event) {
+      var anyOpenDropdowns = this.forwardRef.current.parentElement.getElementsByClassName('Dropdown-root is-open').length > 0;
+
       if (this.props.onFocus && typeof this.props.onFocus === 'function') {
         this.props.onFocus(this.state.isOpen);
       }
-      if (event.type === 'mousedown' && event.button !== 0) return;
+      if (anyOpenDropdowns || event.type === 'mousedown' && event.button !== 0) return;
       event.stopPropagation();
       event.preventDefault();
 
