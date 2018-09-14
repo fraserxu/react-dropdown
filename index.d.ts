@@ -19,6 +19,8 @@ declare module "react-dropdown" {
     menuClassName?: string;
     arrowClassName?: string;
     disabled?: boolean;
+    arrowClosed?: React.ReactNode,
+    arrowOpen?: React.ReactNode,
     onChange?: (arg: Option) => void;
     onFocus?: (arg: boolean) => void;
     value?: Option | string;
