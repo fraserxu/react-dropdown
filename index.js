@@ -100,7 +100,7 @@ class Dropdown extends Component {
     const classes = {
       [`${this.props.baseClassName}-option`]: true,
       [option.className]: !!option.className,
-      'is-selected': typeof selected === 'string' ? option === selected : option === selected.value
+      'is-selected': typeof selected === 'string' ? (option.value || option) === selected : (option.value || option) === selected.value
     }
 
     const optionClass = classNames(classes)
