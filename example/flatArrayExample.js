@@ -2,7 +2,12 @@ import React, { Component } from 'react'
 import Dropdown from '../index.js'
 
 const options = [
-  'one', 'two', 'three'
+  'one', 'two', 'three',
+  'four', 'five', 'six',
+  'seven', 'eight', 'nine',
+  'ten', 'eleven', 'twelve',
+  'thirteen', 'fourteen', 'fiftenn',
+  'sixteen', 'seventeen', 'eighteen'
 ]
 
 class FlatArrayExample extends Component {
@@ -26,7 +31,7 @@ class FlatArrayExample extends Component {
     return (
       <section>
         <h3>Flat Array Example </h3>
-        <Dropdown options={options} onChange={this._onSelect} value={defaultOption} placeholder="Select an option" />
+        <Dropdown options={options} onChange={this._onSelect} value={defaultOption} placeholder="Select an option" center='two' />
         <div className='result'>
           You selected
           <strong> {placeHolderValue} </strong>
@@ -38,7 +43,12 @@ class FlatArrayExample extends Component {
             <pre>
               {`
 const options = [
-  'one', 'two', 'three'
+  'one', 'two', 'three',
+  'four', 'five', 'six',
+  'seven', 'eight', 'nine',
+  'ten', 'eleven', 'twelve',
+  'thirteen', 'fourteen', 'fiftenn',
+  'sixteen', 'seventeen', 'eighteen'
 ]
               `}
             </pre>

@@ -14,10 +14,6 @@ var _reactDom = require('react-dom');
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _propTypes = require('prop-types');
-
-var _propTypes2 = _interopRequireDefault(_propTypes);
-
 var _classnames = require('classnames');
 
 var _classnames2 = _interopRequireDefault(_classnames);
@@ -79,15 +75,28 @@ var Dropdown = function (_Component) {
       var menu = _reactDom2.default.findDOMNode(this).children[1];
 
       if (menu) {
-        var clientHeight = menu.clientHeight,
-            scrollHeight = menu.scrollHeight;
+        var _props = this.props,
+            options = _props.options,
+            value = _props.value;
+        var clientHeight = menu.clientHeight;
 
+        var boxHeight = menu.firstElementChild.clientHeight;
+        var hydratedOptions = options.map(function (option) {
+          return typeof option === 'string' ? option : option.value;
+        });
+        var index = -1;
 
-        if (this.props.startingPosition === 'middle') {
-          menu.scrollTo(0, (scrollHeight - clientHeight) / 2);
-        } else if (this.props.startingPosition === 'bottom') {
-          menu.scrollTo(0, scrollHeight - clientHeight);
+        if (typeof value === 'string') {
+          index = hydratedOptions.findIndex(function (option) {
+            return option === value;
+          });
+        } else {
+          index = hydratedOptions.findIndex(function (option) {
+            return option === value.value;
+          });
         }
+
+        menu.scrollTo(0, (index + 0.5) * boxHeight - clientHeight / 2);
       }
     }
   }, {
@@ -138,7 +147,10 @@ var Dropdown = function (_Component) {
     value: function renderOption(option) {
       var _classes;
 
-      var classes = (_classes = {}, _defineProperty(_classes, this.props.baseClassName + '-option', true), _defineProperty(_classes, option.className, !!option.className), _defineProperty(_classes, 'is-selected', option === this.state.selected), _classes);
+      var selected = this.state.selected;
+
+
+      var classes = (_classes = {}, _defineProperty(_classes, this.props.baseClassName + '-option', true), _defineProperty(_classes, option.className, !!option.className), _defineProperty(_classes, 'is-selected', typeof selected === 'string' ? option === selected : option === selected.value), _classes);
 
       var optionClass = (0, _classnames2.default)(classes);
 
@@ -160,9 +172,9 @@ var Dropdown = function (_Component) {
     value: function buildMenu() {
       var _this2 = this;
 
-      var _props = this.props,
-          options = _props.options,
-          baseClassName = _props.baseClassName;
+      var _props2 = this.props,
+          options = _props2.options,
+          baseClassName = _props2.baseClassName;
 
       var ops = options.map(function (option) {
         if (option.type === 'group') {
@@ -208,12 +220,12 @@ var Dropdown = function (_Component) {
     value: function render() {
       var _classNames, _classNames2, _classNames3, _classNames4;
 
-      var _props2 = this.props,
-          baseClassName = _props2.baseClassName,
-          placeholderClassName = _props2.placeholderClassName,
-          menuClassName = _props2.menuClassName,
-          arrowClassName = _props2.arrowClassName,
-          className = _props2.className;
+      var _props3 = this.props,
+          baseClassName = _props3.baseClassName,
+          placeholderClassName = _props3.placeholderClassName,
+          menuClassName = _props3.menuClassName,
+          arrowClassName = _props3.arrowClassName,
+          className = _props3.className;
 
 
       var disabledClass = this.props.disabled ? 'Dropdown-disabled' : '';
@@ -252,6 +264,5 @@ var Dropdown = function (_Component) {
   return Dropdown;
 }(_react.Component);
 
-Dropdown.propTypes = { startingPosition: _propTypes2.default.oneOf(['top', 'middle', 'bottom']) };
 Dropdown.defaultProps = { baseClassName: 'Dropdown' };
 exports.default = Dropdown;

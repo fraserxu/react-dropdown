@@ -21,6 +21,7 @@ declare module "react-dropdown" {
     onFocus?: (arg: boolean) => void;
     value?: Option;
     placeholder?: String;
+    center?: string;
   }
 
   class ReactDropdown extends React.Component<ReactDropdownProps> {

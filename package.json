@@ -1,6 +1,6 @@
 {
   "name": "@wonism/react-dropdown",
-  "version": "1.4.1",
+  "version": "1.5.0",
   "description": "React dropdown component",
   "main": "dist/index.js",
   "style": "style.css",
@@ -58,7 +58,7 @@
     "babelify": "^7.2.0",
     "browserify": "^13.0.0",
     "browserify-hmr": "^0.3.1",
-    "ecstatic": "^1.4.0",
+    "ecstatic": "^3.3.0",
     "gh-pages": "^0.11.0",
     "react": "^0.14.7 || ^15.0.0-0",
     "react-dom": "^0.14.7 || ^15.0.0-0",

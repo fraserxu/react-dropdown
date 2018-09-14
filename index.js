@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
-import PropTypes from 'prop-types'
 import classNames from 'classnames'
 
 const DEFAULT_PLACEHOLDER_STRING = 'Select...'
@@ -40,13 +39,19 @@ class Dropdown extends Component {
     const menu = ReactDOM.findDOMNode(this).children[1]
 
     if (menu) {
-      const { clientHeight, scrollHeight } = menu
+      const { options, value } = this.props
+      const { clientHeight } = menu
+      const boxHeight = menu.firstElementChild.clientHeight
+      const hydratedOptions = options.map((option) => (typeof option === 'string' ? option : option.value))
+      let index = -1
 
-      if (this.props.startingPosition === 'middle') {
-        menu.scrollTo(0, (scrollHeight - clientHeight) / 2)
-      } else if (this.props.startingPosition === 'bottom') {
-        menu.scrollTo(0, scrollHeight - clientHeight)
+      if (typeof value === 'string') {
+        index = hydratedOptions.findIndex((option) => (option === value))
+      } else {
+        index = hydratedOptions.findIndex((option) => (option === value.value))
       }
+
+      menu.scrollTo(0, ((index + 0.5) * boxHeight) - clientHeight / 2)
     }
   }
 
@@ -90,10 +95,12 @@ class Dropdown extends Component {
   }
 
   renderOption (option) {
+    const { selected } = this.state
+
     const classes = {
       [`${this.props.baseClassName}-option`]: true,
       [option.className]: !!option.className,
-      'is-selected': option === this.state.selected
+      'is-selected': typeof selected === 'string' ? option === selected : option === selected.value
     }
 
     const optionClass = classNames(classes)
@@ -182,6 +189,5 @@ class Dropdown extends Component {
   }
 }
 
-Dropdown.propTypes = { startingPosition: PropTypes.oneOf(['top', 'middle', 'bottom']) }
 Dropdown.defaultProps = { baseClassName: 'Dropdown' }
 export default Dropdown
