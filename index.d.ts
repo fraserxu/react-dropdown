@@ -1,7 +1,7 @@
 declare module "react-dropdown" {
   import * as React from "react";
   export interface Option {
-    label: string;
+    label: React.ReactNode;
     value: string;
     className?: string;
   }
