@@ -112,6 +112,7 @@ var Dropdown = function (_Component) {
       if (this.props.onFocus && typeof this.props.onFocus === 'function') {
         this.props.onFocus(this.state.isOpen);
       }
+
       if (event.type === 'mousedown' && event.button !== 0) return;
       event.stopPropagation();
       event.preventDefault();
@@ -127,6 +128,7 @@ var Dropdown = function (_Component) {
     value: function setValue(value, label) {
       var selected = this.state.selected;
       var isSelected = typeof selected === 'string' ? value === selected : value === selected.value;
+
       if (isSelected) {
         this.setState({ isOpen: false });
       } else {
@@ -137,6 +139,7 @@ var Dropdown = function (_Component) {
           },
           isOpen: false
         };
+
         this.fireChangeEvent(newState);
         this.setState(newState);
       }

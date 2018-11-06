@@ -65,6 +65,7 @@ class Dropdown extends Component {
     if (this.props.onFocus && typeof this.props.onFocus === 'function') {
       this.props.onFocus(this.state.isOpen)
     }
+
     if (event.type === 'mousedown' && event.button !== 0) return
     event.stopPropagation()
     event.preventDefault()
@@ -77,12 +78,12 @@ class Dropdown extends Component {
   }
 
   setValue (value, label) {
-    const selected = this.state.selected;
+    const selected = this.state.selected
     const isSelected = typeof selected === 'string' ? value === selected : value === selected.value
+
     if (isSelected) {
-      this.setState({ isOpen: false });
-    }
-    else {
+      this.setState({ isOpen: false })
+    } else {
       const newState = {
         selected: {
           value,
@@ -90,6 +91,7 @@ class Dropdown extends Component {
         },
         isOpen: false
       }
+
       this.fireChangeEvent(newState)
       this.setState(newState)
     }
@@ -127,11 +129,11 @@ class Dropdown extends Component {
   }
 
   buildMenu () {
-    let { options, baseClassName } = this.props
-    let ops = options.map((option) => {
+    const { options, baseClassName } = this.props
+    const ops = options.map((option) => {
       if (option.type === 'group') {
-        let groupTitle = (<div className={`${baseClassName}-title`}>{option.name}</div>)
-        let _options = option.items.map((item) => this.renderOption(item))
+        const groupTitle = (<div className={`${baseClassName}-title`}>{option.name}</div>)
+        const _options = option.items.map((item) => this.renderOption(item))
 
         return (
           <div className={`${baseClassName}-group`} key={option.name}>
