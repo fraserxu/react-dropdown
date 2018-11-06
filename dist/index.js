@@ -125,15 +125,21 @@ var Dropdown = function (_Component) {
   }, {
     key: 'setValue',
     value: function setValue(value, label) {
-      var newState = {
-        selected: {
-          value: value,
-          label: label
-        },
-        isOpen: false
-      };
-      this.fireChangeEvent(newState);
-      this.setState(newState);
+      var selected = this.state.selected;
+      var isSelected = typeof selected === 'string' ? value === selected : value === selected.value;
+      if (isSelected) {
+        this.setState({ isOpen: false });
+      } else {
+        var newState = {
+          selected: {
+            value: value,
+            label: label
+          },
+          isOpen: false
+        };
+        this.fireChangeEvent(newState);
+        this.setState(newState);
+      }
     }
   }, {
     key: 'fireChangeEvent',

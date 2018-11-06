@@ -77,15 +77,22 @@ class Dropdown extends Component {
   }
 
   setValue (value, label) {
-    let newState = {
-      selected: {
-        value,
-        label
-      },
-      isOpen: false
+    const selected = this.state.selected;
+    const isSelected = typeof selected === 'string' ? value === selected : value === selected.value
+    if (isSelected) {
+      this.setState({ isOpen: false });
     }
-    this.fireChangeEvent(newState)
-    this.setState(newState)
+    else {
+      const newState = {
+        selected: {
+          value,
+          label
+        },
+        isOpen: false
+      }
+      this.fireChangeEvent(newState)
+      this.setState(newState)
+    }
   }
 
   fireChangeEvent (newState) {
@@ -105,8 +112,8 @@ class Dropdown extends Component {
 
     const optionClass = classNames(classes)
 
-    let value = option.value || option.label || option
-    let label = option.label || option.value || option
+    const value = option.value || option.label || option
+    const label = option.label || option.value || option
 
     return (
       <div
