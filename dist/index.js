@@ -98,7 +98,7 @@ var Dropdown = function (_Component) {
   }, {
     key: 'parseValue',
     value: function parseValue(value, options) {
-      var option = undefined;
+      var option = void 0;
 
       if (typeof value === 'string') {
         for (var i = 0, num = options.length; i < num; i++) {
@@ -123,8 +123,7 @@ var Dropdown = function (_Component) {
       var newState = {
         selected: {
           value: value,
-          label: label
-        },
+          label: label },
         isOpen: false
       };
       this.fireChangeEvent(newState);
@@ -228,7 +227,8 @@ var Dropdown = function (_Component) {
           arrowClassName = _props2.arrowClassName,
           arrowClosed = _props2.arrowClosed,
           arrowOpen = _props2.arrowOpen,
-          className = _props2.className;
+          className = _props2.className,
+          fmtPlaceholderValue = _props2.fmtPlaceholderValue;
 
 
       var disabledClass = this.props.disabled ? 'Dropdown-disabled' : '';
@@ -243,7 +243,7 @@ var Dropdown = function (_Component) {
       var value = _react2.default.createElement(
         'div',
         { className: placeholderClass },
-        placeHolderValue
+        fmtPlaceholderValue && fmtPlaceholderValue(placeHolderValue)
       );
       var menu = this.state.isOpen ? _react2.default.createElement(
         'div',

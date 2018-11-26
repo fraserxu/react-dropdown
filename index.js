@@ -161,7 +161,7 @@ class Dropdown extends Component {
   }
 
   render () {
-    const { baseClassName, controlClassName, placeholderClassName, menuClassName, arrowClassName, arrowClosed, arrowOpen, className } = this.props
+    const { baseClassName, controlClassName, placeholderClassName, menuClassName, arrowClassName, arrowClosed, arrowOpen, className, fmtPlaceholderValue } = this.props
 
     const disabledClass = this.props.disabled ? 'Dropdown-disabled' : ''
     const placeHolderValue = typeof this.state.selected === 'string' ? this.state.selected : this.state.selected.label
@@ -191,7 +191,7 @@ class Dropdown extends Component {
     })
 
     const value = (<div className={placeholderClass}>
-      {placeHolderValue}
+      {fmtPlaceholderValue && fmtPlaceholderValue(placeHolderValue)}
     </div>)
     const menu = this.state.isOpen ? <div className={menuClass}>
       {this.buildMenu()}
