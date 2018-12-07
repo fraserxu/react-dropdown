@@ -64,9 +64,9 @@ When using Object options you can add to each option a className string to furth
 **Mount**
 
 ```JavaScript
-import Dropdown from 'react-dropdown'
-import 'react-dropdown/style.css'
-const defaultOption = options[0]
+import Dropdown from 'react-dropdown';
+import 'react-dropdown/style.css';
+const defaultOption = options[0];
 <Dropdown options={options} onChange={this._onSelect} value={defaultOption} placeholder="Select an option" />
 ```
 
