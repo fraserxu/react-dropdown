@@ -101,11 +101,12 @@ class Dropdown extends Component {
       value = option.label || option
     }
     let label = option.label || option.value || option
+    let isSelected = value === this.state.selected.value || value === this.state.selected
 
     const classes = {
       [`${this.props.baseClassName}-option`]: true,
       [option.className]: !!option.className,
-      'is-selected': value === this.state.selected.value || value === this.state.selected
+      'is-selected': isSelected
     }
 
     const optionClass = classNames(classes)
@@ -115,7 +116,9 @@ class Dropdown extends Component {
         key={value}
         className={optionClass}
         onMouseDown={this.setValue.bind(this, value, label)}
-        onClick={this.setValue.bind(this, value, label)}>
+        onClick={this.setValue.bind(this, value, label)}
+        role='option'
+        aria-selected={isSelected ? 'true' : 'false'}>
         {label}
       </div>
     )
@@ -131,7 +134,7 @@ class Dropdown extends Component {
         let _options = option.items.map((item) => this.renderOption(item))
 
         return (
-          <div className={`${baseClassName}-group`} key={option.name}>
+          <div className={`${baseClassName}-group`} key={option.name} role='listbox' tabindex='-1'>
             {groupTitle}
             {_options}
           </div>
@@ -193,13 +196,13 @@ class Dropdown extends Component {
     const value = (<div className={placeholderClass}>
       {placeHolderValue}
     </div>)
-    const menu = this.state.isOpen ? <div className={menuClass}>
+    const menu = this.state.isOpen ? <div className={menuClass} aria-expanded='true'>
       {this.buildMenu()}
     </div> : null
 
     return (
       <div className={dropdownClass}>
-        <div className={controlClass} onMouseDown={this.handleMouseDown.bind(this)} onTouchEnd={this.handleMouseDown.bind(this)}>
+        <div className={controlClass} onMouseDown={this.handleMouseDown.bind(this)} onTouchEnd={this.handleMouseDown.bind(this)} aria-haspopup='listbox'>
           {value}
           <div className={`${baseClassName}-arrow-wrapper`}>
             {arrowOpen && arrowClosed
