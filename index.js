@@ -134,7 +134,7 @@ class Dropdown extends Component {
         let _options = option.items.map((item) => this.renderOption(item))
 
         return (
-          <div className={`${baseClassName}-group`} key={option.name} role='listbox' tabindex='-1'>
+          <div className={`${baseClassName}-group`} key={option.name} role='listbox' tabIndex='-1'>
             {groupTitle}
             {_options}
           </div>
