@@ -17,6 +17,7 @@ class Dropdown extends Component {
     this.mounted = true
     this.handleDocumentClick = this.handleDocumentClick.bind(this)
     this.fireChangeEvent = this.fireChangeEvent.bind(this)
+    this.scrollToSelectedOption = this.scrollToSelectedOption.bind(this)
   }
 
   componentWillReceiveProps (newProps) {
@@ -55,7 +56,13 @@ class Dropdown extends Component {
     if (!this.props.disabled) {
       this.setState({
         isOpen: !this.state.isOpen
-      })
+      }, this.scrollToSelectedOption)
+    }
+  }
+
+  scrollToSelectedOption () {
+    if (this.state.isOpen && this.props.autoScrollToSelectedOption && this.refs.menu && this.refs.selectedOption) {
+      this.refs.menu.scrollTop = this.refs.selectedOption.offsetTop
     }
   }
 
@@ -110,9 +117,10 @@ class Dropdown extends Component {
     }
 
     const optionClass = classNames(classes)
-
+    const ref = isSelected ? 'selectedOption' : null
     return (
       <div
+        ref={ref}
         key={value}
         className={optionClass}
         onMouseDown={this.setValue.bind(this, value, label)}
@@ -196,7 +204,7 @@ class Dropdown extends Component {
     const value = (<div className={placeholderClass}>
       {placeHolderValue}
     </div>)
-    const menu = this.state.isOpen ? <div className={menuClass} aria-expanded='true'>
+    const menu = this.state.isOpen ? <div ref='menu' className={menuClass} aria-expanded='true'>
       {this.buildMenu()}
     </div> : null
 
