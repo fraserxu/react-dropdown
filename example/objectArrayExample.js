@@ -16,7 +16,7 @@ class ObjectArrayExample extends Component {
   }
 
   render () {
-    const { toggleClassName, togglePlaholderClassName, toggleMenuClassName, toggleOptionsClassName } = this.state
+    const { toggleClassName, togglePlaholderClassName, toggleMenuClassName, toggleOptionsClassName, autoScrollToSelectedOption } = this.state
 
     const options = [
       { value: 'one', label: 'One' },
@@ -55,6 +55,9 @@ class ObjectArrayExample extends Component {
           <button onClick={() => this.setState({ toggleOptionsClassName: !toggleOptionsClassName })}>
             Toggle options custom class
           </button>
+          <button onClick={() => this.setState({ autoScrollToSelectedOption: !autoScrollToSelectedOption })}>
+            Toggle autoscroll to selected option
+          </button>
         </div>
         <Dropdown
           options={options}
@@ -64,6 +67,7 @@ class ObjectArrayExample extends Component {
           className={ toggleClassName ? 'my-custom-class' : '' }
           placeholderClassName={ togglePlaholderClassName ? 'my-custom-class' : '' }
           menuClassName={ toggleMenuClassName ? 'my-custom-class' : '' }
+          autoScrollToSelectedOption={autoScrollToSelectedOption}
         />
         <div className='result'>
           You selected
@@ -104,6 +108,7 @@ const options = [
   className=${ toggleClassName ? '"my-custom-class"' : '""' }
   placeholderClassName=${ togglePlaholderClassName ? '"my-custom-class"' : '""' }
   menuClassName=${ toggleMenuClassName ? '"my-custom-class"' : '""' }
+  autoScrollToSelectedOption={${ autoScrollToSelectedOption ? 'true' : 'false'}}
 />
 `}
             </pre>

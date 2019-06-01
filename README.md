@@ -138,6 +138,16 @@ The `arrowClosed` & `arrowOpen` props enable passing in custom elements for the 
 />;
 ```
 
+**autoScrollToSelectedOption**
+
+The `autoScrollToSelectedOption` prop enable to automatically scroll to selected option.
+
+```JavaScript
+<Dropdown
+  autoScrollToSelectedOption={true}
+/>;
+```
+
 Check more examples in the example folder.
 
 **Run example**
