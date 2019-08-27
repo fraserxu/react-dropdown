@@ -220,6 +220,6 @@ class Dropdown extends Component {
 
 Dropdown.defaultProps = {
   baseClassName: 'Dropdown',
-  noOptionsLabel: 'No options found',
+  noOptionsLabel: 'No options found'
 }
 export default Dropdown
