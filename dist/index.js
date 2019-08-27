@@ -98,7 +98,7 @@ var Dropdown = function (_Component) {
   }, {
     key: 'parseValue',
     value: function parseValue(value, options) {
-      var option = undefined;
+      var option = void 0;
 
       if (typeof value === 'string') {
         for (var i = 0, num = options.length; i < num; i++) {
@@ -123,8 +123,7 @@ var Dropdown = function (_Component) {
       var newState = {
         selected: {
           value: value,
-          label: label
-        },
+          label: label },
         isOpen: false
       };
       this.fireChangeEvent(newState);
@@ -147,8 +146,9 @@ var Dropdown = function (_Component) {
         value = option.label || option;
       }
       var label = option.label || option.value || option;
+      var isSelected = value === this.state.selected.value || value === this.state.selected;
 
-      var classes = (_classes = {}, _defineProperty(_classes, this.props.baseClassName + '-option', true), _defineProperty(_classes, option.className, !!option.className), _defineProperty(_classes, 'is-selected', value === this.state.selected.value || value === this.state.selected), _classes);
+      var classes = (_classes = {}, _defineProperty(_classes, this.props.baseClassName + '-option', true), _defineProperty(_classes, option.className, !!option.className), _defineProperty(_classes, 'is-selected', isSelected), _classes);
 
       var optionClass = (0, _classnames2.default)(classes);
 
@@ -158,7 +158,9 @@ var Dropdown = function (_Component) {
           key: value,
           className: optionClass,
           onMouseDown: this.setValue.bind(this, value, label),
-          onClick: this.setValue.bind(this, value, label) },
+          onClick: this.setValue.bind(this, value, label),
+          role: 'option',
+          'aria-selected': isSelected ? 'true' : 'false' },
         label
       );
     }
@@ -169,7 +171,8 @@ var Dropdown = function (_Component) {
 
       var _props = this.props,
           options = _props.options,
-          baseClassName = _props.baseClassName;
+          baseClassName = _props.baseClassName,
+          noOptionsLabel = _props.noOptionsLabel;
 
       var ops = options.map(function (option) {
         if (option.type === 'group') {
@@ -184,7 +187,7 @@ var Dropdown = function (_Component) {
 
           return _react2.default.createElement(
             'div',
-            { className: baseClassName + '-group', key: option.name },
+            { className: baseClassName + '-group', key: option.name, role: 'listbox', tabIndex: '-1' },
             groupTitle,
             _options
           );
@@ -196,7 +199,7 @@ var Dropdown = function (_Component) {
       return ops.length ? ops : _react2.default.createElement(
         'div',
         { className: baseClassName + '-noresults' },
-        'No options found'
+        noOptionsLabel
       );
     }
   }, {
@@ -247,7 +250,7 @@ var Dropdown = function (_Component) {
       );
       var menu = this.state.isOpen ? _react2.default.createElement(
         'div',
-        { className: menuClass },
+        { className: menuClass, 'aria-expanded': 'true' },
         this.buildMenu()
       ) : null;
 
@@ -256,7 +259,7 @@ var Dropdown = function (_Component) {
         { className: dropdownClass },
         _react2.default.createElement(
           'div',
-          { className: controlClass, onMouseDown: this.handleMouseDown.bind(this), onTouchEnd: this.handleMouseDown.bind(this) },
+          { className: controlClass, onMouseDown: this.handleMouseDown.bind(this), onTouchEnd: this.handleMouseDown.bind(this), 'aria-haspopup': 'listbox' },
           value,
           _react2.default.createElement(
             'div',
@@ -272,5 +275,8 @@ var Dropdown = function (_Component) {
   return Dropdown;
 }(_react.Component);
 
-Dropdown.defaultProps = { baseClassName: 'Dropdown' };
+Dropdown.defaultProps = {
+  baseClassName: 'Dropdown',
+  noOptionsLabel: 'No options found'
+};
 exports.default = Dropdown;
