@@ -125,7 +125,7 @@ class Dropdown extends Component {
   }
 
   buildMenu () {
-    let { options, baseClassName } = this.props
+    let { options, baseClassName, noOptionsLabel } = this.props
     let ops = options.map((option) => {
       if (option.type === 'group') {
         let groupTitle = (<div className={`${baseClassName}-title`}>
@@ -144,9 +144,11 @@ class Dropdown extends Component {
       }
     })
 
-    return ops.length ? ops : <div className={`${baseClassName}-noresults`}>
-                                No options found
-    </div>
+    return ops.length ? ops : (
+      <div className={`${baseClassName}-noresults`}>
+        {noOptionsLabel}
+      </div>
+    )
   }
 
   handleDocumentClick (event) {
@@ -216,5 +218,8 @@ class Dropdown extends Component {
   }
 }
 
-Dropdown.defaultProps = { baseClassName: 'Dropdown' }
+Dropdown.defaultProps = {
+  baseClassName: 'Dropdown',
+  noOptionsLabel: 'No options found',
+}
 export default Dropdown
