@@ -41,7 +41,7 @@
   "browserify": {
     "transform": [
       "babelify",
-      "browserify-shim" 
+      "browserify-shim"
     ]
   },
   "browserify-shim": {
@@ -69,11 +69,12 @@
     "react": "^0.14.7 || ^15.0.0-0",
     "react-dom": "^0.14.7 || ^15.0.0-0",
     "standard": "^11.0.1",
+    "uglify-js": "^3.6.0",
     "watchify": "^3.7.0"
   },
   "typings": "./index.d.ts",
   "scripts": {
-    "build": "babel index.js -o dist/index.js && browserify index.js -o dist/umd.js --standalone ReactDropdown",
+    "build": "babel index.js -o dist/index.js && browserify index.js -o dist/umd.js --standalone ReactDropdown && uglifyjs --compress --mangle -o dist/umd.min.js dist/umd.js",
     "test": "standard index.js",
     "watch": "watchify example/main.js -p browserify-hmr -o example/bundle.js -dv",
     "start": "ecstatic -p 8080 example & npm run watch",
