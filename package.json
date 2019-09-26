@@ -10,6 +10,8 @@
   },
   "files": [
     "dist/index.js",
+    "dist/umd.js",
+    "dist/umd.min.js",
     "index.d.ts",
     "style.css"
   ],
@@ -39,8 +41,13 @@
   },
   "browserify": {
     "transform": [
-      "babelify"
+      "babelify",
+      "browserify-shim"
     ]
+  },
+  "browserify-shim": {
+    "react": "global:React",
+    "react-dom": "global:ReactDOM"
   },
   "babel": {
     "presets": [
@@ -57,16 +64,18 @@
     "babelify": "^7.2.0",
     "browserify": "^13.0.0",
     "browserify-hmr": "^0.3.1",
+    "browserify-shim": "^3.8.14",
     "ecstatic": "^1.4.0",
     "gh-pages": "^0.11.0",
     "react": "^0.14.7 || ^15.0.0-0",
     "react-dom": "^0.14.7 || ^15.0.0-0",
     "standard": "^11.0.1",
+    "uglify-js": "^3.6.0",
     "watchify": "^3.7.0"
   },
   "typings": "./index.d.ts",
   "scripts": {
-    "build": "babel index.js -o dist/index.js",
+    "build": "babel index.js -o dist/index.js && browserify index.js -o dist/umd.js --standalone ReactDropdown && uglifyjs --compress --mangle -o dist/umd.min.js dist/umd.js",
     "test": "standard index.js",
     "watch": "watchify example/main.js -p browserify-hmr -o example/bundle.js -dv",
     "start": "ecstatic -p 8080 example & npm run watch",
