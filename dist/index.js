@@ -4,6 +4,8 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = require('react');
@@ -98,7 +100,7 @@ var Dropdown = function (_Component) {
   }, {
     key: 'parseValue',
     value: function parseValue(value, options) {
-      var option = undefined;
+      var option = void 0;
 
       if (typeof value === 'string') {
         for (var i = 0, num = options.length; i < num; i++) {
@@ -123,8 +125,7 @@ var Dropdown = function (_Component) {
       var newState = {
         selected: {
           value: value,
-          label: label
-        },
+          label: label },
         isOpen: false
       };
       this.fireChangeEvent(newState);
@@ -138,6 +139,14 @@ var Dropdown = function (_Component) {
       }
     }
   }, {
+    key: 'handleSearch',
+    value: function handleSearch(searchString) {
+      console.debug('searchString', searchString);
+      if (this.props.onSearch) {
+        this.props.onSearch(searchString);
+      }
+    }
+  }, {
     key: 'renderOption',
     value: function renderOption(option) {
       var _classes;
@@ -147,8 +156,9 @@ var Dropdown = function (_Component) {
         value = option.label || option;
       }
       var label = option.label || option.value || option;
+      var isSelected = value === this.state.selected.value || value === this.state.selected;
 
-      var classes = (_classes = {}, _defineProperty(_classes, this.props.baseClassName + '-option', true), _defineProperty(_classes, option.className, !!option.className), _defineProperty(_classes, 'is-selected', value === this.state.selected.value || value === this.state.selected), _classes);
+      var classes = (_classes = {}, _defineProperty(_classes, this.props.baseClassName + '-option', true), _defineProperty(_classes, option.className, !!option.className), _defineProperty(_classes, 'is-selected', isSelected), _classes);
 
       var optionClass = (0, _classnames2.default)(classes);
 
@@ -158,7 +168,9 @@ var Dropdown = function (_Component) {
           key: value,
           className: optionClass,
           onMouseDown: this.setValue.bind(this, value, label),
-          onClick: this.setValue.bind(this, value, label) },
+          onClick: this.setValue.bind(this, value, label),
+          role: 'option',
+          'aria-selected': isSelected ? 'true' : 'false' },
         label
       );
     }
@@ -167,6 +179,9 @@ var Dropdown = function (_Component) {
     value: function buildMenu() {
       var _this2 = this;
 
+      setTimeout(function () {
+        _this2.searchInput.focus();
+      }, 100);
       var _props = this.props,
           options = _props.options,
           baseClassName = _props.baseClassName;
@@ -184,7 +199,7 @@ var Dropdown = function (_Component) {
 
           return _react2.default.createElement(
             'div',
-            { className: baseClassName + '-group', key: option.name },
+            { className: baseClassName + '-group', key: option.name, role: 'listbox', tabIndex: '-1' },
             groupTitle,
             _options
           );
@@ -218,7 +233,12 @@ var Dropdown = function (_Component) {
   }, {
     key: 'render',
     value: function render() {
-      var _classNames, _classNames2, _classNames3, _classNames4, _classNames5;
+      var _classNames,
+          _classNames2,
+          _classNames3,
+          _classNames4,
+          _classNames5,
+          _this3 = this;
 
       var _props2 = this.props,
           baseClassName = _props2.baseClassName,
@@ -228,8 +248,9 @@ var Dropdown = function (_Component) {
           arrowClassName = _props2.arrowClassName,
           arrowClosed = _props2.arrowClosed,
           arrowOpen = _props2.arrowOpen,
-          className = _props2.className;
-
+          className = _props2.className,
+          searchInputClasName = _props2.searchInputClasName,
+          isSearchEnabled = _props2.isSearchEnabled;
 
       var disabledClass = this.props.disabled ? 'Dropdown-disabled' : '';
       var placeHolderValue = typeof this.state.selected === 'string' ? this.state.selected : this.state.selected.label;
@@ -247,7 +268,7 @@ var Dropdown = function (_Component) {
       );
       var menu = this.state.isOpen ? _react2.default.createElement(
         'div',
-        { className: menuClass },
+        { className: menuClass, 'aria-expanded': 'true' },
         this.buildMenu()
       ) : null;
 
@@ -256,8 +277,16 @@ var Dropdown = function (_Component) {
         { className: dropdownClass },
         _react2.default.createElement(
           'div',
-          { className: controlClass, onMouseDown: this.handleMouseDown.bind(this), onTouchEnd: this.handleMouseDown.bind(this) },
-          value,
+          { className: controlClass, onMouseDown: this.handleMouseDown.bind(this), onTouchEnd: this.handleMouseDown.bind(this), 'aria-haspopup': 'listbox' },
+          _react2.default.createElement(
+            'div',
+            null,
+            !this.state.isOpen ? _extends({}, value) : this.state.isOpen && isSearchEnabled ? _react2.default.createElement('input', { className: searchInputClasName, ref: function ref(input) {
+                _this3.searchInput = input;
+              }, type: 'text', onChange: function onChange(e) {
+                return _this3.handleSearch(e.target.value);
+              } }) : _extends({}, value)
+          ),
           _react2.default.createElement(
             'div',
             { className: baseClassName + '-arrow-wrapper' },

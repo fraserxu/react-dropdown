@@ -12,11 +12,16 @@ class FlatArrayExample extends Component {
       selected: ''
     }
     this._onSelect = this._onSelect.bind(this)
+    this._onSearch = this._onSearch.bind(this)
   }
 
   _onSelect (option) {
     console.log('You selected ', option.label)
     this.setState({selected: option})
+  }
+
+  _onSearch (value) {
+    console.log('search:  ', value)
   }
 
   render () {
@@ -25,8 +30,8 @@ class FlatArrayExample extends Component {
 
     return (
       <section>
-        <h3>Flat Array Example </h3>
-        <Dropdown options={options} onChange={this._onSelect} value={defaultOption} placeholder="Select an option" />
+        <h3>Flat Array Example – zilahir</h3>
+        <Dropdown onSearch={this._onSearch} isSearchEnabled={false} options={options} onChange={this._onSelect} value={defaultOption} placeholder="Select an option" />
         <div className='result'>
           You selected
           <strong> {placeHolderValue} </strong>

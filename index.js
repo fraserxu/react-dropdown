@@ -95,6 +95,13 @@ class Dropdown extends Component {
     }
   }
 
+  handleSearch (searchString) {
+    console.debug('searchString', searchString)
+    if (this.props.onSearch) {
+      this.props.onSearch(searchString)
+    }
+  }
+
   renderOption (option) {
     let value = option.value
     if (typeof value === 'undefined') {
@@ -124,7 +131,12 @@ class Dropdown extends Component {
     )
   }
 
-  buildMenu () {
+  buildMenu (isSearchEnabled) {
+    setTimeout(() => {
+      if (isSearchEnabled) {
+        this.searchInput.focus()
+      }
+    }, 100)
     let { options, baseClassName } = this.props
     let ops = options.map((option) => {
       if (option.type === 'group') {
@@ -164,8 +176,7 @@ class Dropdown extends Component {
   }
 
   render () {
-    const { baseClassName, controlClassName, placeholderClassName, menuClassName, arrowClassName, arrowClosed, arrowOpen, className } = this.props
-
+    const { baseClassName, controlClassName, placeholderClassName, menuClassName, arrowClassName, arrowClosed, arrowOpen, className, searchInputClasName, isSearchEnabled } = this.props
     const disabledClass = this.props.disabled ? 'Dropdown-disabled' : ''
     const placeHolderValue = typeof this.state.selected === 'string' ? this.state.selected : this.state.selected.label
 
@@ -197,13 +208,21 @@ class Dropdown extends Component {
       {placeHolderValue}
     </div>)
     const menu = this.state.isOpen ? <div className={menuClass} aria-expanded='true'>
-      {this.buildMenu()}
+      {this.buildMenu(isSearchEnabled)}
     </div> : null
 
     return (
       <div className={dropdownClass}>
         <div className={controlClass} onMouseDown={this.handleMouseDown.bind(this)} onTouchEnd={this.handleMouseDown.bind(this)} aria-haspopup='listbox'>
-          {value}
+          <div>
+            {
+              !this.state.isOpen
+                ? {...value}
+                : this.state.isOpen && isSearchEnabled
+                  ? <input className={searchInputClasName} ref={(input) => { this.searchInput = input }} type='text' onChange={(e) => this.handleSearch(e.target.value)} />
+                  : {...value}
+            }
+          </div>
           <div className={`${baseClassName}-arrow-wrapper`}>
             {arrowOpen && arrowClosed
               ? this.state.isOpen ? arrowOpen : arrowClosed

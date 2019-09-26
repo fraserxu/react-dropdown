@@ -16,6 +16,8 @@ declare module "react-dropdown" {
     className?: string;
     controlClassName?: string;
     placeholderClassName?: string;
+    searchInputClasName ?: string;
+    isSearchEnabled ?: boolean;
     menuClassName?: string;
     arrowClassName?: string;
     disabled?: boolean;
