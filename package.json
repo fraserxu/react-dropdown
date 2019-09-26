@@ -11,6 +11,7 @@
   "files": [
     "dist/index.js",
     "dist/umd.js",
+    "dist/umd.min.js",
     "index.d.ts",
     "style.css"
   ],
