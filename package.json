@@ -10,6 +10,7 @@
   },
   "files": [
     "dist/index.js",
+    "dist/umd.js",
     "index.d.ts",
     "style.css"
   ],
