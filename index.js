@@ -104,6 +104,7 @@ class Dropdown extends Component {
 
   renderOption (option) {
     let value = option.value
+    let key = option.key
     if (typeof value === 'undefined') {
       value = option.label || option
     }
@@ -120,7 +121,7 @@ class Dropdown extends Component {
 
     return (
       <div
-        key={value}
+        key={key}
         className={optionClass}
         onMouseDown={this.setValue.bind(this, value, label)}
         onClick={this.setValue.bind(this, value, label)}
