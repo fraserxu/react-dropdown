@@ -152,6 +152,7 @@ var Dropdown = function (_Component) {
       var _classes;
 
       var value = option.value;
+      var key = option.key;
       if (typeof value === 'undefined') {
         value = option.label || option;
       }
@@ -165,7 +166,7 @@ var Dropdown = function (_Component) {
       return _react2.default.createElement(
         'div',
         {
-          key: value,
+          key: key,
           className: optionClass,
           onMouseDown: this.setValue.bind(this, value, label),
           onClick: this.setValue.bind(this, value, label),
@@ -176,11 +177,13 @@ var Dropdown = function (_Component) {
     }
   }, {
     key: 'buildMenu',
-    value: function buildMenu() {
+    value: function buildMenu(isSearchEnabled) {
       var _this2 = this;
 
       setTimeout(function () {
-        _this2.searchInput.focus();
+        if (isSearchEnabled) {
+          _this2.searchInput.focus();
+        }
       }, 100);
       var _props = this.props,
           options = _props.options,
@@ -269,7 +272,7 @@ var Dropdown = function (_Component) {
       var menu = this.state.isOpen ? _react2.default.createElement(
         'div',
         { className: menuClass, 'aria-expanded': 'true' },
-        this.buildMenu()
+        this.buildMenu(isSearchEnabled)
       ) : null;
 
       return _react2.default.createElement(
