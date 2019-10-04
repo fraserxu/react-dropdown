@@ -8,6 +8,10 @@ header h2 {
   margin: 30px auto;
 }
 
+.hidden {
+  display: none;
+}
+
 pre {
   background: #f7f7f7;
   padding: 10px 20px;
