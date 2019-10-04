@@ -116,7 +116,6 @@ class Dropdown extends Component {
       'is-selected': isSelected
     }
     const optionClass = classNames(classes)
-
     return (
       <div
         key={key}
@@ -128,9 +127,15 @@ class Dropdown extends Component {
         role='option'
         aria-selected={isSelected ? 'true' : 'false'}>
         <p>
-          <small className={`${breadcrumbs && breadcrumbs.id === option.id ? '' : 'hidden'}`}>
-              {breadcrumbs.value || ''}
-          </small>
+          {
+            breadcrumbs ?
+              (
+                <small className={`${breadcrumbs && breadcrumbs.id === option.id ? '' : 'hidden'}`}>
+                  {breadcrumbs.value || ''}
+                </small>
+              )
+            : null
+          }
           {label}
         </p>
       </div>

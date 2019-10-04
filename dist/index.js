@@ -148,8 +148,9 @@ var Dropdown = function (_Component) {
     }
   }, {
     key: 'renderOption',
-    value: function renderOption(option) {
-      var _classes;
+    value: function renderOption(option, onMouseEnter, breadcrumbs) {
+      var _classes,
+          _this2 = this;
 
       var value = option.value;
       var key = option.key;
@@ -158,31 +159,43 @@ var Dropdown = function (_Component) {
       }
       var label = option.label || option.value || option;
       var isSelected = value === this.state.selected.value || value === this.state.selected;
-
       var classes = (_classes = {}, _defineProperty(_classes, this.props.baseClassName + '-option', true), _defineProperty(_classes, option.className, !!option.className), _defineProperty(_classes, 'is-selected', isSelected), _classes);
-
       var optionClass = (0, _classnames2.default)(classes);
-
       return _react2.default.createElement(
         'div',
         {
           key: key,
           className: optionClass,
           onMouseDown: this.setValue.bind(this, value, label),
+          onMouseEnter: function onMouseEnter() {
+            return _this2.props.onMouseEnter(option);
+          },
+          onMouseLeave: function onMouseLeave() {
+            return _this2.props.onMouseLeave();
+          },
           onClick: this.setValue.bind(this, value, label),
           role: 'option',
           'aria-selected': isSelected ? 'true' : 'false' },
-        label
+        _react2.default.createElement(
+          'p',
+          null,
+          breadcrumbs ? _react2.default.createElement(
+            'small',
+            { className: '' + (breadcrumbs && breadcrumbs.id === option.id ? '' : 'hidden') },
+            breadcrumbs.value || ''
+          ) : null,
+          label
+        )
       );
     }
   }, {
     key: 'buildMenu',
-    value: function buildMenu(isSearchEnabled) {
-      var _this2 = this;
+    value: function buildMenu(isSearchEnabled, onMouseEnter, breadcrumbs) {
+      var _this3 = this;
 
       setTimeout(function () {
         if (isSearchEnabled) {
-          _this2.searchInput.focus();
+          _this3.searchInput.focus();
         }
       }, 100);
       var _props = this.props,
@@ -197,7 +210,7 @@ var Dropdown = function (_Component) {
             option.name
           );
           var _options = option.items.map(function (item) {
-            return _this2.renderOption(item);
+            return _this3.renderOption(item);
           });
 
           return _react2.default.createElement(
@@ -207,7 +220,7 @@ var Dropdown = function (_Component) {
             _options
           );
         } else {
-          return _this2.renderOption(option);
+          return _this3.renderOption(option, onMouseEnter, breadcrumbs);
         }
       });
 
@@ -241,7 +254,7 @@ var Dropdown = function (_Component) {
           _classNames3,
           _classNames4,
           _classNames5,
-          _this3 = this;
+          _this4 = this;
 
       var _props2 = this.props,
           baseClassName = _props2.baseClassName,
@@ -253,7 +266,9 @@ var Dropdown = function (_Component) {
           arrowOpen = _props2.arrowOpen,
           className = _props2.className,
           searchInputClasName = _props2.searchInputClasName,
-          isSearchEnabled = _props2.isSearchEnabled;
+          isSearchEnabled = _props2.isSearchEnabled,
+          onMouseEnter = _props2.onMouseEnter,
+          breadcrumbs = _props2.breadcrumbs;
 
       var disabledClass = this.props.disabled ? 'Dropdown-disabled' : '';
       var placeHolderValue = typeof this.state.selected === 'string' ? this.state.selected : this.state.selected.label;
@@ -272,7 +287,7 @@ var Dropdown = function (_Component) {
       var menu = this.state.isOpen ? _react2.default.createElement(
         'div',
         { className: menuClass, 'aria-expanded': 'true' },
-        this.buildMenu(isSearchEnabled)
+        this.buildMenu(isSearchEnabled, onMouseEnter, breadcrumbs)
       ) : null;
 
       return _react2.default.createElement(
@@ -285,9 +300,9 @@ var Dropdown = function (_Component) {
             'div',
             null,
             !this.state.isOpen ? _extends({}, value) : this.state.isOpen && isSearchEnabled ? _react2.default.createElement('input', { className: searchInputClasName, ref: function ref(input) {
-                _this3.searchInput = input;
+                _this4.searchInput = input;
               }, type: 'text', onChange: function onChange(e) {
-                return _this3.handleSearch(e.target.value);
+                return _this4.handleSearch(e.target.value);
               } }) : _extends({}, value)
           ),
           _react2.default.createElement(
