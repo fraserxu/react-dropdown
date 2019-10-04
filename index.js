@@ -102,7 +102,7 @@ class Dropdown extends Component {
     }
   }
 
-  renderOption (option, onMouseEnter, breadcrumbs) {
+  renderOption (option, breadcrumbs) {
     let value = option.value
     let key = option.key
     if (typeof value === 'undefined') {
@@ -115,14 +115,15 @@ class Dropdown extends Component {
       [option.className]: !!option.className,
       'is-selected': isSelected
     }
+
     const optionClass = classNames(classes)
     return (
       <div
         key={key}
         className={optionClass}
         onMouseDown={this.setValue.bind(this, value, label)}
-        onMouseEnter={() => this.props.onMouseEnter(option)}
-        onMouseLeave={() => this.props.onMouseLeave()}
+        onMouseEnter={() => this.props.onMouseEnter ? this.props.onMouseEnter(option) : null}
+        onMouseLeave={() => this.props.onMouseLeave ? this.props.onMouseLeave() : null}
         onClick={this.setValue.bind(this, value, label)}
         role='option'
         aria-selected={isSelected ? 'true' : 'false'}>
@@ -142,7 +143,7 @@ class Dropdown extends Component {
     )
   }
 
-  buildMenu (isSearchEnabled, onMouseEnter, breadcrumbs) {
+  buildMenu (isSearchEnabled, breadcrumbs) {
     setTimeout(() => {
       if (isSearchEnabled) {
         this.searchInput.focus()
@@ -163,7 +164,7 @@ class Dropdown extends Component {
           </div>
         )
       } else {
-        return this.renderOption(option, onMouseEnter, breadcrumbs)
+        return this.renderOption(option, breadcrumbs)
       }
     })
 
@@ -187,7 +188,7 @@ class Dropdown extends Component {
   }
 
   render () {
-    const { baseClassName, controlClassName, placeholderClassName, menuClassName, arrowClassName, arrowClosed, arrowOpen, className, searchInputClasName, isSearchEnabled, onMouseEnter, breadcrumbs } = this.props
+    const { baseClassName, controlClassName, placeholderClassName, menuClassName, arrowClassName, arrowClosed, arrowOpen, className, searchInputClasName, isSearchEnabled, onMouseEnter, breadcrumbs, onMouseLeave } = this.props
     const disabledClass = this.props.disabled ? 'Dropdown-disabled' : ''
     const placeHolderValue = typeof this.state.selected === 'string' ? this.state.selected : this.state.selected.label
 
@@ -219,7 +220,7 @@ class Dropdown extends Component {
       {placeHolderValue}
     </div>)
     const menu = this.state.isOpen ? <div className={menuClass} aria-expanded='true'>
-      {this.buildMenu(isSearchEnabled, onMouseEnter, breadcrumbs)}
+      {this.buildMenu(isSearchEnabled, breadcrumbs)}
     </div> : null
 
     return (
