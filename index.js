@@ -164,7 +164,7 @@ class Dropdown extends Component {
   }
 
   render () {
-    const { baseClassName, controlClassName, placeholderClassName, menuClassName, arrowClassName, arrowClosed, arrowOpen, className } = this.props
+    const { baseClassName, controlClassName, placeholderClassName, menuClassName, arrowClassName, arrowWrapperClassName, arrowClosed, arrowOpen, className } = this.props
 
     const disabledClass = this.props.disabled ? 'Dropdown-disabled' : ''
     const placeHolderValue = typeof this.state.selected === 'string' ? this.state.selected : this.state.selected.label
@@ -192,6 +192,10 @@ class Dropdown extends Component {
       [`${baseClassName}-arrow`]: true,
       [arrowClassName]: !!arrowClassName
     })
+    const arrowWrapperClass = classNames({
+      [`${baseClassName}-arrow-wrapper`]: true,
+      [arrowWrapperClassName]: !!arrowWrapperClassName
+    })
 
     const value = (<div className={placeholderClass}>
       {placeHolderValue}
@@ -204,7 +208,7 @@ class Dropdown extends Component {
       <div className={dropdownClass}>
         <div className={controlClass} onMouseDown={this.handleMouseDown.bind(this)} onTouchEnd={this.handleMouseDown.bind(this)} aria-haspopup='listbox'>
           {value}
-          <div className={`${baseClassName}-arrow-wrapper`}>
+          <div className={arrowWrapperClass}>
             {arrowOpen && arrowClosed
               ? this.state.isOpen ? arrowOpen : arrowClosed
               : <span className={arrowClass} />}
