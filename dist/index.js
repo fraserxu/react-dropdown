@@ -148,7 +148,7 @@ var Dropdown = function (_Component) {
     }
   }, {
     key: 'renderOption',
-    value: function renderOption(option, onMouseEnter, breadcrumbs) {
+    value: function renderOption(option, breadcrumbs) {
       var _classes,
           _this2 = this;
 
@@ -160,6 +160,7 @@ var Dropdown = function (_Component) {
       var label = option.label || option.value || option;
       var isSelected = value === this.state.selected.value || value === this.state.selected;
       var classes = (_classes = {}, _defineProperty(_classes, this.props.baseClassName + '-option', true), _defineProperty(_classes, option.className, !!option.className), _defineProperty(_classes, 'is-selected', isSelected), _classes);
+
       var optionClass = (0, _classnames2.default)(classes);
       return _react2.default.createElement(
         'div',
@@ -168,10 +169,10 @@ var Dropdown = function (_Component) {
           className: optionClass,
           onMouseDown: this.setValue.bind(this, value, label),
           onMouseEnter: function onMouseEnter() {
-            return _this2.props.onMouseEnter(option);
+            return _this2.props.onMouseEnter ? _this2.props.onMouseEnter(option) : null;
           },
           onMouseLeave: function onMouseLeave() {
-            return _this2.props.onMouseLeave();
+            return _this2.props.onMouseLeave ? _this2.props.onMouseLeave() : null;
           },
           onClick: this.setValue.bind(this, value, label),
           role: 'option',
@@ -190,7 +191,7 @@ var Dropdown = function (_Component) {
     }
   }, {
     key: 'buildMenu',
-    value: function buildMenu(isSearchEnabled, onMouseEnter, breadcrumbs) {
+    value: function buildMenu(isSearchEnabled, breadcrumbs) {
       var _this3 = this;
 
       setTimeout(function () {
@@ -220,7 +221,7 @@ var Dropdown = function (_Component) {
             _options
           );
         } else {
-          return _this3.renderOption(option, onMouseEnter, breadcrumbs);
+          return _this3.renderOption(option, breadcrumbs);
         }
       });
 
@@ -268,7 +269,8 @@ var Dropdown = function (_Component) {
           searchInputClasName = _props2.searchInputClasName,
           isSearchEnabled = _props2.isSearchEnabled,
           onMouseEnter = _props2.onMouseEnter,
-          breadcrumbs = _props2.breadcrumbs;
+          breadcrumbs = _props2.breadcrumbs,
+          onMouseLeave = _props2.onMouseLeave;
 
       var disabledClass = this.props.disabled ? 'Dropdown-disabled' : '';
       var placeHolderValue = typeof this.state.selected === 'string' ? this.state.selected : this.state.selected.label;
@@ -287,7 +289,7 @@ var Dropdown = function (_Component) {
       var menu = this.state.isOpen ? _react2.default.createElement(
         'div',
         { className: menuClass, 'aria-expanded': 'true' },
-        this.buildMenu(isSearchEnabled, onMouseEnter, breadcrumbs)
+        this.buildMenu(isSearchEnabled, breadcrumbs)
       ) : null;
 
       return _react2.default.createElement(

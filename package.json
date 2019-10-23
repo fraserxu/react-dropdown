@@ -6,7 +6,7 @@
   "style": "style.css",
   "repository": {
     "type": "git",
-    "url": "git://github.com/fraserxu/react-dropdown.git"
+    "url": "git://github.com/zilahir/react-dropdown.git"
   },
   "files": [
     "dist/index.js",
@@ -21,9 +21,9 @@
     "select"
   ],
   "author": {
-    "name": "Fraser Xu",
-    "email": "xvfeng123@gmail.com",
-    "url": "https://fraserxu.me"
+    "name": "Richard Zilahi",
+    "email": "zilahi@gmail.com",
+    "url": "https://richardzilahi.hu"
   },
   "license": "MIT",
   "bugs": {

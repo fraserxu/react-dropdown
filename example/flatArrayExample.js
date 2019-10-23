@@ -31,21 +31,24 @@ class FlatArrayExample extends Component {
   }
 
   _returnBreadcrumbs(value) {
-    if (value.id === 1) {
-      this.setState({
-        breadcrumb: {
-          id: 1,
-          value: 'demo'
-        }
-      })
-    } else {
-      this.setState({
-        breadcrumb: {
-          id: -1,
-          value: ''
-        }
-      })
-    }
+    const breadcrumbs = [
+      { id: 1, value: 'lorem' },
+      { id: 2, value: 'demo' },
+      { id: 3, value: 'ipsum' },
+    ]
+
+    const found = breadcrumbs.find(e => (
+      e.id ===  value.id
+    ));
+
+    this.setState({
+      breadcrumb: {
+        id: found.id,
+        value: found.value
+      }
+    }, () => {
+      console.debug('found', found)
+    })
   }
 
   _clearBreadCrumb() {
@@ -66,7 +69,7 @@ class FlatArrayExample extends Component {
     return (
       <section>
         <h3>Flat Array Example – zilahir</h3>
-        <Dropdown onMouseLeave={() => this._clearBreadCrumb()} onMouseEnter={(value) => this._returnBreadcrumbs(value)} breadcrumbs={this.state.breadcrumb} onSearch={this._onSearch} isSearchEnabled={false} options={options} onChange={this._onSelect} value={defaultOption} placeholder="Select an option" />
+        <Dropdown onMouseLeave={() => this._clearBreadCrumb()} onMouseEnter={(value) => this._returnBreadcrumbs(value)} onSearch={this._onSearch} isSearchEnabled={false} options={options} onChange={this._onSelect} value={defaultOption} placeholder="Select an option" />
         <div className='result'>
           You selected
           <strong> {placeHolderValue} </strong>

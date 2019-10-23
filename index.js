@@ -115,7 +115,6 @@ class Dropdown extends Component {
       [option.className]: !!option.className,
       'is-selected': isSelected
     }
-
     const optionClass = classNames(classes)
     return (
       <div
