@@ -19,17 +19,21 @@ class Dropdown extends Component {
     this.fireChangeEvent = this.fireChangeEvent.bind(this)
   }
 
-  componentWillReceiveProps (newProps) {
-    if (newProps.value) {
-      var selected = this.parseValue(newProps.value, newProps.options)
-      if (selected !== this.state.selected) {
-        this.setState({selected: selected})
+  componentDidUpdate (prevProps) {
+    if (this.props.value !== prevProps.value) {
+      if (this.props.value) {
+        let selected = this.parseValue(this.props.value, this.props.options)
+        if (selected !== this.state.selected) {
+          this.setState({ selected })
+        }
+      } else {
+        this.setState({
+          selected: {
+            label: typeof this.props.placeholder === 'undefined' ? DEFAULT_PLACEHOLDER_STRING : this.props.placeholder,
+            value: ''
+          }
+        })
       }
-    } else {
-      this.setState({selected: {
-        label: typeof newProps.placeholder === 'undefined' ? DEFAULT_PLACEHOLDER_STRING : newProps.placeholder,
-        value: ''
-      }})
     }
   }
 
