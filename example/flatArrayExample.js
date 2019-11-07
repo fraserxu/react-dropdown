@@ -69,7 +69,17 @@ class FlatArrayExample extends Component {
     return (
       <section>
         <h3>Flat Array Example – zilahir</h3>
-        <Dropdown onMouseLeave={() => this._clearBreadCrumb()} onMouseEnter={(value) => this._returnBreadcrumbs(value)} onSearch={this._onSearch} isSearchEnabled={false} options={options} onChange={this._onSelect} value={defaultOption} placeholder="Select an option" />
+        <Dropdown
+          onMouseLeave={() => this._clearBreadCrumb()}
+          onMouseEnter={(value) => this._returnBreadcrumbs(value)}
+          onSearch={this._onSearch}
+          isSearchEnabled={false}
+          options={options}
+          onChange={this._onSelect}
+          value={defaultOption}
+          placeholder="Select an option"
+          isHidden={false}
+        />
         <div className='result'>
           You selected
           <strong> {placeHolderValue} </strong>
