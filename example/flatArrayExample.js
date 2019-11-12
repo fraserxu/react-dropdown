@@ -62,6 +62,13 @@ class FlatArrayExample extends Component {
     })
   }
 
+  _handleResetBtnClick(defaultOption) {
+    console.debug('defaultOption', defaultOption)
+    this.setState({
+      selected: defaultOption
+    })
+  }
+
   render () {
     const defaultOption = this.state.selected
     const placeHolderValue = typeof this.state.selected === 'string' ? this.state.selected : this.state.selected.label
@@ -76,9 +83,11 @@ class FlatArrayExample extends Component {
           isSearchEnabled={false}
           options={options}
           onChange={this._onSelect}
-          value={defaultOption}
+          value={options[0]}
           placeholder="Select an option"
           isHidden={false}
+          hasResetBtn={true}
+          resetBtnClick={() => this._handleResetBtnClick(options[0])}
         />
         <div className='result'>
           You selected

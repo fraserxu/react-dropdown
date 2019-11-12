@@ -45,6 +45,9 @@ class Dropdown extends Component {
   }
 
   handleMouseDown (event) {
+    if (this.props.hasResetBtn && event.target.classList.contains('resetBtn')) {
+      console.debug('reset btn was clicked')
+    }
     if (this.props.onFocus && typeof this.props.onFocus === 'function') {
       this.props.onFocus(this.state.isOpen)
     }
@@ -52,7 +55,7 @@ class Dropdown extends Component {
     event.stopPropagation()
     event.preventDefault()
 
-    if (!this.props.disabled) {
+    if (!this.props.disabled && !event.target.classList.contains('resetBtn')) {
       this.setState({
         isOpen: !this.state.isOpen
       })
@@ -187,7 +190,25 @@ class Dropdown extends Component {
   }
 
   render () {
-    const { baseClassName, controlClassName, placeholderClassName, menuClassName, arrowClassName, arrowClosed, arrowOpen, className, searchInputClasName, isSearchEnabled, onMouseEnter, breadcrumbs, onMouseLeave, isHidden } = this.props
+    const {
+      baseClassName,
+      controlClassName,
+      placeholderClassName,
+      menuClassName,
+      arrowClassName,
+      arrowClosed,
+      arrowOpen,
+      className,
+      searchInputClasName,
+      isSearchEnabled,
+      onMouseEnter,
+      breadcrumbs,
+      onMouseLeave,
+      isHidden,
+      hasResetBtn,
+      resetBtnClick,
+      resetBtnElement,
+    } = this.props
     const disabledClass = this.props.disabled ? 'Dropdown-disabled' : ''
     const placeHolderValue = typeof this.state.selected === 'string' ? this.state.selected : this.state.selected.label
 
@@ -239,7 +260,19 @@ class Dropdown extends Component {
             <div className={`${baseClassName}-arrow-wrapper`}>
               {arrowOpen && arrowClosed
                 ? this.state.isOpen ? arrowOpen : arrowClosed
-                : <span className={arrowClass} />}
+                : <span className={arrowClass} />
+              }
+              {
+                hasResetBtn
+                ? (
+                  <span className={`resetBtn ${baseClassName}-resetBtn`} onClick={resetBtnClick}>
+                    {
+                      resetBtnElement || 'X'
+                    }
+                  </span>
+                )
+                : null
+              }
             </div>
           </div>
           {menu}

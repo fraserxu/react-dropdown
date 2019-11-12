@@ -160,7 +160,6 @@ var Dropdown = function (_Component) {
       var label = option.label || option.value || option;
       var isSelected = value === this.state.selected.value || value === this.state.selected;
       var classes = (_classes = {}, _defineProperty(_classes, this.props.baseClassName + '-option', true), _defineProperty(_classes, option.className, !!option.className), _defineProperty(_classes, 'is-selected', isSelected), _classes);
-
       var optionClass = (0, _classnames2.default)(classes);
       return _react2.default.createElement(
         'div',
@@ -270,7 +269,8 @@ var Dropdown = function (_Component) {
           isSearchEnabled = _props2.isSearchEnabled,
           onMouseEnter = _props2.onMouseEnter,
           breadcrumbs = _props2.breadcrumbs,
-          onMouseLeave = _props2.onMouseLeave;
+          onMouseLeave = _props2.onMouseLeave,
+          isHidden = _props2.isHidden;
 
       var disabledClass = this.props.disabled ? 'Dropdown-disabled' : '';
       var placeHolderValue = typeof this.state.selected === 'string' ? this.state.selected : this.state.selected.label;
@@ -292,7 +292,7 @@ var Dropdown = function (_Component) {
         this.buildMenu(isSearchEnabled, breadcrumbs)
       ) : null;
 
-      return _react2.default.createElement(
+      return !isHidden ? _react2.default.createElement(
         'div',
         { className: dropdownClass },
         _react2.default.createElement(
@@ -314,12 +314,12 @@ var Dropdown = function (_Component) {
           )
         ),
         menu
-      );
+      ) : null;
     }
   }]);
 
   return Dropdown;
 }(_react.Component);
 
-Dropdown.defaultProps = { baseClassName: 'Dropdown' };
+Dropdown.defaultProps = { baseClassName: 'Dropdown', isHidden: false };
 exports.default = Dropdown;
