@@ -208,6 +208,7 @@ class Dropdown extends Component {
       hasResetBtn,
       resetBtnClick,
       resetBtnElement,
+      defaultValue
     } = this.props
     const disabledClass = this.props.disabled ? 'Dropdown-disabled' : ''
     const placeHolderValue = typeof this.state.selected === 'string' ? this.state.selected : this.state.selected.label
@@ -258,12 +259,8 @@ class Dropdown extends Component {
               }
             </div>
             <div className={`${baseClassName}-arrow-wrapper`}>
-              {arrowOpen && arrowClosed
-                ? this.state.isOpen ? arrowOpen : arrowClosed
-                : <span className={arrowClass} />
-              }
               {
-                hasResetBtn
+                hasResetBtn && defaultValue !== this.state.selected
                 ? (
                   <span className={`resetBtn ${baseClassName}-resetBtn`} onClick={resetBtnClick}>
                     {
@@ -272,6 +269,10 @@ class Dropdown extends Component {
                   </span>
                 )
                 : null
+              }
+              {arrowOpen && arrowClosed
+                ? this.state.isOpen ? arrowOpen : arrowClosed
+                : <span className={arrowClass} />
               }
             </div>
           </div>

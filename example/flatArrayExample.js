@@ -82,6 +82,7 @@ class FlatArrayExample extends Component {
           onSearch={this._onSearch}
           isSearchEnabled={false}
           options={options}
+          defaultValue={options[0]}
           onChange={this._onSelect}
           value={options[0]}
           placeholder="Select an option"

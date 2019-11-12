@@ -84,6 +84,9 @@ var Dropdown = function (_Component) {
   }, {
     key: 'handleMouseDown',
     value: function handleMouseDown(event) {
+      if (this.props.hasResetBtn && event.target.classList.contains('resetBtn')) {
+        console.debug('reset btn was clicked');
+      }
       if (this.props.onFocus && typeof this.props.onFocus === 'function') {
         this.props.onFocus(this.state.isOpen);
       }
@@ -91,7 +94,7 @@ var Dropdown = function (_Component) {
       event.stopPropagation();
       event.preventDefault();
 
-      if (!this.props.disabled) {
+      if (!this.props.disabled && !event.target.classList.contains('resetBtn')) {
         this.setState({
           isOpen: !this.state.isOpen
         });
@@ -270,7 +273,10 @@ var Dropdown = function (_Component) {
           onMouseEnter = _props2.onMouseEnter,
           breadcrumbs = _props2.breadcrumbs,
           onMouseLeave = _props2.onMouseLeave,
-          isHidden = _props2.isHidden;
+          isHidden = _props2.isHidden,
+          hasResetBtn = _props2.hasResetBtn,
+          resetBtnClick = _props2.resetBtnClick,
+          resetBtnElement = _props2.resetBtnElement;
 
       var disabledClass = this.props.disabled ? 'Dropdown-disabled' : '';
       var placeHolderValue = typeof this.state.selected === 'string' ? this.state.selected : this.state.selected.label;
@@ -310,7 +316,12 @@ var Dropdown = function (_Component) {
           _react2.default.createElement(
             'div',
             { className: baseClassName + '-arrow-wrapper' },
-            arrowOpen && arrowClosed ? this.state.isOpen ? arrowOpen : arrowClosed : _react2.default.createElement('span', { className: arrowClass })
+            arrowOpen && arrowClosed ? this.state.isOpen ? arrowOpen : arrowClosed : _react2.default.createElement('span', { className: arrowClass }),
+            hasResetBtn ? _react2.default.createElement(
+              'span',
+              { className: 'resetBtn ' + baseClassName + '-resetBtn', onClick: resetBtnClick },
+              resetBtnElement || 'X'
+            ) : null
           )
         ),
         menu
