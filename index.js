@@ -200,6 +200,7 @@ class Dropdown extends Component {
       baseClassName,
       controlClassName,
       placeholderClassName,
+      placeholder,
       menuClassName,
       arrowClassName,
       arrowClosed,
@@ -217,8 +218,8 @@ class Dropdown extends Component {
       defaultValue
     } = this.props
     const disabledClass = this.props.disabled ? 'Dropdown-disabled' : ''
-    const placeHolderValue = typeof this.state.selected === 'string' ? this.state.selected : this.state.selected.label
-
+    const placeHolderValue = this.state.selected.value || this.props.placeholder
+    // console.debug(this.props.selected)
     const dropdownClass = classNames({
       [`${baseClassName}-root`]: true,
       [className]: !!className,
@@ -249,7 +250,6 @@ class Dropdown extends Component {
     const menu = this.state.isOpen ? <div className={menuClass} aria-expanded='true'>
       {this.buildMenu(isSearchEnabled, breadcrumbs)}
     </div> : null
-
     return (
       !isHidden
         ? 

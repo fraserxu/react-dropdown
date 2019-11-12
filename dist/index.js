@@ -150,6 +150,13 @@ var Dropdown = function (_Component) {
       }
     }
   }, {
+    key: 'handleReset',
+    value: function handleReset() {
+      if (this.props.hasResetBtn && this.props.resetBtnClick) {
+        this.props.resetBtnClick(this.props.defaultValue);
+      }
+    }
+  }, {
     key: 'renderOption',
     value: function renderOption(option, breadcrumbs) {
       var _classes,
@@ -319,7 +326,9 @@ var Dropdown = function (_Component) {
             { className: baseClassName + '-arrow-wrapper' },
             hasResetBtn && defaultValue !== this.state.selected ? _react2.default.createElement(
               'span',
-              { className: 'resetBtn ' + baseClassName + '-resetBtn', onClick: resetBtnClick },
+              { className: 'resetBtn ' + baseClassName + '-resetBtn', onClick: function onClick() {
+                  return _this4.handleReset();
+                } },
               resetBtnElement || 'X'
             ) : null,
             arrowOpen && arrowClosed ? this.state.isOpen ? arrowOpen : arrowClosed : _react2.default.createElement('span', { className: arrowClass })
