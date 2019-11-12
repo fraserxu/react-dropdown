@@ -105,6 +105,12 @@ class Dropdown extends Component {
     }
   }
 
+  handleReset() {
+    if (this.props.hasResetBtn && this.props.resetBtnClick) {
+      this.props.resetBtnClick(this.props.defaultValue)
+    }
+  }
+
   renderOption (option, breadcrumbs) {
     let value = option.value
     let key = option.key
@@ -262,7 +268,7 @@ class Dropdown extends Component {
               {
                 hasResetBtn && defaultValue !== this.state.selected
                 ? (
-                  <span className={`resetBtn ${baseClassName}-resetBtn`} onClick={resetBtnClick}>
+                  <span className={`resetBtn ${baseClassName}-resetBtn`} onClick={() => this.handleReset()}>
                     {
                       resetBtnElement || 'X'
                     }

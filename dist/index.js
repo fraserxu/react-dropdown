@@ -276,7 +276,8 @@ var Dropdown = function (_Component) {
           isHidden = _props2.isHidden,
           hasResetBtn = _props2.hasResetBtn,
           resetBtnClick = _props2.resetBtnClick,
-          resetBtnElement = _props2.resetBtnElement;
+          resetBtnElement = _props2.resetBtnElement,
+          defaultValue = _props2.defaultValue;
 
       var disabledClass = this.props.disabled ? 'Dropdown-disabled' : '';
       var placeHolderValue = typeof this.state.selected === 'string' ? this.state.selected : this.state.selected.label;
@@ -316,12 +317,12 @@ var Dropdown = function (_Component) {
           _react2.default.createElement(
             'div',
             { className: baseClassName + '-arrow-wrapper' },
-            arrowOpen && arrowClosed ? this.state.isOpen ? arrowOpen : arrowClosed : _react2.default.createElement('span', { className: arrowClass }),
-            hasResetBtn ? _react2.default.createElement(
+            hasResetBtn && defaultValue !== this.state.selected ? _react2.default.createElement(
               'span',
               { className: 'resetBtn ' + baseClassName + '-resetBtn', onClick: resetBtnClick },
               resetBtnElement || 'X'
-            ) : null
+            ) : null,
+            arrowOpen && arrowClosed ? this.state.isOpen ? arrowOpen : arrowClosed : _react2.default.createElement('span', { className: arrowClass })
           )
         ),
         menu
