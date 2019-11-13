@@ -270,6 +270,7 @@ var Dropdown = function (_Component) {
           baseClassName = _props2.baseClassName,
           controlClassName = _props2.controlClassName,
           placeholderClassName = _props2.placeholderClassName,
+          placeholder = _props2.placeholder,
           menuClassName = _props2.menuClassName,
           arrowClassName = _props2.arrowClassName,
           arrowClosed = _props2.arrowClosed,
@@ -287,8 +288,8 @@ var Dropdown = function (_Component) {
           defaultValue = _props2.defaultValue;
 
       var disabledClass = this.props.disabled ? 'Dropdown-disabled' : '';
-      var placeHolderValue = typeof this.state.selected === 'string' ? this.state.selected : this.state.selected.label;
-
+      var placeHolderValue = this.state.selected.label || this.props.placeholder;
+      // console.debug(this.props.selected)
       var dropdownClass = (0, _classnames2.default)((_classNames = {}, _defineProperty(_classNames, baseClassName + '-root', true), _defineProperty(_classNames, className, !!className), _defineProperty(_classNames, 'is-open', this.state.isOpen), _classNames));
       var controlClass = (0, _classnames2.default)((_classNames2 = {}, _defineProperty(_classNames2, baseClassName + '-control', true), _defineProperty(_classNames2, controlClassName, !!controlClassName), _defineProperty(_classNames2, disabledClass, !!disabledClass), _classNames2));
       var placeholderClass = (0, _classnames2.default)((_classNames3 = {}, _defineProperty(_classNames3, baseClassName + '-placeholder', true), _defineProperty(_classNames3, placeholderClassName, !!placeholderClassName), _defineProperty(_classNames3, 'is-selected', this.isValueSelected()), _classNames3));
@@ -305,7 +306,6 @@ var Dropdown = function (_Component) {
         { className: menuClass, 'aria-expanded': 'true' },
         this.buildMenu(isSearchEnabled, breadcrumbs)
       ) : null;
-
       return !isHidden ? _react2.default.createElement(
         'div',
         { className: dropdownClass },

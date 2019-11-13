@@ -218,7 +218,7 @@ class Dropdown extends Component {
       defaultValue
     } = this.props
     const disabledClass = this.props.disabled ? 'Dropdown-disabled' : ''
-    const placeHolderValue = this.state.selected.value || this.props.placeholder
+    const placeHolderValue = this.state.selected.label || this.props.placeholder
     // console.debug(this.props.selected)
     const dropdownClass = classNames({
       [`${baseClassName}-root`]: true,
