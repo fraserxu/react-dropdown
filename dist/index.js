@@ -4,6 +4,8 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = require('react');
@@ -82,6 +84,9 @@ var Dropdown = function (_Component) {
   }, {
     key: 'handleMouseDown',
     value: function handleMouseDown(event) {
+      if (this.props.hasResetBtn && event.target.classList.contains('resetBtn')) {
+        console.debug('reset btn was clicked');
+      }
       if (this.props.onFocus && typeof this.props.onFocus === 'function') {
         this.props.onFocus(this.state.isOpen);
       }
@@ -89,7 +94,7 @@ var Dropdown = function (_Component) {
       event.stopPropagation();
       event.preventDefault();
 
-      if (!this.props.disabled) {
+      if (!this.props.disabled && !event.target.classList.contains('resetBtn')) {
         this.setState({
           isOpen: !this.state.isOpen
         });
@@ -98,7 +103,7 @@ var Dropdown = function (_Component) {
   }, {
     key: 'parseValue',
     value: function parseValue(value, options) {
-      var option = undefined;
+      var option = void 0;
 
       if (typeof value === 'string') {
         for (var i = 0, num = options.length; i < num; i++) {
@@ -123,8 +128,7 @@ var Dropdown = function (_Component) {
       var newState = {
         selected: {
           value: value,
-          label: label
-        },
+          label: label },
         isOpen: false
       };
       this.fireChangeEvent(newState);
@@ -138,35 +142,72 @@ var Dropdown = function (_Component) {
       }
     }
   }, {
+    key: 'handleSearch',
+    value: function handleSearch(searchString) {
+      console.debug('searchString', searchString);
+      if (this.props.onSearch) {
+        this.props.onSearch(searchString);
+      }
+    }
+  }, {
+    key: 'handleReset',
+    value: function handleReset() {
+      if (this.props.hasResetBtn && this.props.resetBtnClick) {
+        this.props.resetBtnClick(this.props.defaultValue);
+      }
+    }
+  }, {
     key: 'renderOption',
-    value: function renderOption(option) {
-      var _classes;
+    value: function renderOption(option, breadcrumbs) {
+      var _classes,
+          _this2 = this;
 
       var value = option.value;
+      var key = option.key;
       if (typeof value === 'undefined') {
         value = option.label || option;
       }
       var label = option.label || option.value || option;
-
-      var classes = (_classes = {}, _defineProperty(_classes, this.props.baseClassName + '-option', true), _defineProperty(_classes, option.className, !!option.className), _defineProperty(_classes, 'is-selected', value === this.state.selected.value || value === this.state.selected), _classes);
-
+      var isSelected = value === this.state.selected.value || value === this.state.selected;
+      var classes = (_classes = {}, _defineProperty(_classes, this.props.baseClassName + '-option', true), _defineProperty(_classes, option.className, !!option.className), _defineProperty(_classes, 'is-selected', isSelected), _classes);
       var optionClass = (0, _classnames2.default)(classes);
-
       return _react2.default.createElement(
         'div',
         {
-          key: value,
+          key: key,
           className: optionClass,
           onMouseDown: this.setValue.bind(this, value, label),
-          onClick: this.setValue.bind(this, value, label) },
-        label
+          onMouseEnter: function onMouseEnter() {
+            return _this2.props.onMouseEnter ? _this2.props.onMouseEnter(option) : null;
+          },
+          onMouseLeave: function onMouseLeave() {
+            return _this2.props.onMouseLeave ? _this2.props.onMouseLeave() : null;
+          },
+          onClick: this.setValue.bind(this, value, label),
+          role: 'option',
+          'aria-selected': isSelected ? 'true' : 'false' },
+        _react2.default.createElement(
+          'p',
+          null,
+          breadcrumbs ? _react2.default.createElement(
+            'small',
+            { className: '' + (breadcrumbs && breadcrumbs.id === option.id ? '' : 'hidden') },
+            breadcrumbs.value || ''
+          ) : null,
+          label
+        )
       );
     }
   }, {
     key: 'buildMenu',
-    value: function buildMenu() {
-      var _this2 = this;
+    value: function buildMenu(isSearchEnabled, breadcrumbs) {
+      var _this3 = this;
 
+      setTimeout(function () {
+        if (isSearchEnabled) {
+          _this3.searchInput.focus();
+        }
+      }, 100);
       var _props = this.props,
           options = _props.options,
           baseClassName = _props.baseClassName;
@@ -179,17 +220,17 @@ var Dropdown = function (_Component) {
             option.name
           );
           var _options = option.items.map(function (item) {
-            return _this2.renderOption(item);
+            return _this3.renderOption(item);
           });
 
           return _react2.default.createElement(
             'div',
-            { className: baseClassName + '-group', key: option.name },
+            { className: baseClassName + '-group', key: option.name, role: 'listbox', tabIndex: '-1' },
             groupTitle,
             _options
           );
         } else {
-          return _this2.renderOption(option);
+          return _this3.renderOption(option, breadcrumbs);
         }
       });
 
@@ -218,22 +259,37 @@ var Dropdown = function (_Component) {
   }, {
     key: 'render',
     value: function render() {
-      var _classNames, _classNames2, _classNames3, _classNames4, _classNames5;
+      var _classNames,
+          _classNames2,
+          _classNames3,
+          _classNames4,
+          _classNames5,
+          _this4 = this;
 
       var _props2 = this.props,
           baseClassName = _props2.baseClassName,
           controlClassName = _props2.controlClassName,
           placeholderClassName = _props2.placeholderClassName,
+          placeholder = _props2.placeholder,
           menuClassName = _props2.menuClassName,
           arrowClassName = _props2.arrowClassName,
           arrowClosed = _props2.arrowClosed,
           arrowOpen = _props2.arrowOpen,
-          className = _props2.className;
-
+          className = _props2.className,
+          searchInputClasName = _props2.searchInputClasName,
+          isSearchEnabled = _props2.isSearchEnabled,
+          onMouseEnter = _props2.onMouseEnter,
+          breadcrumbs = _props2.breadcrumbs,
+          onMouseLeave = _props2.onMouseLeave,
+          isHidden = _props2.isHidden,
+          hasResetBtn = _props2.hasResetBtn,
+          resetBtnClick = _props2.resetBtnClick,
+          resetBtnElement = _props2.resetBtnElement,
+          defaultValue = _props2.defaultValue;
 
       var disabledClass = this.props.disabled ? 'Dropdown-disabled' : '';
-      var placeHolderValue = typeof this.state.selected === 'string' ? this.state.selected : this.state.selected.label;
-
+      var placeHolderValue = this.state.selected.label || this.props.placeholder;
+      // console.debug(this.props.selected)
       var dropdownClass = (0, _classnames2.default)((_classNames = {}, _defineProperty(_classNames, baseClassName + '-root', true), _defineProperty(_classNames, className, !!className), _defineProperty(_classNames, 'is-open', this.state.isOpen), _classNames));
       var controlClass = (0, _classnames2.default)((_classNames2 = {}, _defineProperty(_classNames2, baseClassName + '-control', true), _defineProperty(_classNames2, controlClassName, !!controlClassName), _defineProperty(_classNames2, disabledClass, !!disabledClass), _classNames2));
       var placeholderClass = (0, _classnames2.default)((_classNames3 = {}, _defineProperty(_classNames3, baseClassName + '-placeholder', true), _defineProperty(_classNames3, placeholderClassName, !!placeholderClassName), _defineProperty(_classNames3, 'is-selected', this.isValueSelected()), _classNames3));
@@ -247,30 +303,44 @@ var Dropdown = function (_Component) {
       );
       var menu = this.state.isOpen ? _react2.default.createElement(
         'div',
-        { className: menuClass },
-        this.buildMenu()
+        { className: menuClass, 'aria-expanded': 'true' },
+        this.buildMenu(isSearchEnabled, breadcrumbs)
       ) : null;
-
-      return _react2.default.createElement(
+      return !isHidden ? _react2.default.createElement(
         'div',
         { className: dropdownClass },
         _react2.default.createElement(
           'div',
-          { className: controlClass, onMouseDown: this.handleMouseDown.bind(this), onTouchEnd: this.handleMouseDown.bind(this) },
-          value,
+          { className: controlClass, onMouseDown: this.handleMouseDown.bind(this), onTouchEnd: this.handleMouseDown.bind(this), 'aria-haspopup': 'listbox' },
+          _react2.default.createElement(
+            'div',
+            null,
+            !this.state.isOpen ? _extends({}, value) : this.state.isOpen && isSearchEnabled ? _react2.default.createElement('input', { className: searchInputClasName, ref: function ref(input) {
+                _this4.searchInput = input;
+              }, type: 'text', onChange: function onChange(e) {
+                return _this4.handleSearch(e.target.value);
+              } }) : _extends({}, value)
+          ),
           _react2.default.createElement(
             'div',
             { className: baseClassName + '-arrow-wrapper' },
+            hasResetBtn && defaultValue !== this.state.selected ? _react2.default.createElement(
+              'span',
+              { className: 'resetBtn ' + baseClassName + '-resetBtn', onClick: function onClick() {
+                  return _this4.handleReset();
+                } },
+              resetBtnElement || 'X'
+            ) : null,
             arrowOpen && arrowClosed ? this.state.isOpen ? arrowOpen : arrowClosed : _react2.default.createElement('span', { className: arrowClass })
           )
         ),
         menu
-      );
+      ) : null;
     }
   }]);
 
   return Dropdown;
 }(_react.Component);
 
-Dropdown.defaultProps = { baseClassName: 'Dropdown' };
+Dropdown.defaultProps = { baseClassName: 'Dropdown', isHidden: false };
 exports.default = Dropdown;

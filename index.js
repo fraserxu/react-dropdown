@@ -45,6 +45,9 @@ class Dropdown extends Component {
   }
 
   handleMouseDown (event) {
+    if (this.props.hasResetBtn && event.target.classList.contains('resetBtn')) {
+      console.debug('reset btn was clicked')
+    }
     if (this.props.onFocus && typeof this.props.onFocus === 'function') {
       this.props.onFocus(this.state.isOpen)
     }
@@ -52,7 +55,7 @@ class Dropdown extends Component {
     event.stopPropagation()
     event.preventDefault()
 
-    if (!this.props.disabled) {
+    if (!this.props.disabled && !event.target.classList.contains('resetBtn')) {
       this.setState({
         isOpen: !this.state.isOpen
       })
@@ -95,36 +98,65 @@ class Dropdown extends Component {
     }
   }
 
-  renderOption (option) {
+  handleSearch (searchString) {
+    console.debug('searchString', searchString)
+    if (this.props.onSearch) {
+      this.props.onSearch(searchString)
+    }
+  }
+
+  handleReset() {
+    if (this.props.hasResetBtn && this.props.resetBtnClick) {
+      this.props.resetBtnClick(this.props.defaultValue)
+    }
+  }
+
+  renderOption (option, breadcrumbs) {
     let value = option.value
+    let key = option.key
     if (typeof value === 'undefined') {
       value = option.label || option
     }
     let label = option.label || option.value || option
     let isSelected = value === this.state.selected.value || value === this.state.selected
-
     const classes = {
       [`${this.props.baseClassName}-option`]: true,
       [option.className]: !!option.className,
       'is-selected': isSelected
     }
-
     const optionClass = classNames(classes)
-
     return (
       <div
-        key={value}
+        key={key}
         className={optionClass}
         onMouseDown={this.setValue.bind(this, value, label)}
+        onMouseEnter={() => this.props.onMouseEnter ? this.props.onMouseEnter(option) : null}
+        onMouseLeave={() => this.props.onMouseLeave ? this.props.onMouseLeave() : null}
         onClick={this.setValue.bind(this, value, label)}
         role='option'
         aria-selected={isSelected ? 'true' : 'false'}>
-        {label}
+        <p>
+          {
+            breadcrumbs ?
+              (
+                <small className={`${breadcrumbs && breadcrumbs.id === option.id ? '' : 'hidden'}`}>
+                  {breadcrumbs.value || ''}
+                </small>
+              )
+            : null
+          }
+          {label}
+        </p>
       </div>
     )
   }
 
-  buildMenu () {
+  buildMenu (isSearchEnabled, breadcrumbs) {
+    setTimeout(() => {
+      if (isSearchEnabled) {
+        this.searchInput.focus()
+      }
+    }, 100)
     let { options, baseClassName } = this.props
     let ops = options.map((option) => {
       if (option.type === 'group') {
@@ -140,7 +172,7 @@ class Dropdown extends Component {
           </div>
         )
       } else {
-        return this.renderOption(option)
+        return this.renderOption(option, breadcrumbs)
       }
     })
 
@@ -164,11 +196,30 @@ class Dropdown extends Component {
   }
 
   render () {
-    const { baseClassName, controlClassName, placeholderClassName, menuClassName, arrowClassName, arrowClosed, arrowOpen, className } = this.props
-
+    const {
+      baseClassName,
+      controlClassName,
+      placeholderClassName,
+      placeholder,
+      menuClassName,
+      arrowClassName,
+      arrowClosed,
+      arrowOpen,
+      className,
+      searchInputClasName,
+      isSearchEnabled,
+      onMouseEnter,
+      breadcrumbs,
+      onMouseLeave,
+      isHidden,
+      hasResetBtn,
+      resetBtnClick,
+      resetBtnElement,
+      defaultValue
+    } = this.props
     const disabledClass = this.props.disabled ? 'Dropdown-disabled' : ''
-    const placeHolderValue = typeof this.state.selected === 'string' ? this.state.selected : this.state.selected.label
-
+    const placeHolderValue = this.state.selected.label || this.props.placeholder
+    // console.debug(this.props.selected)
     const dropdownClass = classNames({
       [`${baseClassName}-root`]: true,
       [className]: !!className,
@@ -197,24 +248,47 @@ class Dropdown extends Component {
       {placeHolderValue}
     </div>)
     const menu = this.state.isOpen ? <div className={menuClass} aria-expanded='true'>
-      {this.buildMenu()}
+      {this.buildMenu(isSearchEnabled, breadcrumbs)}
     </div> : null
-
     return (
-      <div className={dropdownClass}>
-        <div className={controlClass} onMouseDown={this.handleMouseDown.bind(this)} onTouchEnd={this.handleMouseDown.bind(this)} aria-haspopup='listbox'>
-          {value}
-          <div className={`${baseClassName}-arrow-wrapper`}>
-            {arrowOpen && arrowClosed
-              ? this.state.isOpen ? arrowOpen : arrowClosed
-              : <span className={arrowClass} />}
+      !isHidden
+        ? 
+        ( <div className={dropdownClass}>
+          <div className={controlClass} onMouseDown={this.handleMouseDown.bind(this)} onTouchEnd={this.handleMouseDown.bind(this)} aria-haspopup='listbox'>
+            <div>
+              {
+                !this.state.isOpen
+                  ? {...value}
+                  : this.state.isOpen && isSearchEnabled
+                    ? <input className={searchInputClasName} ref={(input) => { this.searchInput = input }} type='text' onChange={(e) => this.handleSearch(e.target.value)} />
+                    : {...value}
+              }
+            </div>
+            <div className={`${baseClassName}-arrow-wrapper`}>
+              {
+                hasResetBtn && defaultValue !== this.state.selected
+                ? (
+                  <span className={`resetBtn ${baseClassName}-resetBtn`} onClick={() => this.handleReset()}>
+                    {
+                      resetBtnElement || 'X'
+                    }
+                  </span>
+                )
+                : null
+              }
+              {arrowOpen && arrowClosed
+                ? this.state.isOpen ? arrowOpen : arrowClosed
+                : <span className={arrowClass} />
+              }
+            </div>
           </div>
+          {menu}
         </div>
-        {menu}
-      </div>
+      )
+      : null
     )
   }
 }
 
-Dropdown.defaultProps = { baseClassName: 'Dropdown' }
+Dropdown.defaultProps = { baseClassName: 'Dropdown', isHidden: false }
 export default Dropdown

@@ -2,21 +2,71 @@ import React, { Component } from 'react'
 import Dropdown from '../index.js'
 
 const options = [
-  'one', 'two', 'three'
+  { id: 1, value: 'lorem', label: 'Lorem' },
+  { id: 2, value: 'ipsum', label: 'Ipsum' }
 ]
 
 class FlatArrayExample extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      selected: ''
+      selected: '',
+      breadcrumb: {
+        value: '',
+        id: null
+      }
     }
     this._onSelect = this._onSelect.bind(this)
+    this._onSearch = this._onSearch.bind(this)
+    this._returnBreadcrumbs = this._returnBreadcrumbs.bind(this)
   }
 
   _onSelect (option) {
     console.log('You selected ', option.label)
     this.setState({selected: option})
+  }
+
+  _onSearch (value) {
+    console.log('search:  ', value)
+  }
+
+  _returnBreadcrumbs(value) {
+    const breadcrumbs = [
+      { id: 1, value: 'lorem' },
+      { id: 2, value: 'demo' },
+      { id: 3, value: 'ipsum' },
+    ]
+
+    const found = breadcrumbs.find(e => (
+      e.id ===  value.id
+    ));
+
+    this.setState({
+      breadcrumb: {
+        id: found.id,
+        value: found.value
+      }
+    }, () => {
+      console.debug('found', found)
+    })
+  }
+
+  _clearBreadCrumb() {
+    this.setState({
+      breadcrumb: {
+        id: -1,
+        value: ''
+      }
+    }, () => {
+      console.debug('stateLeave', this.state.breadcrumb)
+    })
+  }
+
+  _handleResetBtnClick(defaultOption) {
+    console.debug('defaultOption', defaultOption)
+    this.setState({
+      selected: defaultOption
+    })
   }
 
   render () {
@@ -25,8 +75,21 @@ class FlatArrayExample extends Component {
 
     return (
       <section>
-        <h3>Flat Array Example </h3>
-        <Dropdown options={options} onChange={this._onSelect} value={defaultOption} placeholder="Select an option" />
+        <h3>Flat Array Example – zilahir</h3>
+        <Dropdown
+          onMouseLeave={() => this._clearBreadCrumb()}
+          onMouseEnter={(value) => this._returnBreadcrumbs(value)}
+          onSearch={this._onSearch}
+          isSearchEnabled={false}
+          options={options}
+          defaultValue={options[0]}
+          onChange={this._onSelect}
+          value={options[0]}
+          placeholder="Select an option"
+          isHidden={false}
+          hasResetBtn={true}
+          resetBtnClick={() => this._handleResetBtnClick(options[0])}
+        />
         <div className='result'>
           You selected
           <strong> {placeHolderValue} </strong>

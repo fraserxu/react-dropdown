@@ -77,6 +77,30 @@ const options = [
 
 When using Object options you can add to each option a className string to further customize the dropdown, e.g. adding icons to options
 
+**Search in the options**
+
+You can pass 3 props to the `<Dropdown>` component: 
+
+`searchInputClasName={null}`
+`onSearch={(value) => console.debug('value', value)}`
+`isSearchEnabled={false}`
+
+While setting the `isSearchEnabled` to `true`, by opening the dropdown, you will be able to pass any filtering function you want. 
+
+Here is a short example: 
+
+```
+const [userList, setUserList] = useState([]) //using react hooks for updating the options bassed down to the Dropdown component
+
+function filterUsers(searchString) {
+		const users = store.getState().allUsers  // i am storing all the value in a redux state
+		const filteredUsers = users.filter((
+			user => user.label.toLowerCase().includes(searchString.toLowerCase())))
+		setUserList(filteredUsers)
+}
+
+```
+
 **Disabling the Dropdown**
 
 Just pass a disabled boolean value to the Dropdown to disable it. This will also give you a `.Dropdown-disabled` class on the element, so you can style it yourself.
