@@ -31,10 +31,6 @@
   },
   "homepage": "https://github.com/fraserxu/react-dropdown",
   "dependencies": {
-    "@babel/cli": "^7.7.0",
-    "@babel/core": "^7.7.2",
-    "@babel/preset-env": "^7.7.1",
-    "@babel/preset-react": "^7.7.0",
     "classnames": "^2.2.3"
   },
   "peerDependencies": {
@@ -53,6 +49,10 @@
     ]
   },
   "devDependencies": {
+    "@babel/cli": "^7.7.0",
+    "@babel/core": "^7.7.2",
+    "@babel/preset-env": "^7.7.1",
+    "@babel/preset-react": "^7.7.0",
     "babelify": "^7.2.0",
     "browserify": "^13.0.0",
     "browserify-hmr": "^0.3.1",
