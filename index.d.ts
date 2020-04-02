@@ -23,6 +23,8 @@ declare module "react-dropdown" {
     arrowOpen?: React.ReactNode,
     onChange?: (arg: Option) => void;
     onFocus?: (arg: boolean) => void;
+    onOpen?: () => void;
+    onClose?: () => void;
     value?: Option | string;
     placeholder?: String;
   }

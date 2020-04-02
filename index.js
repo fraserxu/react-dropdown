@@ -53,6 +53,12 @@ class Dropdown extends Component {
     event.preventDefault()
 
     if (!this.props.disabled) {
+      if (this.state.isOpen && typeof this.props.onClose === 'function') {
+        this.props.onClose()
+      }
+      if (!this.state.isOpen && typeof this.props.onOpen === 'function') {
+        this.props.onOpen()
+      }
       this.setState({
         isOpen: !this.state.isOpen
       })
@@ -87,6 +93,9 @@ class Dropdown extends Component {
     }
     this.fireChangeEvent(newState)
     this.setState(newState)
+    if (typeof this.props.onClose === 'function') {
+      this.props.onClose()
+    }
   }
 
   fireChangeEvent (newState) {
@@ -153,6 +162,9 @@ class Dropdown extends Component {
     if (this.mounted) {
       if (!ReactDOM.findDOMNode(this).contains(event.target)) {
         if (this.state.isOpen) {
+          if (typeof this.props.onClose === 'function') {
+            this.props.onClose()
+          }
           this.setState({ isOpen: false })
         }
       }
