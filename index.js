@@ -93,6 +93,9 @@ class Dropdown extends Component {
     }
     this.fireChangeEvent(newState)
     this.setState(newState)
+    if (typeof this.props.onClose === 'function') {
+      this.props.onClose()
+    }
   }
 
   fireChangeEvent (newState) {
