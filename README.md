@@ -138,6 +138,22 @@ The `arrowClosed` & `arrowOpen` props enable passing in custom elements for the 
 />;
 ```
 
+**optionClassName**
+
+The `optionClassName` prop is passed down to the arrow `div` , which also has the `Dropdown-option` class.
+
+```JavaScript
+<Dropdown optionClassName='myOptionClassName' />;
+```
+
+**optionSelectedClassName**
+
+The `optionSelectedClassName` prop is passed down to the arrow `div` , which also has the `Dropdown-option is-selected` classes.
+
+```JavaScript
+<Dropdown optionSelectedClassName='myOptionSelectedClassName' />;
+```
+
 Check more examples in the example folder.
 
 **Run example**
