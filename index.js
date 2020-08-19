@@ -48,11 +48,11 @@ class Dropdown extends Component {
     document.removeEventListener('touchend', this.handleDocumentClick, false)
   }
 
-  handleMouseDown (event) {
+  handleMouseUp (event) {
     if (this.props.onFocus && typeof this.props.onFocus === 'function') {
       this.props.onFocus(this.state.isOpen)
     }
-    if (event.type === 'mousedown' && event.button !== 0) return
+    if (event.type === 'mouseup' && event.button !== 0) return
     event.stopPropagation()
     event.preventDefault()
 
@@ -119,7 +119,7 @@ class Dropdown extends Component {
       <div
         key={value}
         className={optionClass}
-        onMouseDown={this.setValue.bind(this, value, label)}
+        onMouseUp={this.setValue.bind(this, value, label)}
         onClick={this.setValue.bind(this, value, label)}
         role='option'
         aria-selected={isSelected ? 'true' : 'false'}>
@@ -206,7 +206,7 @@ class Dropdown extends Component {
 
     return (
       <div className={dropdownClass}>
-        <div className={controlClass} onMouseDown={this.handleMouseDown.bind(this)} onTouchEnd={this.handleMouseDown.bind(this)} aria-haspopup='listbox'>
+        <div className={controlClass} onMouseUp={this.handleMouseUp.bind(this)} onTouchEnd={this.handleMouseUp.bind(this)} aria-haspopup='listbox'>
           {value}
           <div className={`${baseClassName}-arrow-wrapper`}>
             {arrowOpen && arrowClosed
