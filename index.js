@@ -1,5 +1,4 @@
-import React, { Component } from 'react'
-import ReactDOM from 'react-dom'
+import React, { Component, createRef } from 'react'
 import classNames from 'classnames'
 
 const DEFAULT_PLACEHOLDER_STRING = 'Select...'
@@ -14,6 +13,7 @@ class Dropdown extends Component {
       },
       isOpen: false
     }
+    this.dropdownRef = createRef()
     this.mounted = true
     this.handleDocumentClick = this.handleDocumentClick.bind(this)
     this.fireChangeEvent = this.fireChangeEvent.bind(this)
@@ -155,7 +155,7 @@ class Dropdown extends Component {
 
   handleDocumentClick (event) {
     if (this.mounted) {
-      if (!ReactDOM.findDOMNode(this).contains(event.target)) {
+      if (!this.dropdownRef.current.contains(event.target)) {
         if (this.state.isOpen) {
           this.setState({ isOpen: false })
         }
@@ -205,7 +205,7 @@ class Dropdown extends Component {
     </div> : null
 
     return (
-      <div className={dropdownClass}>
+      <div ref={this.dropdownRef} className={dropdownClass}>
         <div className={controlClass} onMouseDown={this.handleMouseDown.bind(this)} onTouchEnd={this.handleMouseDown.bind(this)} aria-haspopup='listbox'>
           {value}
           <div className={`${baseClassName}-arrow-wrapper`}>

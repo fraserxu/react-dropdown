@@ -7,8 +7,6 @@ exports["default"] = void 0;
 
 var _react = _interopRequireWildcard(require("react"));
 
-var _reactDom = _interopRequireDefault(require("react-dom"));
-
 var _classnames = _interopRequireDefault(require("classnames"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
@@ -57,6 +55,7 @@ function (_Component) {
       },
       isOpen: false
     };
+    _this.dropdownRef = (0, _react.createRef)();
     _this.mounted = true;
     _this.handleDocumentClick = _this.handleDocumentClick.bind(_assertThisInitialized(_this));
     _this.fireChangeEvent = _this.fireChangeEvent.bind(_assertThisInitialized(_this));
@@ -218,7 +217,7 @@ function (_Component) {
     key: "handleDocumentClick",
     value: function handleDocumentClick(event) {
       if (this.mounted) {
-        if (!_reactDom["default"].findDOMNode(this).contains(event.target)) {
+        if (!this.dropdownRef.current.contains(event.target)) {
           if (this.state.isOpen) {
             this.setState({
               isOpen: false
@@ -263,6 +262,7 @@ function (_Component) {
         "aria-expanded": "true"
       }, this.buildMenu()) : null;
       return _react["default"].createElement("div", {
+        ref: this.dropdownRef,
         className: dropdownClass
       }, _react["default"].createElement("div", {
         className: controlClass,
