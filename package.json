@@ -1,6 +1,6 @@
 {
   "name": "react-dropdown",
-  "version": "1.9.1",
+  "version": "1.9.2",
   "description": "React dropdown component",
   "main": "dist/index.js",
   "style": "style.css",
