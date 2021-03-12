@@ -2,6 +2,7 @@ react-dropdown
 ==============
 
 [![NPM version][npm-image]][npm-url]
+![minzip size](https://flat.badgen.net/bundlephobia/minzip/react-dropdown)
 [![Downloads][downloads-image]][downloads-url]
 
 Simple Dropdown component for React, inspired by [react-select](https://github.com/JedWatson/react-select)
