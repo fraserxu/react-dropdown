@@ -100,7 +100,9 @@ class Dropdown extends Component {
   }
 
   renderOption (option) {
-    let value = option.value
+    let value = option.value;
+    let isDisabled = !!option.disabled;
+
     if (typeof value === 'undefined') {
       value = option.label || option
     }
@@ -110,7 +112,8 @@ class Dropdown extends Component {
     const classes = {
       [`${this.props.baseClassName}-option`]: true,
       [option.className]: !!option.className,
-      'is-selected': isSelected
+      'is-selected': isSelected,
+      'disabled': isDisabled
     }
 
     const optionClass = classNames(classes)
