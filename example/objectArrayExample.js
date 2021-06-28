@@ -59,7 +59,6 @@ class ObjectArrayExample extends Component {
         <Dropdown
           options={options}
           onChange={this._onSelect}
-          onFocus={(e) => console.log(e)}
           value={defaultOption}
           placeholder="Select an option"
           className={ toggleClassName ? 'my-custom-class' : '' }
