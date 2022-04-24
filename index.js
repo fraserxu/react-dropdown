@@ -115,6 +115,14 @@ class Dropdown extends Component {
 
     const optionClass = classNames(classes)
 
+    const dataAttributes = Object.keys(option.data || {}).reduce(
+      (acc, dataKey) => ({
+        ...acc,
+        [`data-${dataKey}`]: option.data[dataKey],
+      }),
+      {},
+    );
+
     return (
       <div
         key={value}
@@ -122,7 +130,9 @@ class Dropdown extends Component {
         onMouseDown={this.setValue.bind(this, value, label)}
         onClick={this.setValue.bind(this, value, label)}
         role='option'
-        aria-selected={isSelected ? 'true' : 'false'}>
+        aria-selected={isSelected ? 'true' : 'false'}
+        {...dataAttributes}
+      >
         {label}
       </div>
     )
