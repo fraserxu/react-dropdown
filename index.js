@@ -118,10 +118,10 @@ class Dropdown extends Component {
     const dataAttributes = Object.keys(option.data || {}).reduce(
       (acc, dataKey) => ({
         ...acc,
-        [`data-${dataKey}`]: option.data[dataKey],
+        [`data-${dataKey}`]: option.data[dataKey]
       }),
-      {},
-    );
+      {}
+    )
 
     return (
       <div
