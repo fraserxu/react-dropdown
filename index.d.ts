@@ -4,6 +4,9 @@ declare module "react-dropdown" {
     label: React.ReactNode;
     value: string;
     className?: string;
+    data?: {
+      [dataAttribute: string]: string | number
+    };
   }
   export interface Group {
     type: "group";
