@@ -55,7 +55,7 @@
     "@babel/preset-react": "^7.7.0",
     "babelify": "^7.2.0",
     "browserify": "^13.0.0",
-    "browserify-hmr": "^0.3.1",
+    "browserify-hmr": "^0.4.0",
     "ecstatic": "^1.4.0",
     "gh-pages": "^0.11.0",
     "react": "^0.14.7 || ^15.0.0-0",
