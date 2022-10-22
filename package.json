@@ -44,8 +44,8 @@
   },
   "babel": {
     "presets": [
-      "@babel/react",
-      "@babel/env"
+      "@babel/preset-react",
+      "@babel/preset-env"
     ]
   },
   "devDependencies": {
