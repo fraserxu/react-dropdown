@@ -11,9 +11,12 @@ class Dropdown extends Component {
         label: typeof props.placeholder === 'undefined' ? DEFAULT_PLACEHOLDER_STRING : props.placeholder,
         value: ''
       },
-      isOpen: false
+      showMenu: false,
+      isOpen: false,
+      isClosing: false
     }
     this.dropdownRef = createRef()
+    this.timerRef = createRef()
     this.mounted = true
     this.handleDocumentClick = this.handleDocumentClick.bind(this)
     this.fireChangeEvent = this.fireChangeEvent.bind(this)
@@ -46,6 +49,48 @@ class Dropdown extends Component {
     this.mounted = false
     document.removeEventListener('click', this.handleDocumentClick, false)
     document.removeEventListener('touchend', this.handleDocumentClick, false)
+
+    clearTimeout(this.timerRef.current)
+  }
+
+  open () {
+    this.setState({
+      showMenu: true,
+      isOpen: false,
+      isClosing: false
+    })
+
+    clearTimeout(this.timerRef.current)
+
+    this.timerRef.current = setTimeout(() => {
+      this.setState({
+        showMenu: true,
+        isOpen: true,
+        isClosing: false
+      })
+    }, 0)
+  }
+
+  close () {
+    this.setState({
+      showMenu: true,
+      isOpen: false,
+      isClosing: true
+    })
+
+    clearTimeout(this.timerRef.current)
+
+    this.timerRef.current = setTimeout(() => {
+      this.setState({
+        showMenu: false,
+        isOpen: false,
+        isClosing: false
+      })
+    }, this.props.closeDelayMS || 0)
+  }
+
+  toggle (open) {
+    open ? this.open() : this.close()
   }
 
   handleMouseDown (event) {
@@ -57,9 +102,7 @@ class Dropdown extends Component {
     event.preventDefault()
 
     if (!this.props.disabled) {
-      this.setState({
-        isOpen: !this.state.isOpen
-      })
+      this.toggle(!this.state.isOpen)
     }
   }
 
@@ -86,11 +129,11 @@ class Dropdown extends Component {
     let newState = {
       selected: {
         value,
-        label},
-      isOpen: false
+        label}
     }
     this.fireChangeEvent(newState)
     this.setState(newState)
+    this.toggle(false)
   }
 
   fireChangeEvent (newState) {
@@ -167,7 +210,7 @@ class Dropdown extends Component {
     if (this.mounted) {
       if (!this.dropdownRef.current.contains(event.target)) {
         if (this.state.isOpen) {
-          this.setState({ isOpen: false })
+          this.toggle(false)
         }
       }
     }
@@ -186,7 +229,8 @@ class Dropdown extends Component {
     const dropdownClass = classNames({
       [`${baseClassName}-root`]: true,
       [className]: !!className,
-      'is-open': this.state.isOpen
+      'is-open': this.state.isOpen,
+      'is-closing': this.state.isClosing
     })
     const controlClass = classNames({
       [`${baseClassName}-control`]: true,
@@ -210,7 +254,7 @@ class Dropdown extends Component {
     const value = (<div className={placeholderClass}>
       {placeHolderValue}
     </div>)
-    const menu = this.state.isOpen ? <div className={menuClass} aria-expanded='true'>
+    const menu = this.state.showMenu ? <div className={menuClass} aria-expanded='true'>
       {this.buildMenu()}
     </div> : null
 
@@ -220,7 +264,7 @@ class Dropdown extends Component {
           {value}
           <div className={`${baseClassName}-arrow-wrapper`}>
             {arrowOpen && arrowClosed
-              ? this.state.isOpen ? arrowOpen : arrowClosed
+              ? this.state.showMenu ? arrowOpen : arrowClosed
               : <span className={arrowClass} />}
           </div>
         </div>
