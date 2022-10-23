@@ -5,6 +5,7 @@ import FlatArrayExample from './flatArrayExample'
 import ObjectArrayExample from './objectArrayExample'
 import ZeroValObjectArrayExample from './zeroValObjectArrayExample'
 import CustomArrowExample from './CustomArrowExample'
+import OpenCloseAnimationExample from './openCloseAnimationExample'
 
 class App extends Component {
   render () {
@@ -40,6 +41,7 @@ class App extends Component {
         <ObjectArrayExample />
         <ZeroValObjectArrayExample />
         <CustomArrowExample />
+        <OpenCloseAnimationExample />
 
         <section>
           <h3>License: </h3>

@@ -144,3 +144,51 @@ pre code {
   color: purple;
 }
 
+@keyframes open-animation {
+  0% {
+    overflow-y: hidden;
+    max-height: 0;
+  }
+
+  99% {
+    overflow-y: hidden;
+  }
+
+  100% {
+    overflow-y: auto;
+    max-height: 200px;
+  }
+}
+
+@keyframes close-animation {
+  0% {
+    overflow-y: hidden;
+    max-height: 200px;
+  }
+
+  100% {
+    max-height: 0;
+    overflow-y: hidden;
+  }
+}
+
+.open-close-animation-example .Dropdown-menu {
+  animation-name: open-animation;
+  animation-duration: 0.5s;
+}
+
+.open-close-animation-example .is-closing .Dropdown-menu {
+  animation-name: close-animation;
+  animation-duration: 0.5s;
+  max-height: 0;
+}
+
+.open-close-animation-example .Dropdown-arrow {
+  transition: transform 0.5s;
+}
+
+.open-close-animation-example .is-open .Dropdown-arrow {
+  transform: rotate(180deg);
+  border-color: #999 transparent transparent;
+  border-width: 5px 5px 0;
+}
