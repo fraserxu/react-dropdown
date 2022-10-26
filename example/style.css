@@ -130,6 +130,16 @@ pre code {
   color: #333;
 }
 
+.Dropdown-option.disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.Dropdown-option.disabled:hover {
+  cursor: not-allowed;
+}
+
+
 .Dropdown-noresults {
   box-sizing: border-box;
   color: #ccc;
