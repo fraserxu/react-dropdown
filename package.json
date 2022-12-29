@@ -53,7 +53,7 @@
     "@babel/core": "^7.7.2",
     "@babel/preset-env": "^7.7.1",
     "@babel/preset-react": "^7.7.0",
-    "babelify": "^7.2.0",
+    "babelify": "^10.0.0",
     "browserify": "^13.0.0",
     "browserify-hmr": "^0.3.1",
     "ecstatic": "^1.4.0",
