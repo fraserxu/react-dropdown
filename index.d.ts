@@ -11,10 +11,10 @@ declare module "react-dropdown" {
   export interface Group {
     type: "group";
     name: string;
-    items: Option[];
+    items: readonly Option[];
   }
   export interface ReactDropdownProps {
-    options: (Group | Option | string)[];
+    options: readonly (Group | Option | string)[];
     baseClassName?: string;
     className?: string;
     controlClassName?: string;
