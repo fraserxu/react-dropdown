@@ -37,7 +37,10 @@ class Dropdown extends Component {
     }
   }
 
-  componentDidMount () {
+  componentDidMount() {
+    if (this.props.defaultMenuIsOpen) {
+      this.setState(prevState => ({ ...prevState, isOpen: true }));
+    }
     document.addEventListener('click', this.handleDocumentClick, false)
     document.addEventListener('touchend', this.handleDocumentClick, false)
   }
