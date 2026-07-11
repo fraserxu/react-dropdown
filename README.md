@@ -1,5 +1,9 @@
 # react-dropdown
 
+[![npm](https://img.shields.io/npm/v/react-dropdown.svg)](https://www.npmjs.com/package/react-dropdown)
+[![CI](https://github.com/fraserxu/react-dropdown/actions/workflows/ci.yml/badge.svg)](https://github.com/fraserxu/react-dropdown/actions/workflows/ci.yml)
+[![license](https://img.shields.io/npm/l/react-dropdown.svg)](LICENSE)
+
 A lightweight, accessible dropdown component for React 18 and 19.
 
 `react-dropdown` is for the common case where a native `<select>` is too difficult to style, but a large select framework would be excessive. It supports single selection, option groups, controlled and uncontrolled state, custom rendering, keyboard navigation, and TypeScript without runtime dependencies.
