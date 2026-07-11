@@ -14,5 +14,12 @@
     "forceConsistentCasingInFileNames": true,
     "noEmit": true
   },
-  "include": ["src", "test", "example", "vite.lib.config.ts", "vitest.config.ts"]
+  "include": [
+    "src",
+    "test",
+    "example",
+    "vite.lib.config.ts",
+    "vite.demo.config.ts",
+    "vitest.config.ts"
+  ]
 }

@@ -65,6 +65,7 @@
   },
   "scripts": {
     "build": "vite build --config vite.lib.config.ts && tsc -p tsconfig.build.json",
+    "build:demo": "vite build --config vite.demo.config.ts",
     "dev": "vite example",
     "test": "vitest run",
     "test:watch": "vitest",

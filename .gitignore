@@ -19,6 +19,7 @@ build/Release
 node_modules
 
 example/bundle.js
+demo-dist
 
 # This project doesn't use Yarn
 yarn.lock
