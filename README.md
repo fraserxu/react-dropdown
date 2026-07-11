@@ -1,156 +1,210 @@
-react-dropdown
-==============
+# react-dropdown
 
-[![NPM version][npm-image]][npm-url]
-[![Downloads][downloads-image]][downloads-url]
+A lightweight, accessible dropdown component for React 18 and 19.
 
-Simple Dropdown component for React, inspired by [react-select](https://github.com/JedWatson/react-select)
+`react-dropdown` is for the common case where a native `<select>` is too difficult to style, but a large select framework would be excessive. It supports single selection, option groups, controlled and uncontrolled state, custom rendering, keyboard navigation, and TypeScript without runtime dependencies.
 
+## Install
 
-### Why
-
-* The default HTML select element is hard to style
-* And sometime we also want grouped menus
-* if you want more advanced select, check [react-select](https://github.com/JedWatson/react-select)
-
-### Installation
-
-```
-// with npm
-$ npm install react-dropdown  --save
-
-// with yarn
-$ yarn add react-dropdown
+```sh
+npm install react-dropdown
 ```
 
-### Changelog
+Import the component and its default styles:
 
-If you want to support React version under v0.13, use react-dropdown@v0.6.1
-
-### Usage
-
-This is the basic usage of react-dropdown
-
-```Javascript
-import Dropdown from 'react-dropdown';
-import 'react-dropdown/style.css';
-
-const options = [
-  'one', 'two', 'three'
-];
-const defaultOption = options[0];
-<Dropdown options={options} onChange={this._onSelect} value={defaultOption} placeholder="Select an option" />;
-```
-
-**Options**
-
-Flat Array options
-
-```JavaScript
-
-const options = [
-  'one', 'two', 'three'
-];
-```
-
-Object Array options
-
-```JavaScript
+```tsx
+import Dropdown, { type Option } from 'react-dropdown'
+import 'react-dropdown/style.css'
 
 const options = [
   { value: 'one', label: 'One' },
-  { value: 'two', label: 'Two', className: 'myOptionClassName' },
+  { value: 'two', label: 'Two' },
   {
-   type: 'group', name: 'group1', items: [
-     { value: 'three', label: 'Three', className: 'myOptionClassName' },
-     { value: 'four', label: 'Four' }
-   ]
+    type: 'group' as const,
+    name: 'More',
+    items: [
+      { value: 'three', label: 'Three' },
+      { value: 'four', label: 'Four', disabled: true },
+    ],
   },
-  {
-   type: 'group', name: 'group2', items: [
-     { value: 'five', label: 'Five' },
-     { value: 'six', label: 'Six' }
-   ]
+]
+
+function Example() {
+  const handleChange = (option: Option) => {
+    console.log(option.value)
   }
-];
+
+  return (
+    <Dropdown
+      aria-label="Number"
+      options={options}
+      onChange={handleChange}
+      placeholder="Select an option"
+    />
+  )
+}
 ```
 
-When using Object options you can add to each option a className string to further customize the dropdown, e.g. adding icons to options
+Primitive options are supported too:
 
-**Disabling the Dropdown**
-
-Just pass a disabled boolean value to the Dropdown to disable it. This will also give you a `.Dropdown-disabled` class on the element, so you can style it yourself.
-
-```JavaScript
-<Dropdown disabled onChange={this._onSelect} value={defaultOption} placeholder="Select an option" />;
+```tsx
+<Dropdown options={['one', 'two', 'three']} defaultValue="one" />
 ```
 
-### Customizing the dropdown
+String, number, and boolean values are supported. Labels may be any `ReactNode`.
 
-**className**
+## Controlled state
 
-The `className` prop is passed down to the wrapper `div`, which also has the `Dropdown-root` class.
+Control the selected value, the open state, or both:
 
-```JavaScript
-<Dropdown className='myClassName' />;
-```
+```tsx
+const [value, setValue] = useState<Option | null>(null)
+const [open, setOpen] = useState(false)
 
-**controlClassName**
-
-The `controlClassName` prop is passed down to the control `div`, which also has the `Dropdown-control` class.
-
-```JavaScript
-<Dropdown controlClassName='myControlClassName' />;
-```
-
-**placeholderClassName**
-
-The `placeholderClassName` prop is passed down to the placeholder `div`, which also has the `Dropdown-placeholder` class.
-
-```JavaScript
-<Dropdown placeholderClassName='myPlaceholderClassName' />;
-```
-
-**menuClassName**
-
-The `menuClassName` prop is passed down to the menu `div` (the one that opens and closes and holds the options), which also has the `Dropdown-menu` class.
-
-```JavaScript
-<Dropdown menuClassName='myMenuClassName' />;
-```
-
-**arrowClassName**
-
-The `arrowClassName` prop is passed down to the arrow `span` , which also has the `Dropdown-arrow` class.
-
-```JavaScript
-<Dropdown arrowClassName='myArrowClassName' />;
-```
-
-**arrowClosed**, **arrowOpen**
-
-The `arrowClosed` & `arrowOpen` props enable passing in custom elements for the open/closed state arrows.
-
-```JavaScript
 <Dropdown
-  arrowClosed={<span className="arrow-closed" />}
-  arrowOpen={<span className="arrow-open" />}
-/>;
+  options={options}
+  value={value}
+  onChange={setValue}
+  open={open}
+  onOpenChange={setOpen}
+/>
 ```
 
-Check more examples in the example folder.
+Use `null` to clear a controlled value. Use `defaultValue` or `defaultOpen` for uncontrolled initial state.
 
-**Run example**
+## Accessible labels
 
+Give every dropdown an accessible name with a visible label:
+
+```tsx
+<label id="country-label">Country</label>
+<Dropdown aria-labelledby="country-label" options={countries} />
 ```
-$ npm start
+
+Or use `aria-label` when there is no visible label:
+
+```tsx
+<Dropdown aria-label="Country" options={countries} />
 ```
 
-### License
+The trigger implements a select-only combobox with a listbox popup. It supports:
 
-MIT | Build for [CSViz](https://csviz.org) project @[Wiredcraft](http://wiredcraft.com)
+- `Enter` or `Space` to open and select.
+- `ArrowDown` and `ArrowUp` to open and move through options.
+- `Home` and `End` to move to the first or last enabled option.
+- `Escape` to close.
+- `Tab` to close and continue normal page navigation.
+- Disabled options, named groups, selected state, and active-descendant announcements.
 
-[npm-image]: https://img.shields.io/npm/v/react-dropdown.svg?style=flat-square
-[npm-url]: https://npmjs.org/package/react-dropdown
-[downloads-image]: http://img.shields.io/npm/dm/react-dropdown.svg?style=flat-square
-[downloads-url]: https://npmjs.org/package/react-dropdown
+## Forms
+
+Pass `name` to include the selected value in native form submission:
+
+```tsx
+<Dropdown name="country" options={countries} defaultValue="au" />
+```
+
+The component renders a hidden input using the selected option value. Pass `form` to associate it with a form by ID.
+
+## Custom rendering
+
+```tsx
+<Dropdown
+  options={options}
+  renderOption={(option, { active, selected }) => (
+    <span>
+      {selected ? '✓ ' : ''}
+      {option.label}
+      {active ? ' ←' : ''}
+    </span>
+  )}
+  optionClassName={(_option, state) => (state.active ? 'my-active-option' : undefined)}
+/>
+```
+
+Options may also define `className` and `data`:
+
+```tsx
+const options = [
+  {
+    value: 'one',
+    label: 'One',
+    className: 'important-option',
+    data: { analytics: 'option-one' },
+  },
+]
+```
+
+## API
+
+| Prop | Type | Default | Purpose |
+| --- | --- | --- | --- |
+| `options` | `DropdownEntry[]` | required | Primitive options, option objects, or groups. |
+| `value` | `Option \| string \| number \| boolean \| null` | — | Controlled selected value. |
+| `defaultValue` | same as `value` | `null` | Initial uncontrolled value. |
+| `open` | `boolean` | — | Controlled popup state. |
+| `defaultOpen` | `boolean` | `false` | Initial uncontrolled popup state. |
+| `onChange` | `(option: Option) => void` | — | Called after a user selects an option. |
+| `onOpenChange` | `(open: boolean) => void` | — | Called when the popup requests an open-state change. |
+| `onFocus` | `(open: boolean) => void` | — | Called when the trigger receives focus. |
+| `placeholder` | `ReactNode` | `"Select..."` | Content shown without a selection. |
+| `disabled` | `boolean` | `false` | Disables the trigger. |
+| `name` | `string` | — | Adds a hidden form input. |
+| `form` | `string` | — | Associates the hidden input with a form ID. |
+| `id` | `string` | generated | Sets the trigger ID and derived popup IDs. |
+| `tabIndex` | `number` | browser default | Overrides the trigger's tab order. |
+| `aria-label` | `string` | — | Gives the control an accessible name. |
+| `aria-labelledby` | `string` | — | References a visible label. |
+| `renderOption` | `(option, state) => ReactNode` | option label | Custom option contents. |
+| `noOptionsContent` | `ReactNode` | `"No options found"` | Empty-state contents. |
+| `arrowClosed` / `arrowOpen` | `ReactNode` | CSS arrow | Custom trigger arrows. Provide both. |
+
+The styling props are `baseClassName`, `className`, `controlClassName`, `placeholderClassName`, `menuClassName`, `optionClassName`, and `arrowClassName`.
+
+The forwarded ref points to the trigger `HTMLButtonElement`.
+
+## Styling
+
+The default stylesheet retains the familiar class names:
+
+- `.Dropdown-root`
+- `.Dropdown-control`
+- `.Dropdown-placeholder`
+- `.Dropdown-arrow-wrapper` and `.Dropdown-arrow`
+- `.Dropdown-menu`
+- `.Dropdown-group` and `.Dropdown-title`
+- `.Dropdown-option`
+- `.Dropdown-noresults`
+
+State classes include `.is-open`, `.is-selected`, `.is-active`, and `.is-disabled`.
+
+Set `baseClassName` to replace the `Dropdown` prefix when supplying all of your own styles.
+
+## Migrating from 1.x
+
+Version 2 is a deliberate accessibility and packaging reset:
+
+- React 18 or 19 is required.
+- The package now ships ESM and CommonJS with an `exports` map.
+- The trigger is a focusable button with `role="combobox"`; CSS that assumes `.Dropdown-control` is a `<div>` may need adjustment.
+- `onFocus` now runs when the trigger actually receives focus.
+- `onChange` returns the complete normalized option, including `className`, `disabled`, and `data` when present.
+- `value={null}` clears a controlled selection. `0` and `false` are valid values.
+- The menu uses semantic `<ul>` and `<li>` elements. Prefer class selectors over element selectors in custom CSS.
+- `optionClassName`, `renderOption`, `open`, and `onOpenChange` replace common 1.x workarounds.
+- The old global `.Dropdown-disabled` class is now applied directly to the disabled control.
+
+## Development
+
+```sh
+npm install
+npm run dev       # local example
+npm test          # interaction tests
+npm run typecheck
+npm run build
+npm run check     # all release checks
+```
+
+## License
+
+MIT
