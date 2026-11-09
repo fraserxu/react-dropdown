@@ -245,7 +245,7 @@ const Dropdown = forwardRef<HTMLButtonElement, ReactDropdownProps>(function Drop
   }
 
   const selectOption = (option: Option) => {
-    if (option.disabled) return
+    if (disabled || option.disabled) return
     if (!isControlled) setInternalValue(option)
     onChange?.(option)
     updateOpen(false)
