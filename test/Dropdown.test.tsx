@@ -191,6 +191,29 @@ describe('Dropdown', () => {
     expect(onChange).not.toHaveBeenCalled()
   })
 
+  it('does not select an option when a controlled open dropdown becomes disabled', async () => {
+    const user = userEvent.setup()
+    const onChange = vi.fn()
+    const onOpenChange = vi.fn()
+    const props = { options, defaultValue: 'one', onChange, onOpenChange }
+    const { rerender } = render(<Dropdown {...props} open={false} />)
+    const control = screen.getByRole('combobox')
+    await user.click(control)
+    expect(onOpenChange).toHaveBeenCalledWith(true)
+    rerender(<Dropdown {...props} open />)
+    rerender(<Dropdown {...props} open disabled />)
+    expect((control as HTMLButtonElement).disabled).toBe(true)
+    await user.click(screen.getByRole('option', { name: 'Two' }))
+
+    expect(onChange).not.toHaveBeenCalled()
+    expect(control.textContent).toContain('One')
+
+    rerender(<Dropdown {...props} open />)
+    await user.click(screen.getByRole('option', { name: 'Two' }))
+    expect(onChange).toHaveBeenCalledTimes(1)
+    expect(control.textContent).toContain('Two')
+  })
+
   it('renders on the server without accessing the document', () => {
     expect(() => renderToString(<Dropdown options={options} />)).not.toThrow()
   })
